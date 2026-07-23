@@ -1,0 +1,17 @@
+node_modules/
+.next/
+out/
+build/
+*.tsbuildinfo
+next-env.d.ts
+.env*
+!.env.example
+.DS_Store
+*.log
+.vercel
+
+# Client source material — the SRS is marked "Confidential — Internal Planning
+# Document" on page 1, and this repository is public. Remove these two lines if
+# the repo is made private and you want the source material versioned with it.
+Ft_Social_Crew_Global_Website_SRS_and_Growth_Blueprint.pdf
+WhatsApp Image *.jpeg

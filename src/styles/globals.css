@@ -1,0 +1,168 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─────────────────────────────────────────────────────────────
+   Semantic tokens.
+   Components consume these, never raw hex — which is what makes
+   SRS §22.2 ("dark mode via design-token theming, not a separate
+   template set") a future flip rather than a rebuild. Light is the
+   only active theme.
+   ───────────────────────────────────────────────────────────── */
+:root {
+  --bg-page: #fdfbfc;
+  --bg-surface: #ffffff;
+  --bg-tint: #f4dee8;
+  --bg-invert: #470826;
+  --bg-ink: #0a0a0b;
+
+  --text-primary: #0a0a0b;
+  --text-brand: #470826;
+  --text-muted: #3f3f45;
+  --text-subtle: #6b6b73;
+  --text-on-invert: #f4dee8;
+
+  --border-subtle: rgba(10, 10, 11, 0.1);
+  --border-brand: rgba(71, 8, 38, 0.16);
+  --border-accent: #f4c88c;
+
+  --focus-ring: #470826;
+
+  --section-y: 4rem;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --section-y: 6rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --section-y: 8rem;
+  }
+}
+
+@layer base {
+  * {
+    border-color: var(--border-subtle);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+    font-feature-settings: 'kern' 1, 'liga' 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: var(--text-brand);
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Visible, non-colour-dependent focus on every interactive element.
+     WCAG 2.1 AA — SRS §22.2. */
+  :where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background-color: #470826;
+    color: #f4dee8;
+  }
+
+  /* Tabular numerals for every metric — stat blocks must not jitter. */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer components {
+  .container-shell {
+    width: 100%;
+    max-width: 1440px;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .container-shell {
+      padding-inline: 2rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container-shell {
+      padding-inline: 3rem;
+    }
+  }
+
+  .container-content {
+    width: 100%;
+    max-width: 1280px;
+    margin-inline: auto;
+  }
+
+  /* The signature hairline. Gold is a LINE colour in this brand — it
+     never fills, which is both the brand plate's own rule and the reason
+     its 1.6:1 contrast on white never becomes an accessibility problem. */
+  .rule-gold {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      #f4c88c 12%,
+      #f4c88c 88%,
+      transparent
+    );
+  }
+
+  .grain {
+    position: relative;
+  }
+
+  .grain::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.5;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
+  }
+}
+
+/* Long below-fold sections skip layout/paint until near the viewport. */
+.cv-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 640px;
+}
+
+/* SRS §22.2 — motion is an enhancement, never a requirement. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
