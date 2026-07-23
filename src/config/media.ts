@@ -61,7 +61,7 @@ export const industryImages: Record<string, string> = {
   'it-companies': img('photo-1518770660439-4636190af475', 1200, 800),
   manufacturing: img('photo-1581091226825-a6a2a5aee158', 1200, 800),
   construction: img('photo-1541888946425-d81bb19240f5', 1200, 800),
-  education: img('photo-1523050854058-8df90110c9f1', 1200, 800),
+  education: img('photo-1509062522246-3755977927d7', 1200, 800),
   hospitality: img('photo-1566073771259-6a8506099945', 1200, 800),
   finance: img('photo-1611974789855-9c2a0a7236a3', 1200, 800),
   automotive: img('photo-1492144534655-ae79c964c9d7', 1200, 800),
