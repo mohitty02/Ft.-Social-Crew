@@ -1,10 +1,6 @@
 import { notFound } from 'next/navigation'
 import type { CountryCode } from '@/types'
 import { countryCodes, countries, isCountryCode } from '@/config/countries'
-import { Header } from '@/components/layout/Header'
-import { Footer } from '@/components/layout/Footer'
-import { StickyCta } from '@/components/conversion/StickyCta'
-import { GeoSuggestion } from '@/components/international/GeoSuggestion'
 import { JsonLd } from '@/components/seo/JsonLd'
 import { graph, localBusinessSchema } from '@/lib/seo/schema'
 
@@ -18,6 +14,12 @@ import { graph, localBusinessSchema } from '@/lib/seo/schema'
  * LocalBusiness schema is emitted here rather than per page, so SRS §7.6's
  * "LocalBusiness (per country)" requirement is satisfied for every route in
  * the folder without a single page hand-writing it (SRS §1.12).
+ *
+ * Chrome (header, footer, sticky CTA) is NOT here — it lives in the
+ * `(chrome)` route group. The home route sits in `(home)` instead, so a
+ * market whose home page ships its own art-directed header and footer (India,
+ * see src/components/india/) can opt out of the shared chrome without every
+ * other route in the folder being affected.
  */
 export function generateStaticParams() {
   return countryCodes.map((country) => ({ country }))
@@ -56,18 +58,10 @@ export default async function CountryLayout({
 
       <JsonLd data={graph(localBusinessSchema(code))} />
 
-      {/* SRS §7.3 — suggestion only, never a redirect. */}
-      <GeoSuggestion current={code} />
-
-      <Header country={code} />
-
-      <main id="main">{children}</main>
-
-      <Footer country={code} />
-
-      {/* SRS §22.1 — mobile is the primary breakpoint, so the primary
-          conversion mechanism lives there. */}
-      <StickyCta country={code} />
+      {/* SRS §7.3's geo-suggestion banner sits ABOVE the header, so it is
+          rendered next to the header rather than here — it has to match
+          whichever design system that header belongs to. */}
+      {children}
     </div>
   )
 }

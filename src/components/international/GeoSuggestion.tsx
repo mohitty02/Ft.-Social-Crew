@@ -47,8 +47,39 @@ function suggestCountry(locale: string): CountryCode | null {
   return null
 }
 
-export function GeoSuggestion({ current }: { current?: CountryCode }) {
+/**
+ * The banner sits above the header, so it has to match whichever design
+ * system that header belongs to. India's home page runs the green system
+ * (src/components/india/); everything else runs the global burgundy one.
+ */
+const tones = {
+  global: {
+    bar: 'border-b border-gold-300 bg-burgundy-100/50',
+    icon: 'text-gold-700',
+    text: 'text-small text-ink-800',
+    link: 'font-medium text-burgundy-700 underline decoration-gold-300 decoration-2 underline-offset-4',
+    close: 'border-ink/15 hover:border-burgundy-700/40',
+    closeIcon: 'text-ink-600',
+  },
+  india: {
+    bar: 'border-b border-brand-200 bg-brand-50 font-brand',
+    icon: 'text-brand-600',
+    text: 'text-[0.8125rem] text-steel-700',
+    link: 'font-semibold text-brand-700 underline decoration-brand-300 decoration-2 underline-offset-4',
+    close: 'border-steel-200 hover:border-brand-400',
+    closeIcon: 'text-steel-600',
+  },
+} as const
+
+export function GeoSuggestion({
+  current,
+  tone = 'global',
+}: {
+  current?: CountryCode
+  tone?: keyof typeof tones
+}) {
   const [suggested, setSuggested] = useState<CountryCode | null>(null)
+  const t = tones[tone]
 
   useEffect(() => {
     try {
@@ -78,17 +109,14 @@ export function GeoSuggestion({ current }: { current?: CountryCode }) {
     <div
       role="region"
       aria-label="Regional site suggestion"
-      className="border-b border-gold-300 bg-burgundy-100/50"
+      className={t.bar}
     >
       <div className="container-shell flex flex-wrap items-center gap-x-5 gap-y-2 py-3">
-        <Globe className="h-4 w-4 shrink-0 text-gold-700" aria-hidden="true" />
-        <p className="flex-1 text-small text-ink-800">
+        <Globe className={`h-4 w-4 shrink-0 ${t.icon}`} aria-hidden="true" />
+        <p className={`flex-1 ${t.text}`}>
           It looks like you are in {c.name}. We have a site built for that
           market —{' '}
-          <Link
-            href={`/${suggested}/`}
-            className="font-medium text-burgundy-700 underline decoration-gold-300 decoration-2 underline-offset-4"
-          >
+          <Link href={`/${suggested}/`} className={t.link}>
             view the {c.name} site
           </Link>
           . You can stay here if you prefer.
@@ -96,10 +124,10 @@ export function GeoSuggestion({ current }: { current?: CountryCode }) {
         <button
           type="button"
           onClick={dismiss}
-          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-pill border border-ink/15 transition-colors hover:border-burgundy-700/40"
+          className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-pill border transition-colors ${t.close}`}
           aria-label="Dismiss regional suggestion"
         >
-          <X className="h-4 w-4 text-ink-600" aria-hidden="true" />
+          <X className={`h-4 w-4 ${t.closeIcon}`} aria-hidden="true" />
         </button>
       </div>
     </div>

@@ -14,6 +14,13 @@ import { graph, faqSchema, breadcrumbSchema, serviceSchema } from '@/lib/seo/sch
 import { buildUrl } from '@/lib/seo/metadata'
 
 import { JsonLd } from '@/components/seo/JsonLd'
+import { Header } from '@/components/layout/Header'
+import { Footer } from '@/components/layout/Footer'
+import { StickyCta } from '@/components/conversion/StickyCta'
+import { GeoSuggestion } from '@/components/international/GeoSuggestion'
+import { IndiaHeader } from '@/components/india/IndiaHeader'
+import { IndiaHome } from '@/components/india/IndiaHome'
+import { IndiaFooter } from '@/components/india/IndiaFooter'
 import { Section, SectionHeader } from '@/components/layout/Section'
 import { HeroCountry } from '@/components/hero/HeroCountry'
 import { Pill, PillRow } from '@/components/ui/Pill'
@@ -75,23 +82,59 @@ export default async function CountryHomePage({
   ])
   const testimonials = getTestimonials(code)
 
+  const serviceGraph = services.slice(0, 4).map((s) =>
+    serviceSchema({
+      country: code,
+      name: s.title,
+      description: s.summary,
+      url: buildUrl(code, s.slug),
+      serviceType: s.title,
+    })
+  )
+
+  /*
+   * India runs an art-directed home page (green system, own header and
+   * footer) rather than the shared global template. It lives in the `(home)`
+   * route group precisely so it can replace the chrome; every other India
+   * route still renders the shared Header/Footer from `(chrome)`.
+   *
+   * No FAQ schema here — this layout has no FAQ section, and FAQPage markup
+   * must describe content that is actually visible on the page.
+   */
+  if (code === 'in') {
+    return (
+      <>
+        <JsonLd
+          data={graph(
+            breadcrumbSchema([{ name: c.name, href: `/${code}/` }]),
+            ...serviceGraph
+          )}
+        />
+
+        <GeoSuggestion current={code} tone="india" />
+        <IndiaHeader />
+        <IndiaHome />
+        <IndiaFooter />
+      </>
+    )
+  }
+
   return (
     <>
       <JsonLd
         data={graph(
           faqSchema(content.faqs),
           breadcrumbSchema([{ name: c.name, href: `/${code}/` }]),
-          ...services.slice(0, 4).map((s) =>
-            serviceSchema({
-              country: code,
-              name: s.title,
-              description: s.summary,
-              url: buildUrl(code, s.slug),
-              serviceType: s.title,
-            })
-          )
+          ...serviceGraph
         )}
       />
+
+      {/* SRS §7.3 — suggestion only, never a redirect. */}
+      <GeoSuggestion current={code} />
+
+      <Header country={code} />
+
+      <main id="main">
 
       <HeroCountry country={code} />
 
@@ -346,6 +389,14 @@ export default async function CountryHomePage({
         heading={content.ctaHeading}
         body={content.ctaBody}
       />
+
+      </main>
+
+      <Footer country={code} />
+
+      {/* SRS §22.1 — mobile is the primary breakpoint, so the primary
+          conversion mechanism lives there. */}
+      <StickyCta country={code} />
     </>
   )
 }

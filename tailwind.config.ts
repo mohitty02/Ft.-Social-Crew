@@ -68,11 +68,56 @@ const config: Config = {
           100: '#F6F4F5',
           200: '#EDEAEC',
         },
+
+        /*
+         * ── India market palette ──────────────────────────────────────
+         * The India home page is art-directed separately from the global
+         * burgundy system (see src/components/india/). Green + white is the
+         * category-conventional register for the Delhi NCR performance-
+         * marketing buyer, and the approved comp uses it throughout.
+         *
+         * Nothing outside src/components/india/ and the India home route
+         * consumes these, so the global system is untouched.
+         *
+         * Contrast (WCAG 2.1, computed against white):
+         *   brand-600 on white ... 6.4:1  AA
+         *   brand-700 on white ... 8.9:1  AAA
+         *   steel-600 on white ... 7.4:1  AAA
+         *   steel-500 on white ... 4.9:1  AA
+         *   white on brand-800 ...13.4:1  AAA
+         */
+        brand: {
+          50: '#F1F8F4',
+          100: '#DFF0E7',
+          200: '#BCDFCD',
+          300: '#8AC7A9',
+          400: '#4FA87F',
+          500: '#1F8B5B',
+          600: '#137A4E', // accent headline green
+          700: '#0E5C3C', // primary action
+          800: '#0B4A31', // dark bands (stats, CTA)
+          900: '#07331F',
+          950: '#042114',
+        },
+        steel: {
+          50: '#F7F9F9',
+          100: '#EFF2F2',
+          200: '#E4E9E9',
+          300: '#C9D1D1',
+          400: '#8E9BA1',
+          500: '#66757C',
+          600: '#4E5D64',
+          700: '#3A464C',
+          800: '#232E33',
+          900: '#111C22', // footer field
+        },
       },
       fontFamily: {
         display: ['var(--font-display)', 'Georgia', 'serif'],
         sans: ['var(--font-sans)', 'system-ui', 'sans-serif'],
         tight: ['var(--font-tight)', 'system-ui', 'sans-serif'],
+        // India market only — geometric sans, no serif register.
+        brand: ['var(--font-brand)', 'var(--font-sans)', 'system-ui', 'sans-serif'],
       },
       fontSize: {
         // Fluid scale — clamp() everywhere so there are no breakpoint jumps

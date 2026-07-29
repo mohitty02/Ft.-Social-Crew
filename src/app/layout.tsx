@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Fraunces, Inter, Inter_Tight } from 'next/font/google'
+import { Fraunces, Inter, Inter_Tight, Poppins } from 'next/font/google'
 import { site } from '@/config/site'
 import { JsonLd } from '@/components/seo/JsonLd'
 import { graph, organizationSchema, websiteSchema } from '@/lib/seo/schema'
@@ -40,6 +40,20 @@ const interTight = Inter_Tight({
   preload: false,
 })
 
+/**
+ * India market face. The India home page is art-directed against a geometric
+ * sans with no serif register at all, so Fraunces is not used there. Latin
+ * only and `preload: false` — this face is requested by one route, and
+ * preloading it on the other five markets' pages would be wasted bytes.
+ */
+const poppins = Poppins({
+  subsets: ['latin'],
+  variable: '--font-brand',
+  display: 'swap',
+  weight: ['400', '500', '600', '700'],
+  preload: false,
+})
+
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
@@ -70,7 +84,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${fraunces.variable} ${inter.variable} ${interTight.variable}`}
+      className={`${fraunces.variable} ${inter.variable} ${interTight.variable} ${poppins.variable}`}
     >
       <body className="font-sans antialiased">
         {/* WCAG 2.1 AA — skip link is the first focusable element. */}
