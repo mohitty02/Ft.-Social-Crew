@@ -7,6 +7,7 @@ import type { MarketPageData } from '@/lib/market/home'
 import { cn } from '@/lib/utils/cn'
 import { MarketIcon } from './MarketIcon'
 import { MarketTestimonials } from './MarketTestimonials'
+import { ApproachSection, TrustSection } from './MarketSections'
 
 const SHELL = 'mx-auto w-full max-w-[1280px] px-5 md:px-8'
 
@@ -241,6 +242,8 @@ export function MarketHome({
         </div>
       </section>
 
+      <ApproachSection country={country} />
+
       {/* ── Services ── */}
       <section className={cn(SHELL, 'py-16 lg:py-20')}>
         <Eyebrow align="center">{m.services.eyebrow}</Eyebrow>
@@ -391,6 +394,8 @@ export function MarketHome({
           ))}
         </ol>
       </section>
+
+      <TrustSection country={country} />
 
       {/* ── Testimonials ── */}
       <section className={cn(SHELL, 'pb-16 lg:pb-20')}>

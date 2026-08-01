@@ -30,6 +30,27 @@ export interface MarketNav {
 }
 
 export interface MarketHome {
+  /**
+   * Structural variants for the two argument sections. Each market gets a
+   * genuinely different frame — a table, a timeline, a ledger — not the same
+   * block recoloured. Rendered by src/components/market/MarketSections.tsx.
+   */
+  layout: {
+    approach:
+      | 'split-cards'
+      | 'numbered-rows'
+      | 'phase-timeline'
+      | 'ledger'
+      | 'spec-table'
+      | 'mosaic'
+    trust:
+      | 'dark-split'
+      | 'quad-panel'
+      | 'soft-tiles'
+      | 'plain-strip'
+      | 'dense-list'
+      | 'image-overlay'
+  }
   nav: MarketNav
   headerCta: string
   hero: {
@@ -93,6 +114,7 @@ export const marketHome: Record<CountryCode, MarketHome> = {
   // supplied content rather than the repository's placeholder data.
   // ─────────────────────────────────────────────────────────────
   'in': {
+    layout: { approach: 'split-cards', trust: 'dark-split' },
     nav: {
       home: 'Home',
       about: 'About Us',
@@ -210,6 +232,7 @@ export const marketHome: Record<CountryCode, MarketHome> = {
   // Tone: sharp, benchmark-led, cost-of-alternative framing.
   // ─────────────────────────────────────────────────────────────
   'en-us': {
+    layout: { approach: 'numbered-rows', trust: 'quad-panel' },
     nav: {
       home: 'Home',
       about: 'About Us',
@@ -326,6 +349,7 @@ export const marketHome: Record<CountryCode, MarketHome> = {
   // language. Tone: consultative, phased, bilingual-aware.
   // ─────────────────────────────────────────────────────────────
   'en-ca': {
+    layout: { approach: 'phase-timeline', trust: 'soft-tiles' },
     nav: {
       home: 'Home',
       about: 'About Us',
@@ -441,6 +465,7 @@ export const marketHome: Record<CountryCode, MarketHome> = {
   // mature paid-media culture. Tone: plain, numerate, anti-vanity-metric.
   // ─────────────────────────────────────────────────────────────
   'en-au': {
+    layout: { approach: 'ledger', trust: 'plain-strip' },
     nav: {
       home: 'Home',
       about: 'About Us',
@@ -557,6 +582,7 @@ export const marketHome: Record<CountryCode, MarketHome> = {
   // Written in German throughout, not translated from the English record.
   // ─────────────────────────────────────────────────────────────
   'de': {
+    layout: { approach: 'spec-table', trust: 'dense-list' },
     nav: {
       home: 'Startseite',
       about: 'Über uns',
@@ -673,6 +699,7 @@ export const marketHome: Record<CountryCode, MarketHome> = {
   // credibility. Tone: senior, discreet, advisory-led.
   // ─────────────────────────────────────────────────────────────
   'en-ae': {
+    layout: { approach: 'mosaic', trust: 'image-overlay' },
     nav: {
       home: 'Home',
       about: 'About Us',
