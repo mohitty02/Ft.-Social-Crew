@@ -65,6 +65,7 @@ export default async function ResourcesPage({
       <JsonLd data={graph(breadcrumbSchema(breadcrumbs))} />
 
       <PageHero
+        country={code}
         eyebrow={isDe ? 'Ressourcen' : 'Resources'}
         title={
           isDe

@@ -56,7 +56,7 @@ export function MarketFooter({
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={label}
-                    className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/[0.07] text-white/70 transition-colors duration-200 hover:bg-brand-600 hover:text-white"
+                    className="flex h-9 w-9 items-center justify-center rounded-card bg-white/[0.07] text-white/70 transition-colors duration-200 hover:bg-accent hover:text-white"
                   >
                     <Glyph className="h-4 w-4" aria-hidden="true" />
                   </a>

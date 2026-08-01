@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils/cn'
  */
 export function MarketLogo({
   className,
-  markClassName = 'text-brand-500',
+  markClassName = 'text-accent',
   wordClassName = 'text-steel-900',
 }: {
   className?: string

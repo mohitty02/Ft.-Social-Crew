@@ -75,7 +75,7 @@ export default async function LandingPage({
       {/* Minimal shell — single CTA, no navigation, no exits (SRS §15.1) */}
       <header className="border-b border-ink/10">
         <div className="container-shell flex h-[72px] items-center">
-          <span className="font-display text-[1.35rem] font-semibold text-burgundy-700">
+          <span className="font-display text-[1.35rem] font-semibold text-[color:var(--text-brand)]">
             Ft. Social Crew
           </span>
         </div>
@@ -89,7 +89,7 @@ export default async function LandingPage({
                 <Pill variant="outline" size="md">
                   {content.eyebrow}
                 </Pill>
-                <h1 className="mt-7 font-display text-display-1 text-burgundy-700">
+                <h1 className="mt-7 font-display text-display-1 text-[color:var(--text-brand)]">
                   {content.h1}{' '}
                   <span className="relative inline-block">
                     <span className="relative z-10">{content.h1Accent}</span>
@@ -106,7 +106,7 @@ export default async function LandingPage({
                 <ul className="mt-9 space-y-4">
                   {content.trustPoints.slice(0, 4).map((p) => (
                     <li key={p} className="flex gap-3.5">
-                      <Check className="mt-1 h-4 w-4 shrink-0 text-gold-700" aria-hidden="true" />
+                      <Check className="mt-1 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
                       <span className="text-body text-ink-600">{p}</span>
                     </li>
                   ))}
@@ -115,8 +115,8 @@ export default async function LandingPage({
 
               {/* The single CTA */}
               <div className="lg:sticky lg:top-8 lg:self-start">
-                <div className="rounded-xl border border-gold-300 bg-paper-pure p-7 sm:p-9">
-                  <h2 className="font-display text-h2 text-burgundy-700">
+                <div className="rounded-xl border border-accent-line bg-paper-pure p-7 sm:p-9">
+                  <h2 className="font-display text-h2 text-[color:var(--text-brand)]">
                     {c.primaryCta}
                   </h2>
                   <p className="mt-3 text-body text-ink-600">
@@ -149,7 +149,7 @@ export default async function LandingPage({
 
         <Section surface="white">
           <div className="mx-auto max-w-3xl">
-            <h2 className="font-display text-h2 text-burgundy-700">
+            <h2 className="font-display text-h2 text-[color:var(--text-brand)]">
               {isDe ? 'Häufige Fragen' : 'Questions before you get in touch'}
             </h2>
             <div className="mt-8">

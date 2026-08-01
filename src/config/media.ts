@@ -107,3 +107,44 @@ export const resourceImages = [
   img('photo-1450101499163-c8848c66ca85', 900, 600),
   img('photo-1471107340929-a87cd0f5b5f3', 900, 600),
 ] as const
+
+/**
+ * Per-market editorial imagery.
+ *
+ * Markets must not look like one another, and photography is the cheapest,
+ * strongest differentiator available — SRS §22.3 names imagery as the
+ * sanctioned uniqueness lever. Each market gets its own hero, section and
+ * texture set rather than drawing from one shared pool.
+ */
+export const marketImages = {
+  'in': {
+    hero: img('photo-1522071820081-009f0129c71c', 1400, 1050),
+    band: img('photo-1600880292203-757bb62b4baf', 1600, 900),
+    detail: img('photo-1552664730-d307ca884978', 1200, 800),
+  },
+  'en-us': {
+    hero: img('photo-1531973576160-7125cd663d86', 1400, 1050),
+    band: img('photo-1551288049-bebda4e38f71', 1600, 900),
+    detail: img('photo-1460925895917-afdab827c52f', 1200, 800),
+  },
+  'en-ca': {
+    hero: img('photo-1543269865-cbf427effbad', 1400, 1050),
+    band: img('photo-1497366811353-6870744d04b2', 1600, 900),
+    detail: img('photo-1517245386807-bb43f82c33c4', 1200, 800),
+  },
+  'en-au': {
+    hero: img('photo-1551434678-e076c223a692', 1400, 1050),
+    band: img('photo-1454165804606-c3d57bc86b40', 1600, 900),
+    detail: img('photo-1521791136064-7986c2920216', 1200, 800),
+  },
+  'de': {
+    hero: img('photo-1497366754035-f200968a6e72', 1400, 1050),
+    band: img('photo-1581091226825-a6a2a5aee158', 1600, 900),
+    detail: img('photo-1518770660439-4636190af475', 1200, 800),
+  },
+  'en-ae': {
+    hero: img('photo-1497366811353-6870744d04b2', 1400, 1050),
+    band: img('photo-1512453979798-5ea266f8880c', 1600, 900),
+    detail: img('photo-1528728329032-2972f65dfb3f', 1200, 800),
+  },
+} as const

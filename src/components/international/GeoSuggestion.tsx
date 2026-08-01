@@ -48,26 +48,25 @@ function suggestCountry(locale: string): CountryCode | null {
 }
 
 /**
- * The banner sits above the header, so it has to match whichever design
- * system that header belongs to. Country home pages run the green market
- * system (src/components/market/); every other route runs the global
- * burgundy one.
+ * The banner sits above the header. `global` is the token-driven treatment
+ * used by the root region selector, which has no market context; `market`
+ * is the country chrome's own, and picks up that market's accent.
  */
 const tones = {
   global: {
-    bar: 'border-b border-gold-300 bg-burgundy-100/50',
-    icon: 'text-gold-700',
+    bar: 'border-b border-accent-line bg-accent-soft',
+    icon: 'text-accent',
     text: 'text-small text-ink-800',
-    link: 'font-medium text-burgundy-700 underline decoration-gold-300 decoration-2 underline-offset-4',
-    close: 'border-ink/15 hover:border-burgundy-700/40',
+    link: 'font-medium text-[color:var(--text-brand)] underline decoration-accent-line decoration-2 underline-offset-4',
+    close: 'border-ink/15 hover:border-accent',
     closeIcon: 'text-ink-600',
   },
   market: {
-    bar: 'border-b border-brand-200 bg-brand-50 font-brand',
-    icon: 'text-brand-600',
+    bar: 'border-b border-accent-line bg-accent-soft font-brand',
+    icon: 'text-accent',
     text: 'text-[0.8125rem] text-steel-700',
-    link: 'font-semibold text-brand-700 underline decoration-brand-300 decoration-2 underline-offset-4',
-    close: 'border-steel-200 hover:border-brand-400',
+    link: 'font-semibold text-accent underline decoration-accent-line decoration-2 underline-offset-4',
+    close: 'border-steel-200 hover:border-accent',
     closeIcon: 'text-steel-600',
   },
 } as const

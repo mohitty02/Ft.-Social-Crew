@@ -23,8 +23,8 @@ export function LegalBody({
 
   return (
     <div className="max-w-prose">
-      <div className="mb-10 flex gap-4 rounded-lg border border-gold-300 bg-burgundy-100/30 p-5">
-        <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-gold-700" aria-hidden="true" />
+      <div className="mb-10 flex gap-4 rounded-card border border-accent-line bg-accent-soft p-5">
+        <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-accent" aria-hidden="true" />
         <p className="text-small text-ink-600">
           {isDe
             ? 'Hinweis: Dieser Text ist eine strukturelle Vorlage und ersetzt keine juristische Prüfung. Vor Veröffentlichung ist eine anwaltliche Freigabe erforderlich.'
@@ -35,7 +35,7 @@ export function LegalBody({
       <div className="space-y-9">
         {sections.map((s) => (
           <section key={s.heading}>
-            <h2 className="font-display text-h3 text-burgundy-700">{s.heading}</h2>
+            <h2 className="font-display text-h3 text-[color:var(--text-brand)]">{s.heading}</h2>
             <p className="mt-3 text-body text-ink-600">{s.body}</p>
           </section>
         ))}

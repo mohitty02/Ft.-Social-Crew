@@ -45,10 +45,10 @@ export default function GlobalRootPage() {
               <Globe className="mr-1.5 h-3 w-3" aria-hidden="true" />
               Global
             </Pill>
-            <p className="mt-7 font-display text-[1.5rem] font-semibold text-burgundy-700">
+            <p className="mt-7 font-display text-[1.5rem] font-semibold text-[color:var(--text-brand)]">
               Ft. Social Crew
             </p>
-            <h1 className="mt-5 font-display text-display-1 text-burgundy-700">
+            <h1 className="mt-5 font-display text-display-1 text-[color:var(--text-brand)]">
               One team.{' '}
               <span className="relative inline-block">
                 <span className="relative z-10">Six markets.</span>
@@ -68,7 +68,7 @@ export default function GlobalRootPage() {
 
           {/* The selector is real, crawlable content — not a modal gate. */}
           <nav aria-label="Select your region" className="mt-14">
-            <h2 className="mb-6 font-tight text-eyebrow uppercase text-gold-700">
+            <h2 className="mb-6 font-tight text-eyebrow uppercase text-accent">
               Select your region
             </h2>
             <ul className="grid gap-px overflow-hidden rounded-lg border border-ink/10 bg-ink/10 sm:grid-cols-2 lg:grid-cols-3">
@@ -76,21 +76,21 @@ export default function GlobalRootPage() {
                 <li key={c.code} className="bg-paper-pure">
                   <Link
                     href={`/${c.code}/`}
-                    className="group flex h-full flex-col p-7 transition-colors duration-base hover:bg-burgundy-100/30"
+                    className="group flex h-full flex-col p-7 transition-colors duration-base hover:bg-accent-soft"
                   >
                     <div className="flex items-start justify-between gap-4">
-                      <span className="font-display text-h3 text-burgundy-700">
+                      <span className="font-display text-h3 text-[color:var(--text-brand)]">
                         {c.name}
                       </span>
                       <ArrowRight
-                        className="mt-1.5 h-5 w-5 shrink-0 text-burgundy-700 transition-transform duration-base ease-out group-hover:translate-x-1"
+                        className="mt-1.5 h-5 w-5 shrink-0 text-[color:var(--text-brand)] transition-transform duration-base ease-out group-hover:translate-x-1"
                         aria-hidden="true"
                       />
                     </div>
                     <p className="mt-3 flex-1 text-small text-ink-600">
                       {c.positioning}
                     </p>
-                    <p className="mt-6 font-tight text-eyebrow uppercase text-gold-700">
+                    <p className="mt-6 font-tight text-eyebrow uppercase text-accent">
                       /{c.code}/ · {c.currency} · {c.locale}
                     </p>
                   </Link>

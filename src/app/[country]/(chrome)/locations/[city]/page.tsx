@@ -121,6 +121,7 @@ export default async function CityPage({
       />
 
       <PageHero
+        country={code}
         eyebrow={`${record.name} · ${record.region}`}
         title={
           isDe
@@ -144,7 +145,7 @@ export default async function CityPage({
               }
             />
             <p className="mt-6 flex gap-3.5 text-body text-ink-600">
-              <MapPin className="mt-1 h-4 w-4 shrink-0 text-gold-700" aria-hidden="true" />
+              <MapPin className="mt-1 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
               <span>{record.localProofPoint}</span>
             </p>
             <p className="mt-5 max-w-prose text-body text-ink-600">
@@ -184,16 +185,16 @@ export default async function CityPage({
             <StaggerItem key={s.slug} className="bg-paper-pure">
               <Link
                 href={`/${code}/locations/${city}/${resolveServiceSlug(s, code)}/`}
-                className="group flex items-center justify-between gap-4 p-6 transition-colors duration-base hover:bg-burgundy-100/30"
+                className="group flex items-center justify-between gap-4 p-6 transition-colors duration-base hover:bg-accent-soft"
               >
                 <span className="flex items-center gap-3.5">
-                  <Icon name={s.icon} className="h-5 w-5 shrink-0 text-gold-700" />
-                  <span className="text-body text-burgundy-700">
+                  <Icon name={s.icon} className="h-5 w-5 shrink-0 text-accent" />
+                  <span className="text-body text-[color:var(--text-brand)]">
                     {resolveServiceTitle(s, code)}
                   </span>
                 </span>
                 <ArrowRight
-                  className="h-4 w-4 shrink-0 text-burgundy-700 transition-transform duration-base group-hover:translate-x-1"
+                  className="h-4 w-4 shrink-0 text-[color:var(--text-brand)] transition-transform duration-base group-hover:translate-x-1"
                   aria-hidden="true"
                 />
               </Link>
@@ -218,8 +219,8 @@ export default async function CityPage({
           </div>
 
           <Reveal>
-            <div className="rounded-xl border border-gold-300 bg-burgundy-100/25 p-7 sm:p-9">
-              <h2 className="font-display text-h3 text-burgundy-700">
+            <div className="rounded-xl border border-accent-line bg-burgundy-100/25 p-7 sm:p-9">
+              <h2 className="font-display text-h3 text-[color:var(--text-brand)]">
                 {isDe ? `Anfrage aus ${record.name}` : `Enquire from ${record.name}`}
               </h2>
               <LeadForm
@@ -254,8 +255,8 @@ export default async function CityPage({
                 href={`/${code}/locations/${o.slug}/`}
                 className={`inline-flex items-center rounded-pill px-4 py-2 font-tight text-small transition-colors duration-base ${
                   i % 2 === 0
-                    ? 'bg-burgundy-100 text-burgundy-700 hover:bg-burgundy-200'
-                    : 'border border-gold-300 text-burgundy-700 hover:bg-burgundy-100/40'
+                    ? 'bg-burgundy-100 text-[color:var(--text-brand)] hover:bg-burgundy-200'
+                    : 'border border-accent-line text-[color:var(--text-brand)] hover:bg-accent-soft'
                 }`}
               >
                 {o.name}

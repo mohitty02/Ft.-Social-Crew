@@ -39,7 +39,7 @@ export function FaqAccordion({
                 'font-display text-h4 transition-colors duration-fast',
                 invert
                   ? 'text-burgundy-100 group-hover:text-white'
-                  : 'text-burgundy-700 group-hover:text-burgundy-800'
+                  : 'text-[color:var(--text-brand)] group-hover:text-burgundy-800'
               )}
             >
               {faq.question}
@@ -47,7 +47,7 @@ export function FaqAccordion({
             <span
               className={cn(
                 'mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-pill border transition-transform duration-base ease-out group-open:rotate-45',
-                invert ? 'border-gold-300/50 text-gold-300' : 'border-gold-300 text-gold-700'
+                invert ? 'border-accent-line/50 text-gold-300' : 'border-accent-line text-accent'
               )}
               aria-hidden="true"
             >

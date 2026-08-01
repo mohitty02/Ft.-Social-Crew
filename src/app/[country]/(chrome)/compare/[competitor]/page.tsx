@@ -98,6 +98,7 @@ export default async function ComparePage({
       <JsonLd data={graph(breadcrumbSchema(breadcrumbs), faqSchema(faqs))} />
 
       <PageHero
+        country={code}
         eyebrow={isDe ? 'Vergleich' : 'Comparison'}
         title={`Ft. Social Crew vs ${comp.name.toLowerCase()}`}
         intro={`${comp.positioning}. Below is an honest comparison — including the cases where the alternative is genuinely the better decision.`}
@@ -133,6 +134,7 @@ export default async function ComparePage({
           />
           <Reveal>
             <KeyTakeaways
+              country={code}
               title="Choose the alternative when"
               items={
                 competitor === 'in-house-hire'

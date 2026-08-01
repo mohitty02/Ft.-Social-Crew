@@ -34,7 +34,7 @@ export function HeroCountry({ country }: { country: CountryCode }) {
               {content.eyebrow}
             </Pill>
 
-            <h1 className="mt-7 font-display text-display-1 text-burgundy-700">
+            <h1 className="mt-7 font-display text-display-1 text-[color:var(--text-brand)]">
               {content.h1}{' '}
               <span className="relative inline-block">
                 <span className="relative z-10">{content.h1Accent}</span>
@@ -73,7 +73,7 @@ export function HeroCountry({ country }: { country: CountryCode }) {
 
           {/* Image column */}
           <div className="relative">
-            <div className="relative aspect-[4/5] w-full overflow-hidden rounded-xl bg-burgundy-100 lg:aspect-[3/4]">
+            <div className="relative aspect-[4/5] w-full overflow-hidden rounded-card bg-burgundy-100 lg:aspect-[3/4]">
               <Image
                 src={c.heroImage}
                 alt={`Ft. Social Crew — ${c.positioning} operating in ${c.name}`}
@@ -87,20 +87,20 @@ export function HeroCountry({ country }: { country: CountryCode }) {
             {/* Gold hairline frame, offset — the brand's outlined-pill logic
                 applied at composition scale. */}
             <div
-              className="pointer-events-none absolute -bottom-4 -right-4 hidden h-full w-full rounded-xl border border-gold-300 lg:block"
+              className="pointer-events-none absolute -bottom-4 -right-4 hidden h-full w-full rounded-card border border-accent-line lg:block"
               aria-hidden="true"
             />
           </div>
         </div>
 
         {/* Hero stat row */}
-        <dl className="mt-16 grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-ink/10 bg-ink/10 lg:grid-cols-4">
+        <dl className="mt-16 grid grid-cols-2 gap-px overflow-hidden rounded-card border border-ink/10 bg-ink/10 lg:grid-cols-4">
           {content.heroStats.map((stat) => (
             <div key={stat.label} className="bg-paper-pure p-6">
-              <dd className="tabular font-display text-[2rem] leading-none text-burgundy-700">
+              <dd className="tabular font-display text-[2rem] leading-none text-[color:var(--text-brand)]">
                 {stat.value}
               </dd>
-              <dt className="mt-3 font-tight text-eyebrow uppercase text-gold-700">
+              <dt className="mt-3 font-tight text-eyebrow uppercase text-accent">
                 {stat.label}
               </dt>
             </div>

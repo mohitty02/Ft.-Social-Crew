@@ -29,7 +29,7 @@ export function Breadcrumbs({
                   aria-current="page"
                   className={cn(
                     'font-medium',
-                    invert ? 'text-burgundy-100' : 'text-burgundy-700'
+                    invert ? 'text-burgundy-100' : 'text-[color:var(--text-brand)]'
                   )}
                 >
                   {item.name}
@@ -42,7 +42,7 @@ export function Breadcrumbs({
                       'transition-colors duration-fast hover:underline underline-offset-4',
                       invert
                         ? 'text-burgundy-100/70 hover:text-burgundy-100'
-                        : 'text-ink-400 hover:text-burgundy-700'
+                        : 'text-ink-400 hover:text-[color:var(--text-brand)]'
                     )}
                   >
                     {item.name}

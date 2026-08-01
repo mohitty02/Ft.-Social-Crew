@@ -1,5 +1,5 @@
 import type { CountryCode } from '@/types'
-import { editorial } from '@/config/media'
+import { marketImages } from '@/config/media'
 
 /**
  * Home-page copy for the art-directed market layout.
@@ -110,7 +110,7 @@ export const marketHome: Record<CountryCode, MarketHome> = {
       body: 'We help brands in Delhi NCR and beyond grow with performance-driven digital marketing that delivers leads, builds visibility and maximizes ROI.',
       primaryCta: 'Get Free Strategy Call',
       secondaryCta: 'Explore Services',
-      image: editorial.team,
+      image: marketImages['in'].hero,
       imageAlt:
         'The Ft. Social Crew campaign team reviewing performance dashboards together',
       assurances: [
@@ -227,7 +227,7 @@ export const marketHome: Record<CountryCode, MarketHome> = {
       body: 'A named strategist, operator and analyst from week one — benchmarked against 140 comparable growth programmes, on thirty days’ notice with no severance exposure.',
       primaryCta: 'Book a Growth Audit',
       secondaryCta: 'Compare to a Full-Time Hire',
-      image: editorial.presenting,
+      image: marketImages['en-us'].hero,
       imageAlt: 'A fractional growth team working through pipeline data with a client',
       assurances: [
         { title: 'Benchmarked', description: 'Against 140 comparable growth programmes' },
@@ -343,7 +343,7 @@ export const marketHome: Record<CountryCode, MarketHome> = {
       body: 'We work with Canadian mid-market organisations as a long-term transformation partner — phased delivery, bilingual EN/FR capability, and a documented handover so your team owns the capability afterwards.',
       primaryCta: 'Book a Consultation',
       secondaryCta: 'Read the Transformation Guide',
-      image: editorial.discussion,
+      image: marketImages['en-ca'].hero,
       imageAlt: 'A transformation programme review session with a Canadian client team',
       assurances: [
         { title: 'Readiness First', description: 'Assessed before any spend is recommended' },
@@ -458,7 +458,7 @@ export const marketHome: Record<CountryCode, MarketHome> = {
       body: 'We manage Australian growth programmes against contribution margin and payback period — with the full model held in your own spreadsheet, so every figure we report can be checked.',
       primaryCta: 'Get Your ROI Projection',
       secondaryCta: 'Open the ROI Calculator',
-      image: editorial.analytics,
+      image: marketImages['en-au'].hero,
       imageAlt: 'A performance marketing team reviewing contribution margin modelling',
       assurances: [
         { title: 'Blended CAC', description: 'Reported honestly, not channel-flattering ROAS' },
@@ -574,7 +574,7 @@ export const marketHome: Record<CountryCode, MarketHome> = {
       body: 'Wir analysieren, automatisieren und dokumentieren Marketing- und Vertriebsprozesse im Mittelstand — nach fester Vorgehensweise, mit vollständiger Übergabe und DSGVO-konformer Verarbeitung innerhalb der EU.',
       primaryCta: 'Prozessanalyse anfordern',
       secondaryCta: 'Whitepaper herunterladen',
-      image: editorial.workspace,
+      image: marketImages['de'].hero,
       imageAlt: 'Prozessaufnahme und Architekturabstimmung mit einem Kundenteam',
       assurances: [
         { title: 'Dokumentierte Aufnahme', description: 'Ist-Prozess inklusive aller Schnittstellen' },
@@ -690,7 +690,7 @@ export const marketHome: Record<CountryCode, MarketHome> = {
       body: 'We advise enterprise and government-adjacent organisations across Dubai and Abu Dhabi — senior consultants engaged throughout, combining strategic advisory with the capability to implement inside your existing systems landscape.',
       primaryCta: 'Request a Consultation',
       secondaryCta: 'View Enterprise Engagements',
-      image: editorial.office,
+      image: marketImages['en-ae'].hero,
       imageAlt: 'A senior advisory session with an enterprise client team in Dubai',
       assurances: [
         { title: 'Senior Throughout', description: 'Consultants engaged for the whole programme' },

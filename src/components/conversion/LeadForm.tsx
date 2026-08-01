@@ -54,7 +54,7 @@ export function LeadForm({
     return (
       <div
         className={cn(
-          'rounded-lg border border-gold-300 bg-burgundy-100/30 p-8 text-center',
+          'rounded-card border border-accent-line bg-accent-soft p-8 text-center',
           className
         )}
         role="status"
@@ -62,7 +62,7 @@ export function LeadForm({
         <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-pill bg-burgundy-700">
           <Check className="h-6 w-6 text-burgundy-100" aria-hidden="true" />
         </span>
-        <h3 className="mt-5 font-display text-h3 text-burgundy-700">
+        <h3 className="mt-5 font-display text-h3 text-[color:var(--text-brand)]">
           {isDe ? 'Vielen Dank' : 'Thank you'}
         </h3>
         <p className="mx-auto mt-3 max-w-sm text-body text-ink-600">
@@ -216,7 +216,7 @@ function Field({
       >
         {label}
         {required && (
-          <span className="ml-1 text-gold-700" aria-hidden="true">
+          <span className="ml-1 text-accent" aria-hidden="true">
             *
           </span>
         )}

@@ -127,6 +127,7 @@ export default async function ServiceDetailPage({
       />
 
       <PageHero
+        country={code}
         eyebrow={service.title}
         title={
           isDe
@@ -145,7 +146,7 @@ export default async function ServiceDetailPage({
             <Pill variant="outline" size="md">
               {isDe ? 'Ergebnis' : 'What you get'}
             </Pill>
-            <h2 className="mt-6 font-display text-h2 text-burgundy-700">
+            <h2 className="mt-6 font-display text-h2 text-[color:var(--text-brand)]">
               {isDe
                 ? 'Was diese Leistung konkret liefert'
                 : 'What this actually delivers'}
@@ -153,7 +154,7 @@ export default async function ServiceDetailPage({
             <ul className="mt-8 space-y-5">
               {service.outcomes.map((o) => (
                 <li key={o} className="flex gap-3.5">
-                  <Check className="mt-1 h-4 w-4 shrink-0 text-gold-700" aria-hidden="true" />
+                  <Check className="mt-1 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
                   <span className="text-body text-ink-600">{o}</span>
                 </li>
               ))}
@@ -162,7 +163,7 @@ export default async function ServiceDetailPage({
 
           <Reveal>
             <div className="rounded-lg border border-ink/10 bg-paper-pure p-7 sm:p-9">
-              <h3 className="font-tight text-eyebrow uppercase text-gold-700">
+              <h3 className="font-tight text-eyebrow uppercase text-accent">
                 {isDe ? 'Leistungsumfang' : 'Deliverables'}
               </h3>
               <ul className="mt-6 space-y-4">
@@ -221,16 +222,16 @@ export default async function ServiceDetailPage({
               <StaggerItem key={ind.slug} className="bg-paper-pure">
                 <Link
                   href={`/${code}/industries/${ind.slug}/${service.slug}/`}
-                  className="group flex items-center justify-between gap-4 p-6 transition-colors duration-base hover:bg-burgundy-100/30"
+                  className="group flex items-center justify-between gap-4 p-6 transition-colors duration-base hover:bg-accent-soft"
                 >
                   <span className="flex items-center gap-3.5">
-                    <Icon name={ind.icon} className="h-5 w-5 text-gold-700" />
-                    <span className="text-body text-burgundy-700">
+                    <Icon name={ind.icon} className="h-5 w-5 text-accent" />
+                    <span className="text-body text-[color:var(--text-brand)]">
                       {service.title} for {ind.name}
                     </span>
                   </span>
                   <ArrowRight
-                    className="h-4 w-4 shrink-0 text-burgundy-700 transition-transform duration-base group-hover:translate-x-1"
+                    className="h-4 w-4 shrink-0 text-[color:var(--text-brand)] transition-transform duration-base group-hover:translate-x-1"
                     aria-hidden="true"
                   />
                 </Link>
@@ -262,8 +263,8 @@ export default async function ServiceDetailPage({
                   href={`/${code}/locations/${city.slug}/${service.slug}/`}
                   className={`inline-flex items-center rounded-pill px-4 py-2 font-tight text-small transition-colors duration-base ${
                     i % 2 === 0
-                      ? 'bg-burgundy-100 text-burgundy-700 hover:bg-burgundy-200'
-                      : 'border border-gold-300 text-burgundy-700 hover:bg-burgundy-100/40'
+                      ? 'bg-burgundy-100 text-[color:var(--text-brand)] hover:bg-burgundy-200'
+                      : 'border border-accent-line text-[color:var(--text-brand)] hover:bg-accent-soft'
                   }`}
                 >
                   {city.name}
@@ -294,8 +295,8 @@ export default async function ServiceDetailPage({
                   href={`/${code}/locations/${city.slug}/`}
                   className={`inline-flex items-center rounded-pill px-4 py-2 font-tight text-small transition-colors duration-base ${
                     i % 2 === 0
-                      ? 'bg-burgundy-100 text-burgundy-700 hover:bg-burgundy-200'
-                      : 'border border-gold-300 text-burgundy-700 hover:bg-burgundy-100/40'
+                      ? 'bg-burgundy-100 text-[color:var(--text-brand)] hover:bg-burgundy-200'
+                      : 'border border-accent-line text-[color:var(--text-brand)] hover:bg-accent-soft'
                   }`}
                 >
                   {city.name}
@@ -333,8 +334,8 @@ export default async function ServiceDetailPage({
           </div>
 
           <Reveal>
-            <div className="rounded-xl border border-gold-300 bg-burgundy-100/25 p-7 sm:p-9">
-              <h2 id="service-form-heading" className="font-display text-h3 text-burgundy-700">
+            <div className="rounded-xl border border-accent-line bg-burgundy-100/25 p-7 sm:p-9">
+              <h2 id="service-form-heading" className="font-display text-h3 text-[color:var(--text-brand)]">
                 {isDe ? 'Kurz anfragen' : 'Quick enquiry'}
               </h2>
               <p className="mt-2.5 text-small text-ink-600">
@@ -366,11 +367,11 @@ export default async function ServiceDetailPage({
             <Link
               key={s.id}
               href={`/${code}/${s.slug}/`}
-              className="group bg-paper-pure p-7 transition-colors duration-base hover:bg-burgundy-100/30"
+              className="group bg-paper-pure p-7 transition-colors duration-base hover:bg-accent-soft"
             >
-              <Icon name={s.icon} className="h-5 w-5 text-gold-700" />
-              <h3 className="mt-5 font-display text-h4 text-burgundy-700">{s.title}</h3>
-              <span className="mt-4 inline-flex items-center gap-1.5 text-small text-burgundy-700">
+              <Icon name={s.icon} className="h-5 w-5 text-accent" />
+              <h3 className="mt-5 font-display text-h4 text-[color:var(--text-brand)]">{s.title}</h3>
+              <span className="mt-4 inline-flex items-center gap-1.5 text-small text-[color:var(--text-brand)]">
                 {isDe ? 'Ansehen' : 'View service'}
                 <ArrowRight
                   className="h-3.5 w-3.5 transition-transform duration-base group-hover:translate-x-1"

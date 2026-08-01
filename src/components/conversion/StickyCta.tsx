@@ -48,10 +48,10 @@ export function StickyCta({ country }: { country: CountryCode }) {
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => analytics.whatsappClick(country)}
-            className="flex min-h-[48px] min-w-[48px] items-center justify-center rounded-pill border border-gold-300 bg-paper-pure px-4"
+            className="flex min-h-[48px] min-w-[48px] items-center justify-center rounded-pill border border-accent-line bg-paper-pure px-4"
             aria-label="Chat on WhatsApp"
           >
-            <MessageCircle className="h-5 w-5 text-burgundy-700" aria-hidden="true" />
+            <MessageCircle className="h-5 w-5 text-[color:var(--text-brand)]" aria-hidden="true" />
           </a>
         )}
       </div>

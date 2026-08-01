@@ -108,6 +108,7 @@ export default async function SupportPage({
       <JsonLd data={graph(breadcrumbSchema(breadcrumbs), faqSchema(faqs))} />
 
       <PageHero
+        country={code}
         eyebrow="Support"
         title={isDe ? 'Support für bestehende Kunden' : 'Support for existing clients'}
         intro={
@@ -129,20 +130,20 @@ export default async function SupportPage({
             <a
               key={ch.label}
               href={ch.href}
-              className="bg-paper-pure p-7 transition-colors duration-base hover:bg-burgundy-100/30"
+              className="bg-paper-pure p-7 transition-colors duration-base hover:bg-accent-soft"
             >
-              <ch.icon className="h-5 w-5 text-gold-700" aria-hidden="true" />
+              <ch.icon className="h-5 w-5 text-accent" aria-hidden="true" />
               <p className="mt-5 font-tight text-eyebrow uppercase text-ink-400">
                 {ch.label}
               </p>
-              <p className="mt-1.5 text-body text-burgundy-700">{ch.value}</p>
+              <p className="mt-1.5 text-body text-[color:var(--text-brand)]">{ch.value}</p>
               <p className="mt-3 text-small text-ink-400">{ch.note}</p>
             </a>
           ))}
         </div>
 
-        <div className="mt-10 flex gap-4 rounded-lg border border-gold-300 bg-burgundy-100/25 p-6">
-          <LifeBuoy className="mt-0.5 h-5 w-5 shrink-0 text-gold-700" aria-hidden="true" />
+        <div className="mt-10 flex gap-4 rounded-lg border border-accent-line bg-burgundy-100/25 p-6">
+          <LifeBuoy className="mt-0.5 h-5 w-5 shrink-0 text-accent" aria-hidden="true" />
           <p className="text-body text-ink-600">
             {isDe
               ? 'Bei kritischen Störungen an laufenden Kampagnen oder Tracking bitte telefonisch melden — Reaktion innerhalb einer Stunde.'

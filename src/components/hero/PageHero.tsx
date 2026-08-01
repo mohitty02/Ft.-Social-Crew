@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import type { Breadcrumb } from '@/types'
+import type { Breadcrumb, CountryCode } from '@/types'
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs'
 import { Pill } from '@/components/ui/Pill'
 import { AnswerBlock } from '@/components/aeo/AnswerBlock'
@@ -18,6 +18,7 @@ export function PageHero({
   intro,
   answer,
   breadcrumbs,
+  country,
   children,
 }: {
   eyebrow: string
@@ -25,6 +26,8 @@ export function PageHero({
   intro?: string
   answer: string
   breadcrumbs: Breadcrumb[]
+  /** Localises the answer-block label — SRS §7.4. */
+  country?: CountryCode
   children?: ReactNode
 }) {
   return (
@@ -37,7 +40,7 @@ export function PageHero({
             <Pill variant="outline" size="md">
               {eyebrow}
             </Pill>
-            <h1 className="mt-6 font-display text-display-2 text-burgundy-700">
+            <h1 className="mt-6 font-display text-display-2 text-[color:var(--text-brand)]">
               {title}
             </h1>
             {intro && (
@@ -46,7 +49,7 @@ export function PageHero({
           </div>
 
           <div className="lg:pt-16">
-            <AnswerBlock>{answer}</AnswerBlock>
+            <AnswerBlock country={country}>{answer}</AnswerBlock>
           </div>
         </div>
 

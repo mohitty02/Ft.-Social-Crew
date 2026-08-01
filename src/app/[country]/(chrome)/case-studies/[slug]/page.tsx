@@ -98,10 +98,10 @@ export default async function CaseStudyPage({
                 <Pill variant="outline" size="md">
                   {industry?.name ?? cs.industry}
                 </Pill>
-                <h1 className="mt-6 font-display text-display-2 text-burgundy-700">
+                <h1 className="mt-6 font-display text-display-2 text-[color:var(--text-brand)]">
                   {cs.title}
                 </h1>
-                <p className="mt-5 font-tight text-eyebrow uppercase text-gold-700">
+                <p className="mt-5 font-tight text-eyebrow uppercase text-accent">
                   {cs.client} · <time dateTime={cs.publishedAt}>{formatDate(cs.publishedAt, code)}</time>
                 </p>
               </div>
@@ -171,13 +171,13 @@ export default async function CaseStudyPage({
 
             {cs.quote && (
               <Reveal>
-                <figure className="rounded-xl border border-gold-300 bg-paper-pure p-8 sm:p-10">
+                <figure className="rounded-xl border border-accent-line bg-paper-pure p-8 sm:p-10">
                   <Quote className="h-7 w-7 text-gold-300" aria-hidden="true" />
-                  <blockquote className="mt-6 font-display text-h3 text-burgundy-700">
+                  <blockquote className="mt-6 font-display text-h3 text-[color:var(--text-brand)]">
                     {cs.quote.text}
                   </blockquote>
                   <figcaption className="mt-7 border-t border-ink/10 pt-5">
-                    <p className="font-tight text-small font-medium text-burgundy-700">
+                    <p className="font-tight text-small font-medium text-[color:var(--text-brand)]">
                       {cs.quote.author}
                     </p>
                     <p className="mt-1 text-small text-ink-400">{cs.quote.role}</p>

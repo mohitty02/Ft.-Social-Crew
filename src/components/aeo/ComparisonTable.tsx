@@ -23,11 +23,11 @@ export function ComparisonTable({
   className?: string
 }) {
   return (
-    <div className={cn('overflow-x-auto rounded-lg border border-ink/10', className)}>
+    <div className={cn('overflow-x-auto rounded-card border border-ink/10', className)}>
       <table className="w-full min-w-[640px] border-collapse text-left">
         <caption className="sr-only">{caption}</caption>
         <thead>
-          <tr className="bg-burgundy-100/40">
+          <tr className="bg-accent-soft">
             <th
               scope="col"
               className="px-5 py-4 font-tight text-eyebrow uppercase text-ink-600"
@@ -36,7 +36,7 @@ export function ComparisonTable({
             </th>
             <th
               scope="col"
-              className="px-5 py-4 font-tight text-eyebrow uppercase text-burgundy-700"
+              className="px-5 py-4 font-tight text-eyebrow uppercase text-[color:var(--text-brand)]"
             >
               {usLabel}
             </th>
@@ -57,7 +57,7 @@ export function ComparisonTable({
               >
                 {row.dimension}
               </th>
-              <td className="px-5 py-5 text-small text-burgundy-700">{row.us}</td>
+              <td className="px-5 py-5 text-small text-[color:var(--text-brand)]">{row.us}</td>
               <td className="px-5 py-5 text-small text-ink-600">{row.them}</td>
             </tr>
           ))}

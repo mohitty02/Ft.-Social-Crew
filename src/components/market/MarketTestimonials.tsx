@@ -64,7 +64,7 @@ export function MarketTestimonials({
             key={`${t.client}-${i}`}
             className="flex w-[calc(100%-1rem)] shrink-0 snap-start sm:w-[calc(50%-0.625rem)] lg:w-[calc(33.333%-0.834rem)]"
           >
-            <figure className="flex w-full flex-col rounded-2xl border border-steel-200 bg-white p-7">
+            <figure className="flex w-full flex-col rounded-card border border-steel-200 bg-white p-7">
               <div className="flex gap-0.5" aria-label={labels.ratedFive}>
                 {Array.from({ length: 5 }).map((_, s) => (
                   <Star
@@ -111,7 +111,7 @@ export function MarketTestimonials({
         onClick={() => scrollTo(active + 1)}
         disabled={active >= items.length - 1}
         aria-label={labels.next}
-        className="absolute -right-3 top-1/2 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-steel-200 bg-white text-steel-700 shadow-lg transition-opacity duration-200 hover:text-brand-700 disabled:opacity-60 lg:flex"
+        className="absolute -right-3 top-1/2 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-steel-200 bg-white text-steel-700 shadow-lg transition-opacity duration-200 hover:text-accent disabled:opacity-60 lg:flex"
       >
         <ChevronRight className="h-5 w-5" aria-hidden="true" />
       </button>
@@ -126,7 +126,7 @@ export function MarketTestimonials({
             aria-current={i === active ? 'true' : undefined}
             className={cn(
               'h-2 rounded-full transition-all duration-300',
-              i === active ? 'w-6 bg-brand-600' : 'w-2 bg-steel-300'
+              i === active ? 'w-6 bg-accent' : 'w-2 bg-steel-300'
             )}
           />
         ))}

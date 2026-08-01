@@ -96,6 +96,7 @@ export default async function ContactPage({
       />
 
       <PageHero
+        country={code}
         eyebrow={isDe ? 'Kontakt' : 'Contact'}
         title={isDe ? 'Sprechen wir' : `Talk to the ${c.name} team`}
         intro={
@@ -115,34 +116,34 @@ export default async function ContactPage({
         <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
           {/* NAP — consistent across the site per SRS §9.1 */}
           <div>
-            <h2 className="font-tight text-eyebrow uppercase text-gold-700">
+            <h2 className="font-tight text-eyebrow uppercase text-accent">
               {isDe ? 'Direktkontakt' : 'Direct contact'}
             </h2>
 
             <div className="mt-7 space-y-px overflow-hidden rounded-lg border border-ink/10 bg-ink/10">
               <a
                 href={telHref(c.phone)}
-                className="flex items-center gap-4 bg-paper-pure p-6 transition-colors duration-base hover:bg-burgundy-100/30"
+                className="flex items-center gap-4 bg-paper-pure p-6 transition-colors duration-base hover:bg-accent-soft"
               >
-                <Phone className="h-5 w-5 shrink-0 text-gold-700" aria-hidden="true" />
+                <Phone className="h-5 w-5 shrink-0 text-accent" aria-hidden="true" />
                 <span>
                   <span className="block font-tight text-eyebrow uppercase text-ink-400">
                     {isDe ? 'Telefon' : 'Phone'}
                   </span>
-                  <span className="mt-1 block text-body text-burgundy-700">{c.phone}</span>
+                  <span className="mt-1 block text-body text-[color:var(--text-brand)]">{c.phone}</span>
                 </span>
               </a>
 
               <a
                 href={`mailto:${c.email}`}
-                className="flex items-center gap-4 bg-paper-pure p-6 transition-colors duration-base hover:bg-burgundy-100/30"
+                className="flex items-center gap-4 bg-paper-pure p-6 transition-colors duration-base hover:bg-accent-soft"
               >
-                <Mail className="h-5 w-5 shrink-0 text-gold-700" aria-hidden="true" />
+                <Mail className="h-5 w-5 shrink-0 text-accent" aria-hidden="true" />
                 <span className="min-w-0">
                   <span className="block font-tight text-eyebrow uppercase text-ink-400">
                     Email
                   </span>
-                  <span className="mt-1 block truncate text-body text-burgundy-700">
+                  <span className="mt-1 block truncate text-body text-[color:var(--text-brand)]">
                     {c.email}
                   </span>
                 </span>
@@ -154,14 +155,14 @@ export default async function ContactPage({
                   href={whatsappHref(c.phone, 'Hi, I would like to discuss growth for my business.')}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-4 bg-paper-pure p-6 transition-colors duration-base hover:bg-burgundy-100/30"
+                  className="flex items-center gap-4 bg-paper-pure p-6 transition-colors duration-base hover:bg-accent-soft"
                 >
-                  <MessageCircle className="h-5 w-5 shrink-0 text-gold-700" aria-hidden="true" />
+                  <MessageCircle className="h-5 w-5 shrink-0 text-accent" aria-hidden="true" />
                   <span>
                     <span className="block font-tight text-eyebrow uppercase text-ink-400">
                       WhatsApp
                     </span>
-                    <span className="mt-1 block text-body text-burgundy-700">
+                    <span className="mt-1 block text-body text-[color:var(--text-brand)]">
                       {isDe ? 'Direktnachricht' : 'Message us directly'}
                     </span>
                   </span>
@@ -169,7 +170,7 @@ export default async function ContactPage({
               )}
 
               <div className="flex items-start gap-4 bg-paper-pure p-6">
-                <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-gold-700" aria-hidden="true" />
+                <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-accent" aria-hidden="true" />
                 <address className="not-italic">
                   <span className="block font-tight text-eyebrow uppercase text-ink-400">
                     {isDe ? 'Büro' : 'Office'}
@@ -185,7 +186,7 @@ export default async function ContactPage({
               </div>
 
               <div className="flex items-start gap-4 bg-paper-pure p-6">
-                <Clock className="mt-0.5 h-5 w-5 shrink-0 text-gold-700" aria-hidden="true" />
+                <Clock className="mt-0.5 h-5 w-5 shrink-0 text-accent" aria-hidden="true" />
                 <span>
                   <span className="block font-tight text-eyebrow uppercase text-ink-400">
                     {isDe ? 'Zeitzone' : 'Timezone'}
@@ -198,9 +199,9 @@ export default async function ContactPage({
             {/* Calendly — SRS §15.1 places direct booking on contact and
                 pricing pages. Rendered as a deferred slot so a third-party
                 embed never costs us LCP. */}
-            <div className="mt-6 rounded-lg border border-gold-300 bg-burgundy-100/25 p-6">
-              <Calendar className="h-5 w-5 text-gold-700" aria-hidden="true" />
-              <h3 className="mt-4 font-display text-h4 text-burgundy-700">
+            <div className="mt-6 rounded-lg border border-accent-line bg-burgundy-100/25 p-6">
+              <Calendar className="h-5 w-5 text-accent" aria-hidden="true" />
+              <h3 className="mt-4 font-display text-h4 text-[color:var(--text-brand)]">
                 {isDe ? 'Termin direkt buchen' : 'Book a time directly'}
               </h3>
               <p className="mt-2 text-small text-ink-600">
@@ -218,7 +219,7 @@ export default async function ContactPage({
           {/* SRS §15.1 — contact pages get the LONGER QUALIFYING form */}
           <Reveal>
             <div className="rounded-xl border border-ink/10 bg-paper-pure p-7 sm:p-10">
-              <h2 id="contact-form-heading" className="font-display text-h2 text-burgundy-700">
+              <h2 id="contact-form-heading" className="font-display text-h2 text-[color:var(--text-brand)]">
                 {isDe ? 'Anfrage senden' : 'Send an enquiry'}
               </h2>
               <p className="mt-3 text-body text-ink-600">

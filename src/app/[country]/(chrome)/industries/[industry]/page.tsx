@@ -118,6 +118,7 @@ export default async function IndustryPage({
       <JsonLd data={graph(breadcrumbSchema(breadcrumbs), faqSchema(faqs))} />
 
       <PageHero
+        country={code}
         eyebrow={ind.name}
         title={
           isDe
@@ -140,7 +141,7 @@ export default async function IndustryPage({
             <Pill variant="outline" size="md">
               {isDe ? 'Problemstellung' : 'The problem'}
             </Pill>
-            <h2 className="mt-6 font-display text-h2 text-burgundy-700">
+            <h2 className="mt-6 font-display text-h2 text-[color:var(--text-brand)]">
               {isDe
                 ? 'Was in dieser Branche tatsächlich schwierig ist'
                 : 'What actually makes this sector hard'}
@@ -148,7 +149,7 @@ export default async function IndustryPage({
             <ul className="mt-8 space-y-6">
               {ind.painPoints.map((p) => (
                 <li key={p} className="flex gap-4">
-                  <AlertCircle className="mt-1 h-4 w-4 shrink-0 text-gold-700" aria-hidden="true" />
+                  <AlertCircle className="mt-1 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
                   <span className="text-body text-ink-600">{p}</span>
                 </li>
               ))}
@@ -183,6 +184,7 @@ export default async function IndustryPage({
           />
           <Reveal>
             <KeyTakeaways
+              country={code}
               title={isDe ? 'Erforderliche Leistungen' : 'What this sector needs'}
               items={ind.servicesRequired}
             />
@@ -205,12 +207,12 @@ export default async function IndustryPage({
             <StaggerItem key={s.slug} className="bg-paper-pure">
               <Link
                 href={`/${code}/industries/${industry}/${resolveServiceSlug(s, code)}/`}
-                className="group flex items-center justify-between gap-4 p-7 transition-colors duration-base hover:bg-burgundy-100/30"
+                className="group flex items-center justify-between gap-4 p-7 transition-colors duration-base hover:bg-accent-soft"
               >
                 <span className="flex items-center gap-4">
-                  <Icon name={s.icon} className="h-5 w-5 text-gold-700" />
+                  <Icon name={s.icon} className="h-5 w-5 text-accent" />
                   <span>
-                    <span className="block font-display text-h4 text-burgundy-700">
+                    <span className="block font-display text-h4 text-[color:var(--text-brand)]">
                       {resolveServiceTitle(s, code)}
                     </span>
                     <span className="mt-1 block text-small text-ink-400">
@@ -219,7 +221,7 @@ export default async function IndustryPage({
                   </span>
                 </span>
                 <ArrowRight
-                  className="h-4 w-4 shrink-0 text-burgundy-700 transition-transform duration-base group-hover:translate-x-1"
+                  className="h-4 w-4 shrink-0 text-[color:var(--text-brand)] transition-transform duration-base group-hover:translate-x-1"
                   aria-hidden="true"
                 />
               </Link>
@@ -243,7 +245,7 @@ export default async function IndustryPage({
             <ul className="mt-8 space-y-4">
               {ind.contentIdeas.map((idea) => (
                 <li key={idea} className="flex gap-3.5">
-                  <Check className="mt-1 h-4 w-4 shrink-0 text-gold-700" aria-hidden="true" />
+                  <Check className="mt-1 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
                   <span className="text-body text-ink-600">{idea}</span>
                 </li>
               ))}
@@ -251,14 +253,14 @@ export default async function IndustryPage({
           </div>
 
           <Reveal>
-            <div className="rounded-lg border border-gold-300 bg-burgundy-100/25 p-7 sm:p-9">
-              <p className="font-tight text-eyebrow uppercase text-gold-700">
+            <div className="rounded-lg border border-accent-line bg-burgundy-100/25 p-7 sm:p-9">
+              <p className="font-tight text-eyebrow uppercase text-accent">
                 {isDe ? 'Lead-Magnet' : 'Lead magnet'}
               </p>
-              <p className="mt-4 font-display text-h3 text-burgundy-700">
+              <p className="mt-4 font-display text-h3 text-[color:var(--text-brand)]">
                 {ind.leadMagnet}
               </p>
-              <p className="mt-6 border-t border-burgundy-700/10 pt-6 font-tight text-eyebrow uppercase text-gold-700">
+              <p className="mt-6 border-t border-burgundy-700/10 pt-6 font-tight text-eyebrow uppercase text-accent">
                 {isDe ? 'Referenzidee' : 'Case study focus'}
               </p>
               <p className="mt-3 text-body text-ink-600">{ind.caseStudyIdea}</p>

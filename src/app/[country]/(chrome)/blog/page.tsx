@@ -62,6 +62,7 @@ export default async function BlogHubPage({
       <JsonLd data={graph(breadcrumbSchema(breadcrumbs))} />
 
       <PageHero
+        country={code}
         eyebrow="Blog"
         title={
           isDe

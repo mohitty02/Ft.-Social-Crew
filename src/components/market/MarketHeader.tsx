@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { Menu, X, ChevronDown, Phone, ArrowRight } from 'lucide-react'
 import type { CountryCode } from '@/types'
 import { marketHome } from '@/content/marketHome'
@@ -34,6 +35,7 @@ export function MarketHeader({
   const [openMenu, setOpenMenu] = useState<string | null>(null)
   const [scrolled, setScrolled] = useState(false)
 
+  const pathname = usePathname()
   const m = marketHome[country]
   const base = `/${country}`
 
@@ -93,7 +95,11 @@ export function MarketHeader({
           onMouseLeave={() => setOpenMenu(null)}
         >
           {nav.map((item) => {
-            const isHome = item.href === `${base}/`
+            // Marks the section you are actually in, not just the home link.
+            const isActive =
+              item.href === `${base}/`
+                ? pathname === `${base}` || pathname === `${base}/`
+                : pathname.startsWith(item.href)
 
             return (
               <div
@@ -103,11 +109,11 @@ export function MarketHeader({
               >
                 <Link
                   href={item.href}
-                  aria-current={isHome ? 'page' : undefined}
+                  aria-current={isActive ? 'page' : undefined}
                   aria-expanded={item.children ? openMenu === item.label : undefined}
                   className={cn(
                     'flex items-center gap-1 px-3 py-2 text-[0.8125rem] font-medium transition-colors duration-150',
-                    isHome ? 'text-brand-600' : 'text-steel-700 hover:text-brand-600'
+                    isActive ? 'text-accent' : 'text-steel-700 hover:text-accent'
                   )}
                 >
                   {item.label}
@@ -123,22 +129,22 @@ export function MarketHeader({
                 </Link>
 
                 {/* Active-page underline, as in the comp. */}
-                {isHome && (
+                {isActive && (
                   <span
-                    className="absolute inset-x-3 -bottom-[9px] h-[2px] rounded-full bg-brand-600"
+                    className="absolute inset-x-3 -bottom-[9px] h-[2px] rounded-full bg-accent"
                     aria-hidden="true"
                   />
                 )}
 
                 {item.children && openMenu === item.label && (
                   <div className="absolute left-1/2 top-full w-[17rem] -translate-x-1/2 pt-3">
-                    <ul className="animate-fade-up rounded-xl border border-steel-200 bg-white p-2 shadow-[0_24px_50px_-20px_rgba(17,28,34,0.28)]">
+                    <ul className="animate-fade-up rounded-card border border-steel-200 bg-white p-2 shadow-[0_24px_50px_-20px_rgba(17,28,34,0.28)]">
                       {item.children.map((child) => (
                         <li key={child.href}>
                           <Link
                             href={child.href}
                             onClick={() => setOpenMenu(null)}
-                            className="block rounded-lg px-3 py-2.5 text-[0.8125rem] font-medium text-steel-700 transition-colors duration-150 hover:bg-brand-50 hover:text-brand-700"
+                            className="block rounded-card px-3 py-2.5 text-[0.8125rem] font-medium text-steel-700 transition-colors duration-150 hover:bg-accent-soft hover:text-accent"
                           >
                             {child.label}
                           </Link>
@@ -156,15 +162,15 @@ export function MarketHeader({
         <div className="flex shrink-0 items-center gap-4">
           <a
             href={phoneHref}
-            className="hidden items-center gap-2 text-[0.8125rem] font-medium text-steel-800 transition-colors duration-150 hover:text-brand-600 lg:flex"
+            className="hidden items-center gap-2 text-[0.8125rem] font-medium text-steel-800 transition-colors duration-150 hover:text-accent lg:flex"
           >
-            <Phone className="h-4 w-4 text-brand-600" aria-hidden="true" />
+            <Phone className="h-4 w-4 text-accent" aria-hidden="true" />
             {phone}
           </a>
 
           <Link
             href={`${base}/contact/`}
-            className="hidden items-center rounded-lg bg-brand-700 px-5 py-3 text-[0.8125rem] font-semibold text-white transition-colors duration-200 hover:bg-brand-800 md:inline-flex"
+            className="hidden items-center rounded-card bg-brand-700 px-5 py-3 text-[0.8125rem] font-semibold text-white transition-colors duration-200 hover:bg-brand-800 md:inline-flex"
           >
             {m.headerCta}
           </Link>
@@ -174,7 +180,7 @@ export function MarketHeader({
             onClick={() => setMobileOpen(true)}
             aria-label="Menu"
             aria-expanded={mobileOpen}
-            className="flex h-11 w-11 items-center justify-center rounded-lg border border-steel-200 text-steel-800 xl:hidden"
+            className="flex h-11 w-11 items-center justify-center rounded-card border border-steel-200 text-steel-800 xl:hidden"
           >
             <Menu className="h-5 w-5" aria-hidden="true" />
           </button>
@@ -190,7 +196,7 @@ export function MarketHeader({
               type="button"
               onClick={() => setMobileOpen(false)}
               aria-label="Close"
-              className="flex h-11 w-11 items-center justify-center rounded-lg border border-steel-200 text-steel-800"
+              className="flex h-11 w-11 items-center justify-center rounded-card border border-steel-200 text-steel-800"
             >
               <X className="h-5 w-5" aria-hidden="true" />
             </button>
@@ -241,7 +247,7 @@ export function MarketHeader({
             <Link
               href={`${base}/contact/`}
               onClick={() => setMobileOpen(false)}
-              className="mt-7 flex items-center justify-center gap-2 rounded-lg bg-brand-700 px-5 py-4 text-sm font-semibold text-white"
+              className="mt-7 flex items-center justify-center gap-2 rounded-card bg-brand-700 px-5 py-4 text-sm font-semibold text-white"
             >
               {m.headerCta}
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -249,9 +255,9 @@ export function MarketHeader({
 
             <a
               href={phoneHref}
-              className="mt-3 flex items-center justify-center gap-2 rounded-lg border border-steel-200 px-5 py-4 text-sm font-semibold text-steel-900"
+              className="mt-3 flex items-center justify-center gap-2 rounded-card border border-steel-200 px-5 py-4 text-sm font-semibold text-steel-900"
             >
-              <Phone className="h-4 w-4 text-brand-600" aria-hidden="true" />
+              <Phone className="h-4 w-4 text-accent" aria-hidden="true" />
               {phone}
             </a>
           </div>

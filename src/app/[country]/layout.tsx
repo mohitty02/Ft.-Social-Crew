@@ -41,7 +41,13 @@ export default async function CountryLayout({
   const c = countries[code]
 
   return (
-    <div lang={c.locale}>
+    /*
+      `data-market` is what gives each country its own identity. The
+      per-market custom properties in src/styles/globals.css hang off this
+      attribute — accent hue, corner radius, surface tint and section rhythm —
+      so six markets look distinct through one set of templates.
+    */
+    <div lang={c.locale} data-market={code}>
       {/*
         The App Router root layout owns <html> and cannot see the [country]
         param, so the document language is corrected here. The wrapping

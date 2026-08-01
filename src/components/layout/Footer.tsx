@@ -27,7 +27,7 @@ export function Footer({ country }: { country: CountryCode }) {
         <div className="container-shell py-14">
           <div className="flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-center">
             <div className="max-w-xl">
-              <h2 className="font-display text-h2 text-burgundy-700">
+              <h2 className="font-display text-h2 text-[color:var(--text-brand)]">
                 {isDe
                   ? 'Sprechen wir über Ihre Prozesse'
                   : `Let's talk about what growth should look like`}
@@ -57,7 +57,7 @@ export function Footer({ country }: { country: CountryCode }) {
           <div>
             <Link
               href={`/${country}/`}
-              className="font-display text-[1.35rem] font-semibold text-burgundy-700"
+              className="font-display text-[1.35rem] font-semibold text-[color:var(--text-brand)]"
             >
               Ft. Social Crew
             </Link>
@@ -67,7 +67,7 @@ export function Footer({ country }: { country: CountryCode }) {
 
             <address className="mt-6 space-y-3 not-italic">
               <p className="flex items-start gap-2.5 text-small text-ink-600">
-                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold-700" aria-hidden="true" />
+                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
                 <span>
                   {c.office.street}
                   <br />
@@ -77,19 +77,19 @@ export function Footer({ country }: { country: CountryCode }) {
                 </span>
               </p>
               <p className="flex items-center gap-2.5 text-small">
-                <Phone className="h-4 w-4 shrink-0 text-gold-700" aria-hidden="true" />
+                <Phone className="h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
                 <a
                   href={telHref(c.phone)}
-                  className="text-ink-600 underline-offset-4 hover:text-burgundy-700 hover:underline"
+                  className="text-ink-600 underline-offset-4 hover:text-[color:var(--text-brand)] hover:underline"
                 >
                   {c.phone}
                 </a>
               </p>
               <p className="flex items-center gap-2.5 text-small">
-                <Mail className="h-4 w-4 shrink-0 text-gold-700" aria-hidden="true" />
+                <Mail className="h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
                 <a
                   href={`mailto:${c.email}`}
-                  className="text-ink-600 underline-offset-4 hover:text-burgundy-700 hover:underline"
+                  className="text-ink-600 underline-offset-4 hover:text-[color:var(--text-brand)] hover:underline"
                 >
                   {c.email}
                 </a>
@@ -98,8 +98,8 @@ export function Footer({ country }: { country: CountryCode }) {
 
             {/* SRS §23.5 — GDPR handling stated clearly for the German market */}
             {c.trustNote && (
-              <p className="mt-6 flex items-start gap-2.5 rounded-md border border-gold-300 bg-burgundy-100/25 p-3.5 text-small text-ink-600">
-                <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-gold-700" aria-hidden="true" />
+              <p className="mt-6 flex items-start gap-2.5 rounded-md border border-accent-line bg-burgundy-100/25 p-3.5 text-small text-ink-600">
+                <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
                 <span>{c.trustNote}</span>
               </p>
             )}
@@ -107,7 +107,7 @@ export function Footer({ country }: { country: CountryCode }) {
 
           {columns.map((col) => (
             <div key={col.title}>
-              <p className="mb-4 font-tight text-eyebrow uppercase text-gold-700">
+              <p className="mb-4 font-tight text-eyebrow uppercase text-accent">
                 {col.title}
               </p>
               <ul className="space-y-2.5">
@@ -115,7 +115,7 @@ export function Footer({ country }: { country: CountryCode }) {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-small text-ink-600 underline-offset-4 transition-colors duration-fast hover:text-burgundy-700 hover:underline"
+                      className="text-small text-ink-600 underline-offset-4 transition-colors duration-fast hover:text-[color:var(--text-brand)] hover:underline"
                     >
                       {link.label}
                     </Link>
@@ -130,7 +130,7 @@ export function Footer({ country }: { country: CountryCode }) {
       {/* Regions — makes the single-domain global footprint legible (SRS §1.10) */}
       <div className="border-t border-ink/10">
         <div className="container-shell py-8">
-          <p className="mb-4 font-tight text-eyebrow uppercase text-gold-700">
+          <p className="mb-4 font-tight text-eyebrow uppercase text-accent">
             Regions
           </p>
           <ul className="flex flex-wrap gap-x-6 gap-y-2.5">
@@ -138,7 +138,7 @@ export function Footer({ country }: { country: CountryCode }) {
               <li key={item.code}>
                 <Link
                   href={`/${item.code}/`}
-                  className="text-small text-ink-600 underline-offset-4 transition-colors duration-fast hover:text-burgundy-700 hover:underline"
+                  className="text-small text-ink-600 underline-offset-4 transition-colors duration-fast hover:text-[color:var(--text-brand)] hover:underline"
                   aria-current={item.code === country ? 'true' : undefined}
                 >
                   {item.name}
@@ -158,19 +158,19 @@ export function Footer({ country }: { country: CountryCode }) {
           <div className="flex gap-5">
             <Link
               href={`/${country}/privacy/`}
-              className="text-small text-ink-400 underline-offset-4 hover:text-burgundy-700 hover:underline"
+              className="text-small text-ink-400 underline-offset-4 hover:text-[color:var(--text-brand)] hover:underline"
             >
               Privacy
             </Link>
             <Link
               href={`/${country}/terms/`}
-              className="text-small text-ink-400 underline-offset-4 hover:text-burgundy-700 hover:underline"
+              className="text-small text-ink-400 underline-offset-4 hover:text-[color:var(--text-brand)] hover:underline"
             >
               Terms
             </Link>
             <Link
               href={`/${country}/support/`}
-              className="text-small text-ink-400 underline-offset-4 hover:text-burgundy-700 hover:underline"
+              className="text-small text-ink-400 underline-offset-4 hover:text-[color:var(--text-brand)] hover:underline"
             >
               Support
             </Link>

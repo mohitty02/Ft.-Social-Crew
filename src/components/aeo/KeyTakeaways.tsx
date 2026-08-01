@@ -1,5 +1,11 @@
 import { Check } from 'lucide-react'
+import type { CountryCode } from '@/types'
 import { cn } from '@/lib/utils/cn'
+
+/** SRS §7.4 — chrome labels read in the market's own language. */
+const defaultTitle: Partial<Record<CountryCode, string>> = {
+  de: 'Das Wichtigste in Kürze',
+}
 
 /**
  * SRS §9.2 — LLM-friendly formatting. A bulleted summary block of
@@ -8,19 +14,23 @@ import { cn } from '@/lib/utils/cn'
  */
 export function KeyTakeaways({
   items,
-  title = 'Key takeaways',
+  title,
+  country,
   invert = false,
   className,
 }: {
   items: string[]
   title?: string
+  country?: CountryCode
   invert?: boolean
   className?: string
 }) {
+  const resolved = title ?? (country && defaultTitle[country]) ?? 'Key takeaways'
+
   return (
     <aside
       className={cn(
-        'rounded-lg border p-6 sm:p-8',
+        'rounded-card border p-6 sm:p-8',
         invert
           ? 'border-burgundy-100/15 bg-burgundy-100/[0.04]'
           : 'border-ink/10 bg-paper-pure',
@@ -30,10 +40,10 @@ export function KeyTakeaways({
       <h2
         className={cn(
           'mb-5 font-tight text-eyebrow uppercase',
-          invert ? 'text-gold-300' : 'text-gold-700'
+          invert ? 'text-gold-300' : 'text-accent'
         )}
       >
-        {title}
+        {resolved}
       </h2>
       <ul className="space-y-3.5">
         {items.map((item) => (
@@ -41,7 +51,7 @@ export function KeyTakeaways({
             <Check
               className={cn(
                 'mt-1 h-4 w-4 shrink-0',
-                invert ? 'text-gold-300' : 'text-burgundy-700'
+                invert ? 'text-gold-300' : 'text-[color:var(--text-brand)]'
               )}
               aria-hidden="true"
             />

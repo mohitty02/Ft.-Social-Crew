@@ -63,6 +63,7 @@ export default async function PrivacyPage({
       <JsonLd data={graph(breadcrumbSchema(breadcrumbs))} />
 
       <PageHero
+        country={code}
         eyebrow={isDe ? 'Datenschutz' : 'Privacy'}
         title={isDe ? 'Datenschutzerklärung' : 'Privacy policy'}
         intro={c.trustNote ?? `How we handle personal data for visitors and clients in ${c.name}.`}

@@ -79,6 +79,7 @@ export default async function LocationsHubPage({
       <JsonLd data={graph(breadcrumbSchema(breadcrumbs), faqSchema(faqs))} />
 
       <PageHero
+        country={code}
         eyebrow={isDe ? 'Standorte' : 'Locations'}
         title={
           isDe

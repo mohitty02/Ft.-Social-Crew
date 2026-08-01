@@ -11,7 +11,7 @@ export default function NotFound() {
           <Pill variant="outline" size="md">
             404
           </Pill>
-          <h1 className="mt-7 font-display text-display-2 text-burgundy-700">
+          <h1 className="mt-7 font-display text-display-2 text-[color:var(--text-brand)]">
             That page does not exist
           </h1>
           <p className="mt-6 max-w-prose text-lead text-ink-600">
@@ -27,7 +27,7 @@ export default function NotFound() {
           </div>
 
           <nav aria-label="Regions" className="mt-14">
-            <h2 className="mb-4 font-tight text-eyebrow uppercase text-gold-700">
+            <h2 className="mb-4 font-tight text-eyebrow uppercase text-accent">
               Or choose a region
             </h2>
             <ul className="flex flex-wrap gap-x-6 gap-y-2.5">
@@ -35,7 +35,7 @@ export default function NotFound() {
                 <li key={c.code}>
                   <Link
                     href={`/${c.code}/`}
-                    className="text-body text-burgundy-700 underline decoration-gold-300 decoration-2 underline-offset-4"
+                    className="text-body text-[color:var(--text-brand)] underline decoration-gold-300 decoration-2 underline-offset-4"
                   >
                     {c.name}
                   </Link>

@@ -27,12 +27,12 @@ interface PillProps {
 
 const variants: Record<PillVariant, string> = {
   // Solid blush fill with burgundy ink — the filled pills on the brand plate.
-  solid: 'bg-burgundy-100 text-burgundy-700 border border-transparent',
+  solid: 'bg-burgundy-100 text-[color:var(--text-brand)] border border-transparent',
   // Gold hairline on light — the outlined pills, inverted for the light theme.
-  outline: 'bg-transparent text-burgundy-700 border border-gold-300',
+  outline: 'bg-transparent text-[color:var(--text-brand)] border border-accent-line',
   ghost: 'bg-transparent text-ink-600 border border-ink-300/40',
   // For use on burgundy sections.
-  invert: 'bg-burgundy-100/10 text-burgundy-100 border border-gold-300/50',
+  invert: 'bg-burgundy-100/10 text-burgundy-100 border border-accent-line/50',
 }
 
 const sizes: Record<PillSize, string> = {
@@ -51,7 +51,7 @@ export function Pill({
   return (
     <Tag
       className={cn(
-        'inline-flex items-center justify-center rounded-pill font-tight font-medium uppercase whitespace-nowrap',
+        'inline-flex items-center justify-center rounded-[var(--radius-chip)] font-tight font-medium uppercase whitespace-nowrap',
         variants[variant],
         sizes[size],
         className

@@ -149,6 +149,7 @@ export default async function CityServicePage({
       />
 
       <PageHero
+        country={code}
         eyebrow={`${record.name} · ${svc.title}`}
         title={
           isDe
@@ -172,13 +173,14 @@ export default async function CityServicePage({
               }
             />
             <p className="mt-6 flex gap-3.5 text-body text-ink-600">
-              <MapPin className="mt-1 h-4 w-4 shrink-0 text-gold-700" aria-hidden="true" />
+              <MapPin className="mt-1 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
               <span>{record.localProofPoint}</span>
             </p>
             <p className="mt-5 max-w-prose text-body text-ink-600">{svc.summary}</p>
           </div>
           <Reveal>
             <KeyTakeaways
+              country={code}
               title={isDe ? 'Leistungsumfang' : 'What is included'}
               items={svc.deliverables.slice(0, 5)}
             />
@@ -195,8 +197,8 @@ export default async function CityServicePage({
             </div>
           </div>
           <Reveal>
-            <div className="rounded-xl border border-gold-300 bg-paper-pure p-7 sm:p-9">
-              <h2 className="font-display text-h3 text-burgundy-700">
+            <div className="rounded-xl border border-accent-line bg-paper-pure p-7 sm:p-9">
+              <h2 className="font-display text-h3 text-[color:var(--text-brand)]">
                 {isDe ? 'Anfrage senden' : 'Get in touch'}
               </h2>
               <LeadForm
@@ -240,12 +242,12 @@ export default async function CityServicePage({
             <Link
               key={s.slug}
               href={`/${code}/locations/${city}/${resolveServiceSlug(s, code)}/`}
-              className="group bg-paper-pure p-6 transition-colors duration-base hover:bg-burgundy-100/30"
+              className="group bg-paper-pure p-6 transition-colors duration-base hover:bg-accent-soft"
             >
-              <h3 className="font-display text-h4 text-burgundy-700">
+              <h3 className="font-display text-h4 text-[color:var(--text-brand)]">
                 {resolveServiceTitle(s, code)}
               </h3>
-              <span className="mt-3 inline-flex items-center gap-1.5 text-small text-burgundy-700">
+              <span className="mt-3 inline-flex items-center gap-1.5 text-small text-[color:var(--text-brand)]">
                 {record.name}
                 <ArrowRight
                   className="h-3.5 w-3.5 transition-transform duration-base group-hover:translate-x-1"

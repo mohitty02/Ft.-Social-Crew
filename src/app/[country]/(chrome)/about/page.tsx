@@ -107,6 +107,7 @@ export default async function AboutPage({
       />
 
       <PageHero
+        country={code}
         eyebrow={isDe ? 'Über uns' : 'About'}
         title={
           isDe
@@ -132,7 +133,7 @@ export default async function AboutPage({
             <Pill variant="outline" size="md">
               {isDe ? 'Auftrag' : 'Mission'}
             </Pill>
-            <h2 className="mt-6 font-display text-h2 text-burgundy-700">
+            <h2 className="mt-6 font-display text-h2 text-[color:var(--text-brand)]">
               {isDe
                 ? 'Sichtbarkeit, Vertrauen und qualifizierte Pipeline — kumulativ aufgebaut'
                 : 'Compounding visibility, trust and qualified pipeline'}
@@ -211,10 +212,10 @@ export default async function AboutPage({
         <StaggerGroup className="mt-12 grid gap-px overflow-hidden rounded-lg border border-ink/10 bg-ink/10 sm:grid-cols-2 lg:grid-cols-3">
           {Object.values(countries).map((country) => (
             <StaggerItem key={country.code} className="bg-paper-pure p-7">
-              <p className="font-tight text-eyebrow uppercase text-gold-700">
+              <p className="font-tight text-eyebrow uppercase text-accent">
                 {country.name}
               </p>
-              <h3 className="mt-3 font-display text-h4 text-burgundy-700">
+              <h3 className="mt-3 font-display text-h4 text-[color:var(--text-brand)]">
                 {country.positioning}
               </h3>
               <p className="mt-3 text-small text-ink-600">
@@ -249,10 +250,10 @@ export default async function AboutPage({
                 height={56}
                 className="h-14 w-14 rounded-pill object-cover"
               />
-              <h3 className="mt-5 font-display text-h4 text-burgundy-700">
+              <h3 className="mt-5 font-display text-h4 text-[color:var(--text-brand)]">
                 {author.name}
               </h3>
-              <p className="mt-1 font-tight text-eyebrow uppercase text-gold-700">
+              <p className="mt-1 font-tight text-eyebrow uppercase text-accent">
                 {author.role}
               </p>
               <p className="mt-4 text-small text-ink-600">{author.bio}</p>
@@ -262,8 +263,8 @@ export default async function AboutPage({
                     <span
                       className={`inline-flex rounded-pill px-3 py-1 text-[0.6875rem] uppercase tracking-[0.08em] ${
                         i % 2 === 0
-                          ? 'bg-burgundy-100 text-burgundy-700'
-                          : 'border border-gold-300 text-burgundy-700'
+                          ? 'bg-burgundy-100 text-[color:var(--text-brand)]'
+                          : 'border border-accent-line text-[color:var(--text-brand)]'
                       }`}
                     >
                       {e}
@@ -291,7 +292,7 @@ export default async function AboutPage({
           <ul className="space-y-5">
             {countryHome[code].trustPoints.map((p) => (
               <li key={p} className="flex gap-3.5">
-                <Check className="mt-1 h-4 w-4 shrink-0 text-gold-700" aria-hidden="true" />
+                <Check className="mt-1 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
                 <span className="text-body text-ink-600">{p}</span>
               </li>
             ))}

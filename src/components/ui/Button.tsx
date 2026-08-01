@@ -40,13 +40,13 @@ const variants: Record<ButtonVariant, string> = {
   primary:
     'bg-burgundy-700 text-burgundy-100 hover:bg-burgundy-800 active:bg-burgundy-900 border border-burgundy-700',
   secondary:
-    'bg-transparent text-burgundy-700 border border-burgundy-700/30 hover:border-burgundy-700 hover:bg-burgundy-50',
+    'bg-transparent text-[color:var(--text-brand)] border border-burgundy-700/30 hover:border-burgundy-700 hover:bg-burgundy-50',
   tertiary:
-    'bg-transparent text-burgundy-700 border-0 underline underline-offset-[6px] decoration-gold-300 decoration-2 hover:decoration-burgundy-700 px-0',
+    'bg-transparent text-[color:var(--text-brand)] border-0 underline underline-offset-[6px] decoration-gold-300 decoration-2 hover:decoration-burgundy-700 px-0',
   invert:
-    'bg-burgundy-100 text-burgundy-700 hover:bg-paper-pure border border-burgundy-100',
+    'bg-burgundy-100 text-[color:var(--text-brand)] hover:bg-paper-pure border border-burgundy-100',
   invertOutline:
-    'bg-transparent text-burgundy-100 border border-gold-300/60 hover:border-gold-300 hover:bg-burgundy-100/10',
+    'bg-transparent text-burgundy-100 border border-accent-line/60 hover:border-accent-line hover:bg-burgundy-100/10',
 }
 
 const sizes: Record<ButtonSize, string> = {
@@ -57,7 +57,7 @@ const sizes: Record<ButtonSize, string> = {
 
 function classes(variant: ButtonVariant, size: ButtonSize, className?: string) {
   return cn(
-    'group inline-flex items-center justify-center gap-2 rounded-pill font-tight font-medium',
+    'group inline-flex items-center justify-center gap-2 rounded-[var(--radius-chip)] font-tight font-medium',
     'transition-all duration-base ease-out',
     // 44px minimum touch target — mobile is the primary breakpoint.
     'min-h-[44px]',

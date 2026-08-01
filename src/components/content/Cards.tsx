@@ -28,10 +28,10 @@ export function LinkCard({
     <Link
       href={href}
       className={cn(
-        'group relative flex h-full flex-col rounded-lg border p-7 transition-all duration-base ease-out',
+        'group relative flex h-full flex-col rounded-card border p-7 transition-all duration-base ease-out',
         'hover:-translate-y-0.5',
         invert
-          ? 'border-burgundy-100/15 bg-burgundy-100/[0.04] hover:border-gold-300/50'
+          ? 'border-burgundy-100/15 bg-burgundy-100/[0.04] hover:border-accent-line/50'
           : 'border-ink/10 bg-paper-pure hover:border-burgundy-700/30',
         className
       )}
@@ -46,7 +46,7 @@ export function CardArrow({ invert = false }: { invert?: boolean }) {
     <ArrowUpRight
       className={cn(
         'h-5 w-5 shrink-0 transition-transform duration-base ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5',
-        invert ? 'text-gold-300' : 'text-burgundy-700'
+        invert ? 'text-gold-300' : 'text-[color:var(--text-brand)]'
       )}
       aria-hidden="true"
     />
@@ -76,15 +76,15 @@ export function ServiceCard({
             // Alternating fill / hairline — the brand plate's rhythm, applied
             // at component scale.
             index % 2 === 0
-              ? 'border-transparent bg-burgundy-100 text-burgundy-700'
-              : 'border-gold-300 bg-transparent text-burgundy-700'
+              ? 'border-transparent bg-burgundy-100 text-[color:var(--text-brand)]'
+              : 'border-accent-line bg-transparent text-[color:var(--text-brand)]'
           )}
         >
           {icon}
         </span>
         <CardArrow />
       </div>
-      <h3 className="mt-6 font-display text-h3 text-burgundy-700">{title}</h3>
+      <h3 className="mt-6 font-display text-h3 text-[color:var(--text-brand)]">{title}</h3>
       <p className="mt-3 flex-1 text-small text-ink-600">{summary}</p>
     </LinkCard>
   )
@@ -115,7 +115,7 @@ export function IndustryCard({
       </div>
       <div className="flex flex-1 flex-col p-6">
         <div className="flex items-start justify-between gap-4">
-          <h3 className="font-display text-h3 text-burgundy-700">{name}</h3>
+          <h3 className="font-display text-h3 text-[color:var(--text-brand)]">{name}</h3>
           <CardArrow />
         </div>
         <p className="mt-2.5 flex-1 text-small text-ink-600">{painPoint}</p>
@@ -140,8 +140,8 @@ export function CityCard({
     <LinkCard href={href}>
       <div className="flex items-start justify-between gap-4">
         <div>
-          <h3 className="font-display text-h3 text-burgundy-700">{name}</h3>
-          <p className="mt-1 font-tight text-eyebrow uppercase text-gold-700">
+          <h3 className="font-display text-h3 text-[color:var(--text-brand)]">{name}</h3>
+          <p className="mt-1 font-tight text-eyebrow uppercase text-accent">
             {region}
           </p>
         </div>
@@ -188,7 +188,7 @@ export function BlogCard({
           </Pill>
           <span className="text-small text-ink-400">{readingTime} min read</span>
         </div>
-        <h3 className="mt-4 font-display text-h4 text-burgundy-700">{title}</h3>
+        <h3 className="mt-4 font-display text-h4 text-[color:var(--text-brand)]">{title}</h3>
         <p className="mt-2.5 flex-1 text-small text-ink-600">{excerpt}</p>
         <time className="mt-5 text-small text-ink-300" dateTime={date}>
           {date}
@@ -237,10 +237,10 @@ export function CaseStudyCard({
       </div>
       <div className="flex flex-1 flex-col p-6">
         <div className="flex items-start justify-between gap-4">
-          <h3 className="font-display text-h4 text-burgundy-700">{title}</h3>
+          <h3 className="font-display text-h4 text-[color:var(--text-brand)]">{title}</h3>
           <CardArrow />
         </div>
-        <p className="mt-2.5 flex-1 font-tight text-eyebrow uppercase text-gold-700">
+        <p className="mt-2.5 flex-1 font-tight text-eyebrow uppercase text-accent">
           {industry}
         </p>
         {isPlaceholder && (
@@ -282,7 +282,7 @@ export function ResourceCard({
         <Pill variant="outline" size="sm">
           {format}
         </Pill>
-        <h3 className="mt-4 font-display text-h4 text-burgundy-700">{title}</h3>
+        <h3 className="mt-4 font-display text-h4 text-[color:var(--text-brand)]">{title}</h3>
         <p className="mt-2.5 flex-1 text-small text-ink-600">{description}</p>
       </div>
     </LinkCard>

@@ -56,6 +56,7 @@ export default async function TermsPage({
       <JsonLd data={graph(breadcrumbSchema(breadcrumbs))} />
 
       <PageHero
+        country={code}
         eyebrow={isDe ? 'AGB' : 'Terms'}
         title={isDe ? 'Allgemeine Geschäftsbedingungen' : 'Terms of service'}
         intro={`The terms governing use of this website and engagements with Ft. Social Crew in ${c.name}.`}

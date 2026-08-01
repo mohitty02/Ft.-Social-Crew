@@ -1,5 +1,11 @@
 import { Sparkles } from 'lucide-react'
+import type { CountryCode } from '@/types'
 import { cn } from '@/lib/utils/cn'
+
+/** SRS §7.4 — chrome labels read in the market's own language. */
+const defaultLabel: Partial<Record<CountryCode, string>> = {
+  de: 'Kurz gesagt',
+}
 
 /**
  * The single highest-leverage component in the build.
@@ -16,31 +22,35 @@ import { cn } from '@/lib/utils/cn'
  */
 export function AnswerBlock({
   children,
-  label = 'The short answer',
+  label,
+  country,
   invert = false,
   className,
 }: {
   children: string
   label?: string
+  country?: CountryCode
   invert?: boolean
   className?: string
 }) {
+  const resolved =
+    label ?? (country && defaultLabel[country]) ?? 'The short answer'
   return (
     <figure
       className={cn(
         'relative max-w-prose border-l-2 pl-6 sm:pl-8',
-        invert ? 'border-gold-300/70' : 'border-gold-300',
+        invert ? 'border-accent-line/70' : 'border-accent-line',
         className
       )}
     >
       <figcaption
         className={cn(
           'mb-3 flex items-center gap-2 font-tight text-eyebrow uppercase',
-          invert ? 'text-gold-300' : 'text-gold-700'
+          invert ? 'text-gold-300' : 'text-accent'
         )}
       >
         <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
-        {label}
+        {resolved}
       </figcaption>
       <blockquote
         className={cn(

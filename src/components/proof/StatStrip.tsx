@@ -29,7 +29,7 @@ export function StatStrip({
   return (
     <dl
       className={cn(
-        'grid grid-cols-1 gap-px overflow-hidden rounded-lg border',
+        'grid grid-cols-1 gap-px overflow-hidden rounded-card border',
         invert ? 'border-burgundy-100/15 bg-burgundy-100/15' : 'border-ink/10 bg-ink/10',
         cols,
         className
@@ -43,7 +43,7 @@ export function StatStrip({
           <dd
             className={cn(
               'tabular font-display text-stat',
-              invert ? 'text-burgundy-100' : 'text-burgundy-700'
+              invert ? 'text-burgundy-100' : 'text-[color:var(--text-brand)]'
             )}
           >
             {stat.value}
@@ -51,7 +51,7 @@ export function StatStrip({
           <dt
             className={cn(
               'mt-3 font-tight text-eyebrow uppercase',
-              invert ? 'text-gold-300' : 'text-gold-700'
+              invert ? 'text-gold-300' : 'text-accent'
             )}
           >
             {stat.label}

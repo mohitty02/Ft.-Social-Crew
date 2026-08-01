@@ -69,15 +69,15 @@ function Block({ block }: { block: ContentBlock }) {
   switch (block.type) {
     case 'heading':
       return block.level === 2 ? (
-        <h2 className="mt-12 font-display text-h2 text-burgundy-700">{block.text}</h2>
+        <h2 className="mt-12 font-display text-h2 text-[color:var(--text-brand)]">{block.text}</h2>
       ) : (
-        <h3 className="mt-9 font-display text-h3 text-burgundy-700">{block.text}</h3>
+        <h3 className="mt-9 font-display text-h3 text-[color:var(--text-brand)]">{block.text}</h3>
       )
     case 'paragraph':
       return <p className="mt-5 text-body text-ink-600">{block.text}</p>
     case 'list':
       return block.ordered ? (
-        <ol className="mt-6 list-decimal space-y-3 pl-5 text-body text-ink-600 marker:text-gold-700">
+        <ol className="mt-6 list-decimal space-y-3 pl-5 text-body text-ink-600 marker:text-accent">
           {block.items.map((i) => (
             <li key={i} className="pl-1.5">
               {i}
@@ -95,15 +95,15 @@ function Block({ block }: { block: ContentBlock }) {
       )
     case 'callout':
       return (
-        <aside className="mt-9 rounded-lg border border-gold-300 bg-burgundy-100/25 p-6">
-          <p className="font-tight text-eyebrow uppercase text-gold-700">{block.title}</p>
+        <aside className="mt-9 rounded-lg border border-accent-line bg-burgundy-100/25 p-6">
+          <p className="font-tight text-eyebrow uppercase text-accent">{block.title}</p>
           <p className="mt-3 text-body text-ink-800">{block.text}</p>
         </aside>
       )
     case 'quote':
       return (
-        <figure className="mt-9 border-l-2 border-gold-300 pl-6">
-          <blockquote className="font-display text-h3 text-burgundy-700">
+        <figure className="mt-9 border-l-2 border-accent-line pl-6">
+          <blockquote className="font-display text-h3 text-[color:var(--text-brand)]">
             {block.text}
           </blockquote>
           <figcaption className="mt-3 text-small text-ink-400">
@@ -160,12 +160,12 @@ export default async function BlogPostPage({
                 {post.category}
               </Pill>
 
-              <h1 className="mt-6 font-display text-display-2 text-burgundy-700">
+              <h1 className="mt-6 font-display text-display-2 text-[color:var(--text-brand)]">
                 {post.title}
               </h1>
 
               {/* SRS §9.2 GEO — quotable answer within the first 200 words */}
-              <AnswerBlock className="mt-8">{post.answer}</AnswerBlock>
+              <AnswerBlock country={code} className="mt-8">{post.answer}</AnswerBlock>
 
               <div className="mt-8 flex flex-wrap items-center gap-4 border-y border-ink/10 py-5">
                 <Image
@@ -176,7 +176,7 @@ export default async function BlogPostPage({
                   className="h-10 w-10 rounded-pill object-cover"
                 />
                 <div>
-                  <p className="font-tight text-small font-medium text-burgundy-700">
+                  <p className="font-tight text-small font-medium text-[color:var(--text-brand)]">
                     {author.name}
                   </p>
                   <p className="text-small text-ink-400">{author.role}</p>
@@ -215,7 +215,7 @@ export default async function BlogPostPage({
 
           {post.faqs && post.faqs.length > 0 && (
             <div className="mx-auto mt-16 max-w-prose">
-              <h2 className="font-display text-h2 text-burgundy-700">
+              <h2 className="font-display text-h2 text-[color:var(--text-brand)]">
                 {isDe ? 'Häufige Fragen' : 'Frequently asked'}
               </h2>
               <div className="mt-6">
@@ -235,8 +235,8 @@ export default async function BlogPostPage({
                 className="h-16 w-16 shrink-0 rounded-pill object-cover"
               />
               <div>
-                <p className="font-display text-h4 text-burgundy-700">{author.name}</p>
-                <p className="mt-1 font-tight text-eyebrow uppercase text-gold-700">
+                <p className="font-display text-h4 text-[color:var(--text-brand)]">{author.name}</p>
+                <p className="mt-1 font-tight text-eyebrow uppercase text-accent">
                   {author.role}
                 </p>
                 <p className="mt-3 text-small text-ink-600">{author.bio}</p>
@@ -267,7 +267,7 @@ export default async function BlogPostPage({
           <div className="mt-10">
             <Link
               href={`/${code}/blog/`}
-              className="font-tight text-small text-burgundy-700 underline decoration-gold-300 decoration-2 underline-offset-4"
+              className="font-tight text-small text-[color:var(--text-brand)] underline decoration-gold-300 decoration-2 underline-offset-4"
             >
               {isDe ? 'Alle Beiträge' : 'All articles'}
             </Link>

@@ -110,6 +110,7 @@ export default async function ServicesHubPage({
       />
 
       <PageHero
+        country={code}
         eyebrow={isDe ? 'Leistungen' : 'Services'}
         title={
           isDe
@@ -164,6 +165,7 @@ export default async function ServicesHubPage({
           </div>
           <Reveal>
             <KeyTakeaways
+              country={code}
               title={isDe ? 'Kurzfassung' : 'The short version'}
               items={
                 isDe

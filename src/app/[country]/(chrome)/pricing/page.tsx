@@ -140,6 +140,7 @@ export default async function PricingPage({
       <JsonLd data={graph(breadcrumbSchema(breadcrumbs), faqSchema(faqs))} />
 
       <PageHero
+        country={code}
         eyebrow={isDe ? 'Preise' : 'Pricing'}
         title={
           productized
@@ -173,7 +174,7 @@ export default async function PricingPage({
               className={cn(
                 'flex flex-col rounded-xl border p-7 sm:p-9',
                 plan.highlighted
-                  ? 'border-gold-300 bg-burgundy-100/30'
+                  ? 'border-accent-line bg-accent-soft'
                   : 'border-ink/10 bg-paper-pure'
               )}
             >
@@ -183,25 +184,25 @@ export default async function PricingPage({
                 </Pill>
               )}
 
-              <h2 className="font-display text-h3 text-burgundy-700">{plan.name}</h2>
+              <h2 className="font-display text-h3 text-[color:var(--text-brand)]">{plan.name}</h2>
               <p className="mt-2.5 text-small text-ink-600">{plan.description}</p>
 
               <div className="mt-7 border-y border-ink/10 py-6">
                 {plan.price !== null ? (
                   <>
-                    <p className="tabular font-display text-[2.75rem] leading-none text-burgundy-700">
+                    <p className="tabular font-display text-[2.75rem] leading-none text-[color:var(--text-brand)]">
                       {formatCurrency(plan.price, code)}
                     </p>
-                    <p className="mt-2 font-tight text-eyebrow uppercase text-gold-700">
+                    <p className="mt-2 font-tight text-eyebrow uppercase text-accent">
                       per {plan.period}
                     </p>
                   </>
                 ) : (
                   <>
-                    <p className="font-display text-h3 text-burgundy-700">
+                    <p className="font-display text-h3 text-[color:var(--text-brand)]">
                       {isDe ? 'Individuell' : 'Scoped per engagement'}
                     </p>
-                    <p className="mt-2 font-tight text-eyebrow uppercase text-gold-700">
+                    <p className="mt-2 font-tight text-eyebrow uppercase text-accent">
                       {plan.period}
                     </p>
                   </>
@@ -211,7 +212,7 @@ export default async function PricingPage({
               <ul className="mt-7 flex-1 space-y-3.5">
                 {plan.features.map((f) => (
                   <li key={f} className="flex gap-3">
-                    <Check className="mt-1 h-4 w-4 shrink-0 text-gold-700" aria-hidden="true" />
+                    <Check className="mt-1 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
                     <span className="text-small text-ink-600">{f}</span>
                   </li>
                 ))}

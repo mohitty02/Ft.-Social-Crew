@@ -75,6 +75,7 @@ export default async function TestimonialsPage({
       <JsonLd data={graph(breadcrumbSchema(breadcrumbs), faqSchema(faqs))} />
 
       <PageHero
+        country={code}
         eyebrow={isDe ? 'Kundenstimmen' : 'Testimonials'}
         title={isDe ? 'Rückmeldungen unserer Kunden' : 'In their words, not ours'}
         intro={

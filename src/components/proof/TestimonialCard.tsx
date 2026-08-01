@@ -23,9 +23,9 @@ export function TestimonialCard({
   return (
     <figure
       className={cn(
-        'flex h-full flex-col rounded-lg border p-7 transition-colors duration-base',
+        'flex h-full flex-col rounded-card border p-7 transition-colors duration-base',
         invert
-          ? 'border-burgundy-100/15 bg-burgundy-100/[0.04] hover:border-gold-300/40'
+          ? 'border-burgundy-100/15 bg-burgundy-100/[0.04] hover:border-accent-line/40'
           : 'border-ink/10 bg-paper-pure hover:border-burgundy-700/25',
         className
       )}
@@ -58,7 +58,7 @@ export function TestimonialCard({
           <p
             className={cn(
               'truncate font-tight text-small font-medium',
-              invert ? 'text-burgundy-100' : 'text-burgundy-700'
+              invert ? 'text-burgundy-100' : 'text-[color:var(--text-brand)]'
             )}
           >
             {testimonial.role}
@@ -76,7 +76,7 @@ export function TestimonialCard({
           <PlayCircle
             className={cn(
               'ml-auto h-5 w-5 shrink-0',
-              invert ? 'text-gold-300' : 'text-burgundy-700'
+              invert ? 'text-gold-300' : 'text-[color:var(--text-brand)]'
             )}
             aria-label="Video testimonial available"
           />

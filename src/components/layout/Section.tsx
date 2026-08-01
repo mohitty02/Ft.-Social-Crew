@@ -27,7 +27,7 @@ interface SectionProps {
 const surfaces: Record<Surface, string> = {
   paper: 'bg-paper text-ink',
   white: 'bg-paper-pure text-ink',
-  tint: 'bg-burgundy-100/45 text-ink',
+  tint: 'bg-accent-soft text-ink',
   invert: 'bg-burgundy-700 text-burgundy-100 grain',
   ink: 'bg-ink text-paper',
 }
@@ -92,7 +92,7 @@ export function SectionHeader({
       <Heading
         className={cn(
           'font-display text-h2',
-          invert ? 'text-burgundy-100' : 'text-burgundy-700'
+          invert ? 'text-burgundy-100' : 'text-[color:var(--text-brand)]'
         )}
       >
         {heading}

@@ -76,6 +76,7 @@ export default async function CaseStudiesHubPage({
       <JsonLd data={graph(breadcrumbSchema(breadcrumbs), faqSchema(faqs))} />
 
       <PageHero
+        country={code}
         eyebrow={isDe ? 'Referenzen' : 'Case studies'}
         title={
           isDe

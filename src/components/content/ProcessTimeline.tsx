@@ -19,7 +19,7 @@ export function ProcessTimeline({
   className?: string
 }) {
   return (
-    <ol className={cn('grid gap-px overflow-hidden rounded-lg border md:grid-cols-2 lg:grid-cols-4',
+    <ol className={cn('grid gap-px overflow-hidden rounded-card border md:grid-cols-2 lg:grid-cols-4',
       invert ? 'border-burgundy-100/15 bg-burgundy-100/15' : 'border-ink/10 bg-ink/10',
       className
     )}>
@@ -39,7 +39,7 @@ export function ProcessTimeline({
           <h3
             className={cn(
               'mt-5 font-display text-h4',
-              invert ? 'text-burgundy-100' : 'text-burgundy-700'
+              invert ? 'text-burgundy-100' : 'text-[color:var(--text-brand)]'
             )}
           >
             {s.title}

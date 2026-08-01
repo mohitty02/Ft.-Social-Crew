@@ -82,6 +82,7 @@ export default async function CareersPage({
       <JsonLd data={graph(breadcrumbSchema(breadcrumbs), faqSchema(faqs))} />
 
       <PageHero
+        country={code}
         eyebrow={isDe ? 'Karriere' : 'Careers'}
         title={isDe ? 'Arbeiten bei Ft. Social Crew' : 'Work with us'}
         intro={
@@ -103,10 +104,10 @@ export default async function CareersPage({
             <li key={role.title}>
               <a
                 href={`mailto:${c.email}?subject=${encodeURIComponent(role.title)}`}
-                className="flex flex-wrap items-center justify-between gap-4 p-6 transition-colors duration-base hover:bg-burgundy-100/30"
+                className="flex flex-wrap items-center justify-between gap-4 p-6 transition-colors duration-base hover:bg-accent-soft"
               >
                 <span>
-                  <span className="block font-display text-h4 text-burgundy-700">
+                  <span className="block font-display text-h4 text-[color:var(--text-brand)]">
                     {role.title}
                   </span>
                   <span className="mt-2 flex flex-wrap gap-x-5 gap-y-1 text-small text-ink-400">

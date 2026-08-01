@@ -155,6 +155,7 @@ export default async function IndustryServicePage({
       />
 
       <PageHero
+        country={code}
         eyebrow={`${ind.name} · ${svc.title}`}
         title={
           isDe
@@ -184,7 +185,7 @@ export default async function IndustryServicePage({
             <ul className="mt-8 space-y-5">
               {ind.painPoints.map((p) => (
                 <li key={p} className="flex gap-3.5">
-                  <Check className="mt-1 h-4 w-4 shrink-0 text-gold-700" aria-hidden="true" />
+                  <Check className="mt-1 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
                   <span className="text-body text-ink-600">{p}</span>
                 </li>
               ))}
@@ -193,6 +194,7 @@ export default async function IndustryServicePage({
 
           <Reveal>
             <KeyTakeaways
+              country={code}
               title={isDe ? 'Leistungsumfang' : 'What this includes'}
               items={svc.deliverables.slice(0, 5)}
             />
@@ -236,8 +238,8 @@ export default async function IndustryServicePage({
             </div>
           </div>
           <Reveal>
-            <div className="rounded-xl border border-gold-300 bg-burgundy-100/25 p-7 sm:p-9">
-              <h2 className="font-display text-h3 text-burgundy-700">
+            <div className="rounded-xl border border-accent-line bg-burgundy-100/25 p-7 sm:p-9">
+              <h2 className="font-display text-h3 text-[color:var(--text-brand)]">
                 {isDe ? 'Kurz anfragen' : 'Quick enquiry'}
               </h2>
               <LeadForm
@@ -266,12 +268,12 @@ export default async function IndustryServicePage({
               <Link
                 key={s.slug}
                 href={`/${code}/industries/${industry}/${resolveServiceSlug(s, code)}/`}
-                className="group bg-paper-pure p-6 transition-colors duration-base hover:bg-burgundy-100/30"
+                className="group bg-paper-pure p-6 transition-colors duration-base hover:bg-accent-soft"
               >
-                <h3 className="font-display text-h4 text-burgundy-700">
+                <h3 className="font-display text-h4 text-[color:var(--text-brand)]">
                   {resolveServiceTitle(s, code)}
                 </h3>
-                <span className="mt-3 inline-flex items-center gap-1.5 text-small text-burgundy-700">
+                <span className="mt-3 inline-flex items-center gap-1.5 text-small text-[color:var(--text-brand)]">
                   {isDe ? 'Ansehen' : 'View'}
                   <ArrowRight
                     className="h-3.5 w-3.5 transition-transform duration-base group-hover:translate-x-1"
