@@ -1,12 +1,12 @@
 import { cn } from '@/lib/utils/cn'
 
 /**
- * India-market lockup: an angular "FT" mark beside a two-line wordmark.
+ * Brand lockup: an angular "FT" mark beside a two-line wordmark.
  *
  * The mark is `currentColor` and the wordmark takes its own tone, so the same
  * component serves the white header and the dark footer with no variant flag.
  */
-export function IndiaLogo({
+export function MarketLogo({
   className,
   markClassName = 'text-brand-500',
   wordClassName = 'text-steel-900',

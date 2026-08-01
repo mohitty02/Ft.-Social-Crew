@@ -10,6 +10,8 @@
 export interface IndustryDefinition {
   slug: string
   name: string
+  /** SRS §7.4 — the German market reads German, not translated English. */
+  nameDe?: string
   icon: string
   buyerPersona: string
   painPoints: string[]
@@ -26,6 +28,7 @@ export const industries: IndustryDefinition[] = [
   {
     slug: 'healthcare',
     name: 'Healthcare',
+    nameDe: 'Gesundheitswesen',
     icon: 'HeartPulse',
     buyerPersona: 'Clinic owners, hospital marketing managers, healthcare group operators',
     painPoints: [
@@ -53,6 +56,7 @@ export const industries: IndustryDefinition[] = [
   {
     slug: 'real-estate',
     name: 'Real Estate',
+    nameDe: 'Immobilien',
     icon: 'Building2',
     buyerPersona: 'Brokerages, individual agents, property developers',
     painPoints: [
@@ -70,6 +74,7 @@ export const industries: IndustryDefinition[] = [
   {
     slug: 'law-firms',
     name: 'Law Firms',
+    nameDe: 'Kanzleien',
     icon: 'Scale',
     buyerPersona: 'Managing partners, solo practitioners, firm marketing directors',
     painPoints: [
@@ -91,6 +96,7 @@ export const industries: IndustryDefinition[] = [
   {
     slug: 'dentists',
     name: 'Dentists',
+    nameDe: 'Zahnarztpraxen',
     icon: 'Smile',
     buyerPersona: 'Independent dental practice owners, DSO marketing managers',
     painPoints: [
@@ -108,6 +114,7 @@ export const industries: IndustryDefinition[] = [
   {
     slug: 'saas',
     name: 'SaaS',
+    nameDe: 'SaaS',
     icon: 'Cloud',
     buyerPersona: 'Founders, Heads of Growth, VP Marketing at B2B SaaS companies',
     painPoints: [
@@ -125,6 +132,7 @@ export const industries: IndustryDefinition[] = [
   {
     slug: 'it-companies',
     name: 'IT Companies',
+    nameDe: 'IT-Dienstleister',
     icon: 'Server',
     buyerPersona: 'IT services founders, managed service provider owners, CTOs',
     painPoints: [
@@ -142,6 +150,7 @@ export const industries: IndustryDefinition[] = [
   {
     slug: 'manufacturing',
     name: 'Manufacturing',
+    nameDe: 'Maschinen- und Anlagenbau',
     icon: 'Factory',
     buyerPersona: 'Plant managers, manufacturing marketing leads, B2B sales directors',
     painPoints: [
@@ -159,6 +168,7 @@ export const industries: IndustryDefinition[] = [
   {
     slug: 'construction',
     name: 'Construction',
+    nameDe: 'Bauwesen',
     icon: 'HardHat',
     buyerPersona: 'General contractors, construction company owners, project marketing leads',
     painPoints: [
@@ -176,6 +186,7 @@ export const industries: IndustryDefinition[] = [
   {
     slug: 'education',
     name: 'Education',
+    nameDe: 'Bildung',
     icon: 'GraduationCap',
     buyerPersona: 'School and institute administrators, ed-tech marketing leads, training providers',
     painPoints: [
@@ -193,6 +204,7 @@ export const industries: IndustryDefinition[] = [
   {
     slug: 'hospitality',
     name: 'Hospitality',
+    nameDe: 'Gastgewerbe',
     icon: 'UtensilsCrossed',
     buyerPersona: 'Hotel and resort marketing managers, restaurant group owners',
     painPoints: [
@@ -210,6 +222,7 @@ export const industries: IndustryDefinition[] = [
   {
     slug: 'finance',
     name: 'Finance',
+    nameDe: 'Finanzwesen',
     icon: 'Landmark',
     buyerPersona: 'Financial advisors, fintech marketing leads, accounting firm partners',
     painPoints: [
@@ -227,6 +240,7 @@ export const industries: IndustryDefinition[] = [
   {
     slug: 'automotive',
     name: 'Automotive',
+    nameDe: 'Automotive',
     icon: 'Car',
     buyerPersona: 'Dealership marketing managers, auto service centre owners',
     painPoints: [
@@ -244,6 +258,7 @@ export const industries: IndustryDefinition[] = [
   {
     slug: 'ecommerce',
     name: 'E-commerce',
+    nameDe: 'E-Commerce',
     icon: 'ShoppingBag',
     buyerPersona: 'DTC founders, e-commerce marketing managers',
     painPoints: [
@@ -261,6 +276,7 @@ export const industries: IndustryDefinition[] = [
   {
     slug: 'professional-services',
     name: 'Professional Services',
+    nameDe: 'Professional Services',
     icon: 'Briefcase',
     buyerPersona: 'Consulting firm partners, agency owners, B2B service providers',
     painPoints: [
@@ -281,4 +297,12 @@ export const industrySlugs = industries.map((i) => i.slug)
 
 export function getIndustryDefinition(slug: string): IndustryDefinition | undefined {
   return industries.find((i) => i.slug === slug)
+}
+
+/** Resolves the market-correct vertical name. */
+export function resolveIndustryName(
+  def: IndustryDefinition,
+  countryCode: string
+): string {
+  return countryCode === 'de' && def.nameDe ? def.nameDe : def.name
 }

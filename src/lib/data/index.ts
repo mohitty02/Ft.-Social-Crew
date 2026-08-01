@@ -17,7 +17,11 @@ import {
   resolveServiceTitle,
   getServiceDefinition,
 } from '@/config/services'
-import { industries as industryDefs, getIndustryDefinition } from '@/config/industries'
+import {
+  industries as industryDefs,
+  getIndustryDefinition,
+  resolveIndustryName,
+} from '@/config/industries'
 import { getCities, getCity } from '@/config/cities'
 import { getTestimonialsByIndustry } from '@/content/testimonials'
 import { localiseSpelling } from '@/lib/i18n/format'
@@ -305,7 +309,7 @@ export async function getIndustries(country: CountryCode): Promise<Industry[]> {
     id: `ind-${country}-${def.slug}`,
     countryId: country,
     slug: def.slug,
-    name: def.name,
+    name: resolveIndustryName(def, country),
     answer: localiseSpelling(
       `Ft. Social Crew works with ${def.name.toLowerCase()} organisations in ${c.name} as ${c.positioning.toLowerCase()} — addressing ${def.painPoints[0].toLowerCase()} through ${def.servicesRequired.slice(0, 2).join(' and ').toLowerCase()}.`,
       country
@@ -402,7 +406,9 @@ export async function getCaseStudies(country: CountryCode): Promise<CaseStudy[]>
             `${ind.name}: ${ind.caseStudyIdea.replace(/ story$/, '')}`,
             country
           ),
-      client: isDe ? `Vertraulich — ${ind.name}` : `Confidential — ${ind.name}`,
+      client: isDe
+        ? `Vertraulich — ${resolveIndustryName(ind, country)}`
+        : `Confidential — ${ind.name}`,
       isPlaceholder: true,
       industry: vertical,
       service: ind.primaryServices[0],

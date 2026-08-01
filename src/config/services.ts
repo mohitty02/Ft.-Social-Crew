@@ -18,6 +18,8 @@ export interface ServiceDefinition {
   icon: string
   category: 'Acquisition' | 'Conversion' | 'Brand' | 'Platform' | 'Advisory'
   shortDescription: string
+  /** SRS §7.4 — the German market reads German, not translated English. */
+  shortDescriptionDe?: string
 }
 
 export const services: ServiceDefinition[] = [
@@ -30,6 +32,8 @@ export const services: ServiceDefinition[] = [
     category: 'Acquisition',
     shortDescription:
       'Compounding organic visibility built on technical foundations, topical authority and content that answers real buyer questions.',
+    shortDescriptionDe:
+      'Nachhaltige organische Sichtbarkeit auf technischer Grundlage, thematischer Autorität und Inhalten, die reale Kauffragen beantworten.',
   },
   {
     slug: 'paid-advertising',
@@ -39,6 +43,8 @@ export const services: ServiceDefinition[] = [
     category: 'Acquisition',
     shortDescription:
       'Google, Meta and LinkedIn campaigns managed to contribution margin — not to impressions, clicks or vanity reach.',
+    shortDescriptionDe:
+      'Google-, Meta- und LinkedIn-Kampagnen, gesteuert nach Deckungsbeitrag — nicht nach Impressionen oder Klicks.',
   },
   {
     slug: 'social-media-management',
@@ -48,6 +54,8 @@ export const services: ServiceDefinition[] = [
     category: 'Brand',
     shortDescription:
       'Always-on channel management that turns published authority content into daily distribution and inbound demand.',
+    shortDescriptionDe:
+      'Laufende Kanalbetreuung, die veröffentlichte Fachinhalte in tägliche Distribution und eingehende Nachfrage überführt.',
   },
   {
     slug: 'content-marketing',
@@ -57,6 +65,8 @@ export const services: ServiceDefinition[] = [
     category: 'Acquisition',
     shortDescription:
       'Pillar, cluster and supporting content mapped to search intent and structured so answer engines can cite it.',
+    shortDescriptionDe:
+      'Pillar-, Cluster- und Supporting-Inhalte entlang der Suchintention, strukturiert für die Zitierbarkeit durch Answer Engines.',
   },
   {
     slug: 'web-design-development',
@@ -66,6 +76,8 @@ export const services: ServiceDefinition[] = [
     category: 'Platform',
     shortDescription:
       'Fast, accessible, search-ready websites engineered against Core Web Vitals budgets from the first commit.',
+    shortDescriptionDe:
+      'Schnelle, barrierearme und suchoptimierte Websites, entwickelt gegen definierte Core-Web-Vitals-Budgets ab dem ersten Commit.',
   },
   {
     slug: 'branding-creative',
@@ -75,6 +87,8 @@ export const services: ServiceDefinition[] = [
     category: 'Brand',
     shortDescription:
       'Positioning, identity and creative systems that make a growth-stage business look like the credible choice.',
+    shortDescriptionDe:
+      'Positionierung, Identität und Gestaltungssysteme, die ein wachsendes Unternehmen als glaubwürdige Wahl erkennbar machen.',
   },
   {
     slug: 'conversion-rate-optimisation',
@@ -86,6 +100,8 @@ export const services: ServiceDefinition[] = [
     category: 'Conversion',
     shortDescription:
       'Research-led experimentation on the pages that already carry your traffic — the cheapest growth available.',
+    shortDescriptionDe:
+      'Analysegestützte Experimente auf den Seiten, die bereits Traffic tragen — das günstigste verfügbare Wachstum.',
   },
   {
     slug: 'process-automation',
@@ -95,6 +111,8 @@ export const services: ServiceDefinition[] = [
     category: 'Platform',
     shortDescription:
       'Documented, engineered automation across marketing and sales operations — fewer manual steps, fewer silent failures.',
+    shortDescriptionDe:
+      'Dokumentierte, technisch saubere Automatisierung in Marketing und Vertrieb — weniger manuelle Schritte, weniger stille Ausfälle.',
   },
   {
     slug: 'growth-consulting',
@@ -104,6 +122,8 @@ export const services: ServiceDefinition[] = [
     category: 'Advisory',
     shortDescription:
       'Embedded senior growth leadership without a full-time hire — strategy, hiring plan and execution oversight.',
+    shortDescriptionDe:
+      'Erfahrene Wachstumsführung ohne Festanstellung — Strategie, Personalplanung und Steuerung der Umsetzung.',
   },
   {
     slug: 'analytics-reporting',
@@ -113,6 +133,8 @@ export const services: ServiceDefinition[] = [
     category: 'Platform',
     shortDescription:
       'Attribution, funnels and executive dashboards that make every marketing decision defensible with data.',
+    shortDescriptionDe:
+      'Attribution, Funnels und Management-Dashboards, die jede Marketingentscheidung datenbasiert begründbar machen.',
   },
 ]
 
@@ -161,4 +183,14 @@ export function resolveServiceTitle(def: ServiceDefinition, countryCode: string)
   if (countryCode === 'de' && def.titleDe) return def.titleDe
   if (countryCode === 'en-us' && def.titleUs) return def.titleUs
   return def.title
+}
+
+/** Resolves the market-correct short description. */
+export function resolveServiceShortDescription(
+  def: ServiceDefinition,
+  countryCode: string
+): string {
+  return countryCode === 'de' && def.shortDescriptionDe
+    ? def.shortDescriptionDe
+    : def.shortDescription
 }

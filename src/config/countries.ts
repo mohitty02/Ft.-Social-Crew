@@ -29,13 +29,16 @@ export const countries: Record<CountryCode, Country> = {
     spelling: 'en-IN',
     pricingMode: 'productized',
     whatsapp: true,
-    phone: '+91 98100 00000',
-    email: 'india@ftsocialcrew.com',
+    // Client-supplied, from the approved India comp. LocalBusiness and
+    // Service schema read this record, so it has to match what the pages
+    // actually display.
+    phone: '+91 93546 61950',
+    email: 'hello@ftsocialcrew.com',
     office: {
-      street: 'Sector 44, Golf Course Road',
-      city: 'Gurugram',
-      region: 'Haryana',
-      postalCode: '122003',
+      street: '3rd Floor, Plot No. 18, Sector 5, B Block',
+      city: 'Uttam Nagar, Delhi',
+      region: 'Delhi',
+      postalCode: '110059',
       country: 'India',
     },
     primaryCta: 'Talk to a growth partner',

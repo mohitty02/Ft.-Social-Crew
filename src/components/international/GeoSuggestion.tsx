@@ -49,8 +49,9 @@ function suggestCountry(locale: string): CountryCode | null {
 
 /**
  * The banner sits above the header, so it has to match whichever design
- * system that header belongs to. India's home page runs the green system
- * (src/components/india/); everything else runs the global burgundy one.
+ * system that header belongs to. Country home pages run the green market
+ * system (src/components/market/); every other route runs the global
+ * burgundy one.
  */
 const tones = {
   global: {
@@ -61,7 +62,7 @@ const tones = {
     close: 'border-ink/15 hover:border-burgundy-700/40',
     closeIcon: 'text-ink-600',
   },
-  india: {
+  market: {
     bar: 'border-b border-brand-200 bg-brand-50 font-brand',
     icon: 'text-brand-600',
     text: 'text-[0.8125rem] text-steel-700',
