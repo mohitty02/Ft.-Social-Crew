@@ -8,6 +8,7 @@ import {
   services as serviceDefs,
   resolveServiceSlug,
   isProgrammaticCityService,
+  getSubServices,
 } from '@/config/services'
 import { industries as industryDefs } from '@/config/industries'
 import { getServiceBySlug, getServices, getCityList } from '@/lib/data'
@@ -96,7 +97,49 @@ export default async function ServiceDetailPage({
   const baseDef = serviceDefs.find((s) => resolveServiceSlug(s, code) === serviceSlug)
   const hasCityPages = baseDef ? isProgrammaticCityService(baseDef.slug) : false
   const testimonials = getTestimonials(code).slice(0, 2)
-  const related = allServices.filter((s) => s.slug !== service.slug).slice(0, 3)
+
+  /**
+   * Family-first interlinking.
+   *
+   * A core service points down to its specialisms; a specialism points back up
+   * to its parent and across to its siblings. Only when a service has neither
+   * does this fall back to the old behaviour of taking whatever came first in
+   * the taxonomy.
+   *
+   * Without this the specialisms are reachable only from the hub and the
+   * sitemap — orphaned from the very pages that should be feeding them link
+   * equity, which is the whole point of the cluster model in SRS §11.2.
+   */
+  // Taxonomy slugs are market-neutral; the built pages carry the market slug
+  // (conversion-rate-optimization in the US), so a lookup has to go through
+  // the resolver rather than matching the raw slug.
+  const byBaseSlug = (baseSlug: string) => {
+    const def = serviceDefs.find((d) => d.slug === baseSlug)
+    if (!def) return undefined
+    return allServices.find((s) => s.slug === resolveServiceSlug(def, code))
+  }
+
+  const familyMembers = baseDef
+    ? (() => {
+        const subs = getSubServices(baseDef.slug)
+        if (subs.length) return subs.map((s) => byBaseSlug(s.slug))
+
+        if (baseDef.parentSlug) {
+          const siblings = getSubServices(baseDef.parentSlug).filter(
+            (s) => s.slug !== baseDef.slug
+          )
+          return [byBaseSlug(baseDef.parentSlug), ...siblings.map((s) => byBaseSlug(s.slug))]
+        }
+        return []
+      })().filter((s): s is NonNullable<typeof s> => Boolean(s))
+    : []
+
+  const relatedAreFamily = familyMembers.length > 0
+  const related = (
+    relatedAreFamily
+      ? familyMembers
+      : allServices.filter((s) => s.slug !== service.slug)
+  ).slice(0, 6)
 
   // Internal linking — SRS §11.2 proof layer plus §7.7 priority signals
   // toward money pages. Industry × service and city × service variants.
@@ -359,7 +402,13 @@ export default async function ServiceDetailPage({
         <SectionHeader
           eyebrow={isDe ? 'Weitere Leistungen' : 'Related services'}
           heading={
-            isDe ? 'Häufig gemeinsam beauftragt' : 'Usually engaged alongside this'
+            relatedAreFamily
+              ? isDe
+                ? 'Spezialisierungen in diesem Bereich'
+                : 'The specialisms within this'
+              : isDe
+                ? 'Häufig gemeinsam beauftragt'
+                : 'Usually engaged alongside this'
           }
         />
         <div className="mt-10 grid gap-px overflow-hidden rounded-lg border border-ink/10 bg-ink/10 sm:grid-cols-3">

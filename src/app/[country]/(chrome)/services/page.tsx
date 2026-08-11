@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import type { CountryCode } from '@/types'
 import { countries, countryCodes, isCountryCode } from '@/config/countries'
+import { coreServices } from '@/config/services'
 import { getServices } from '@/lib/data'
 import { buildMetadata, buildUrl } from '@/lib/seo/metadata'
 import { graph, breadcrumbSchema, serviceSchema, faqSchema } from '@/lib/seo/schema'
@@ -41,7 +42,7 @@ export async function generateMetadata({
     country: code,
     path: 'services',
     title: `Services | ${c.positioning} in ${c.name}`,
-    description: `Ten core services delivered as ${c.positioning.toLowerCase()} work in ${c.name} — planned together as one growth system rather than sold as separate line items.`,
+    description: `${coreServices.length} core services and their specialisms, delivered as ${c.positioning.toLowerCase()} work in ${c.name} — planned together as one growth system rather than sold as separate line items.`,
     hreflangGroupId: 'services',
   })
 }
@@ -124,8 +125,8 @@ export default async function ServicesHubPage({
         }
         answer={
           isDe
-            ? `Ft. Social Crew bietet in Deutschland zehn Kernleistungen von SEO und Performance Advertising bis Prozessautomatisierung und Digital Engineering — alle nach dokumentierter Vorgehensweise und DSGVO-konform.`
-            : `Ft. Social Crew offers ten core services in ${c.name}, spanning acquisition (SEO, paid advertising, content), conversion, brand, platform and advisory. They are sold and planned as one system because growth constraints rarely sit in a single channel.`
+            ? `Ft. Social Crew bietet in Deutschland ${coreServices.length} Kernleistungen von SEO und Performance Advertising bis Prozessautomatisierung und Digital Engineering — jeweils mit ihren Spezialisierungen, alle nach dokumentierter Vorgehensweise und DSGVO-konform.`
+            : `Ft. Social Crew offers ${coreServices.length} core services in ${c.name} — spanning acquisition (SEO, paid advertising, content), conversion, brand, platform and advisory — each with its own specialisms, from Local SEO and Google Ads to Shopify and HRM systems. They are sold and planned as one system because growth constraints rarely sit in a single channel.`
         }
         breadcrumbs={breadcrumbs}
       />

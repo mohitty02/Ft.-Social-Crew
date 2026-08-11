@@ -1,5 +1,11 @@
 import type { CountryCode } from '@/types'
-import { services, resolveServiceSlug, resolveServiceTitle } from './services'
+import {
+  services,
+  coreServices,
+  resolveServiceSlug,
+  resolveServiceTitle,
+  resolveServiceShortDescription,
+} from './services'
 import { industries } from './industries'
 import { getCities } from './cities'
 
@@ -25,13 +31,28 @@ export interface NavGroup {
 export function buildNavigation(country: CountryCode): NavGroup[] {
   const base = `/${country}`
 
-  const serviceLinks = services.map((s) => ({
+  const toLink = (s: (typeof services)[number]) => ({
     label: resolveServiceTitle(s, country),
     href: `${base}/${resolveServiceSlug(s, country)}/`,
-    description: s.shortDescription,
-  }))
+    // Not `s.shortDescription` — that hard-codes English into the German
+    // mega-menu, beside a German label.
+    description: resolveServiceShortDescription(s, country),
+  })
 
-  const half = Math.ceil(serviceLinks.length / 2)
+  // Only the core tier reaches the mega-menu. Listing all of them would put
+  // twenty-plus items behind one hover, which is a directory rather than a
+  // menu; the specialisms are reachable from the hub and from their parent's
+  // own page, where the visitor has already shown interest in that area.
+  //
+  // The split is by real category, not by halving the array — a positional
+  // split silently mislabels every entry the moment a service is added.
+  const acquisitionLinks = coreServices
+    .filter((s) => s.category === 'Acquisition' || s.category === 'Conversion')
+    .map(toLink)
+  const platformLinks = coreServices
+    .filter((s) => s.category !== 'Acquisition' && s.category !== 'Conversion')
+    .map(toLink)
+
   const industryHalf = Math.ceil(industries.length / 2)
   const cities = getCities(country)
 
@@ -40,8 +61,8 @@ export function buildNavigation(country: CountryCode): NavGroup[] {
       label: 'Services',
       href: `${base}/services/`,
       columns: [
-        { title: 'Growth & acquisition', links: serviceLinks.slice(0, half) },
-        { title: 'Platform & advisory', links: serviceLinks.slice(half) },
+        { title: 'Growth & acquisition', links: acquisitionLinks },
+        { title: 'Platform & advisory', links: platformLinks },
       ],
       featured: {
         title: 'How we work',
@@ -122,7 +143,10 @@ export function buildFooterNavigation(country: CountryCode) {
   return [
     {
       title: 'Services',
-      links: services.slice(0, 6).map((s) => ({
+      // Core tier only — a footer column is not the place for the full
+      // twenty-plus catalogue. `services` would silently start emitting
+      // specialisms here the moment the taxonomy grew.
+      links: coreServices.slice(0, 6).map((s) => ({
         label: resolveServiceTitle(s, country),
         href: `${base}/${resolveServiceSlug(s, country)}/`,
       })),

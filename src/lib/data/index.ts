@@ -15,6 +15,7 @@ import {
   services as serviceDefs,
   resolveServiceSlug,
   resolveServiceTitle,
+  resolveServiceShortDescription,
   getServiceDefinition,
 } from '@/config/services'
 import {
@@ -189,10 +190,20 @@ export async function getServices(country: CountryCode): Promise<Service[]> {
       slug,
       title,
       // SRS §9.2 GEO — the direct, quotable answer statement.
-      answer: localiseSpelling(
-        `${title} from Ft. Social Crew in ${c.name} is delivered as ${c.positioning.toLowerCase()} work: ${def.shortDescription.charAt(0).toLowerCase()}${def.shortDescription.slice(1)}`,
-        country
-      ),
+      //
+      // German gets its own sentence rather than the English template with a
+      // translated tail. The English one lowercases the description's first
+      // letter to splice it after a colon, which is exactly wrong in German
+      // where that word is a capitalised noun — and SRS §7.4 asks for German,
+      // not translated English. `shortDescriptionDe` was previously read only
+      // by the market home, so every German service page quoted English.
+      answer:
+        country === 'de'
+          ? `${title} von Ft. Social Crew für den deutschen Markt: ${resolveServiceShortDescription(def, country)}`
+          : localiseSpelling(
+              `${title} from Ft. Social Crew in ${c.name} is delivered as ${c.positioning.toLowerCase()} work: ${def.shortDescription.charAt(0).toLowerCase()}${def.shortDescription.slice(1)}`,
+              country
+            ),
       summary: localiseSpelling(serviceFraming[country](title), country),
       icon: def.icon,
       outcomes: serviceOutcomes[country],
@@ -284,6 +295,145 @@ function buildDeliverables(slug: string, country: CountryCode): string[] {
       'Attribution model configuration',
       'Executive dashboard build',
       'Monthly commentary, not just numbers',
+    ],
+
+    // Sub-service tier. These lists are the previous site's own published
+    // scope, carried across so a migrated page promises what it always
+    // promised — not a freshly invented offer under an old name.
+    'local-seo-services': [
+      'Google Business Profile setup, optimisation and management',
+      'Local citation audit, correction and new directory submissions',
+      'Geo-targeted landing pages for every service area',
+      'Review strategy to grow authentic ratings across platforms',
+      'Local keyword research and on-page optimisation',
+      'Google Maps three-pack ranking for high-intent local searches',
+      'Monthly local ranking and visibility reporting',
+    ],
+    'aeo-geo-services': [
+      'Audit of current brand visibility across AI platforms',
+      'Content restructuring into question-and-answer formats',
+      'Topical authority building through pillar-and-cluster content',
+      'Schema markup implementation for AI-readable content',
+      'Monthly reporting on AI visibility, brand mentions and answer appearances',
+    ],
+    'app-store-optimisation': [
+      'Full App Store and Google Play listing audit',
+      'Keyword research specific to in-store search behaviour',
+      'App title, subtitle and description optimisation',
+      'Screenshot and visual asset recommendations for higher conversion',
+      'Competitor analysis and positioning strategy',
+      'Rating and review management strategy',
+    ],
+    'lead-generation': [
+      'Ideal Customer Profile mapping',
+      'Channel selection and offer design',
+      'Outreach and campaign execution',
+      'LinkedIn, Facebook and Instagram lead generation',
+      'Appointment setting and prospect research',
+      'Qualification, handoff and CRM lead management',
+    ],
+    'personal-branding': [
+      'Founder positioning — what you are known for, to whom, and why it matters',
+      'Done-for-you presence management: calendar, writing, cadence, engagement',
+      'LinkedIn profile optimisation and B2B content strategy',
+      'Thought leadership drawn from your actual experience',
+      'Authority building through guest contributions, podcasts and speaking',
+      'Idea capture, drafting, approval and scheduled publishing',
+    ],
+    'google-ads': [
+      'Full account audit or new campaign build',
+      'Search, Display, Shopping and YouTube campaign management',
+      'Keyword research and negative keyword strategy',
+      'Ad copywriting and A/B testing',
+      'Landing page review and conversion optimisation',
+      'Conversion tracking setup and attribution reporting',
+      'Retargeting campaigns to re-engage warm audiences',
+      'Weekly optimisation and monthly performance reporting',
+    ],
+    'meta-ads': [
+      'Full Meta Ads account audit or new account setup',
+      'Ad creative design and copywriting across all formats',
+      'Campaign structure for awareness, lead generation and conversion',
+      'A/B testing framework for continuous creative improvement',
+      'Meta Pixel setup and event tracking',
+      'Catalogue and dynamic ad setup for e-commerce brands',
+    ],
+    'linkedin-ads': [
+      'Professional targeting by job title, seniority, industry and company size',
+      'Sponsored Content, Message Ads, Lead Gen Forms and Conversation Ads',
+      'Ad copy and creative designed for a professional audience',
+      'LinkedIn Insight Tag setup and conversion tracking',
+      'Funnel strategy from awareness through to lead conversion',
+      'Retargeting from website visitors and LinkedIn engagement',
+      'Monthly reporting on reach, cost per lead and pipeline contribution',
+    ],
+    'ecommerce-ads': [
+      'Google Shopping and Performance Max campaign management',
+      'Meta catalogue and dynamic product ad campaigns',
+      'Prospecting and retargeting across Google and Meta',
+      'GA4 and Meta Pixel tracking setup and event configuration',
+      'Creative strategy for product-focused ad formats',
+      'Cart abandonment and re-engagement sequences',
+      'ROAS-focused optimisation with product-level reporting',
+    ],
+    'wordpress-development': [
+      'Custom design aligned to your brand identity',
+      'Mobile-first, responsive build tested across devices',
+      'SEO foundation set at the point of build',
+      'Contact form, CRM, booking and payment gateway integration',
+      'Plugin selection and configuration without unnecessary bloat',
+      'Security hardening and ongoing maintenance options',
+      'Client training and post-launch support',
+    ],
+    'shopify-development': [
+      'Custom Shopify theme design and development',
+      'Full store architecture — home, collections, products, cart, checkout',
+      'Mobile-first, speed-optimised development',
+      'Conversion-focused product pages with trust elements',
+      'Shopify app selection and configuration',
+      'Payment gateway and shipping integration',
+      'Migration from WooCommerce, Wix, Magento or others',
+    ],
+    'ecommerce-development': [
+      'Platform selection guidance — WooCommerce, Shopify or custom',
+      'Store build and product catalogue setup',
+      'Payment gateway and shipping integration',
+      'E-commerce SEO across product and category pages',
+      'Ongoing support and feature additions',
+    ],
+    'ui-ux-design': [
+      'User research, persona development and journey mapping',
+      'Information architecture and sitemap planning',
+      'Wireframing and low-fidelity prototypes',
+      'High-fidelity UI design across desktop, tablet and mobile',
+      'Interactive prototypes for user testing',
+      'Design system and component library documentation',
+      'Handoff-ready files for development teams',
+      'Post-design consultation and implementation support',
+    ],
+    'software-development': [
+      'Requirements gathering and system architecture',
+      'Custom application development',
+      'Third-party API and tool integrations',
+      'QA and testing before launch',
+      'Ongoing support and feature development',
+    ],
+    'hrm-crm-systems': [
+      'System designed around your specific policies and workflows',
+      'Employee onboarding and digital document management',
+      'Attendance, shift and leave management with automated tracking',
+      'Payroll processing and payslip generation',
+      'Performance management, goal tracking and appraisal workflows',
+      'Role-based access for HR, managers and employees',
+      'Integration with existing payroll, accounting and communication tools',
+      'Secure, scalable architecture with cloud hosting options',
+    ],
+    'ai-automation': [
+      'Process audit to find genuinely automatable tasks',
+      'AI chatbot and lead qualification setup',
+      'Workflow automation across your existing tools',
+      'CRM and AI system integration',
+      'Ongoing monitoring and optimisation',
     ],
   }
   const base = map[slug] ?? map['seo-services']
