@@ -1,34 +1,35 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight, Globe } from 'lucide-react'
-import { countryList } from '@/config/countries'
+import { countryList, defaultCountry } from '@/config/countries'
 import { site } from '@/config/site'
 import { Pill } from '@/components/ui/Pill'
 import { GeoSuggestion } from '@/components/international/GeoSuggestion'
 
 /**
- * Global root — SRS §3.1.
+ * Global region selector.
  *
- * SRS §7.3 is explicit and this page is built around it: IP-based
- * geo-detection offers a SOFT SUGGESTION BANNER, "never a forced redirect, to
- * keep every country's content crawlable and directly accessible."
+ * This page used to BE the root experience — SRS §7.3 called for a soft
+ * suggestion banner and "never a forced redirect". At the client's request
+ * middleware.ts now geo-routes `/` to a market, so a visitor only lands here
+ * deliberately, via `/?global=1` or the escape hatch in the switchers.
  *
- * So the root renders a real, indexable, crawlable country selector. The
- * suggestion is client-side and dismissible, layered on top. This is also what
- * makes the root work under static export — no middleware required.
- *
- * x-default hreflang points here (SRS §7.1).
+ * It is therefore noindex: crawlers hitting `/` get the 307 and never see this
+ * page, and `?global=1` should not compete with the six country homes for the
+ * brand query. x-default moves to the US market, matching what
+ * buildLanguageAlternates() emits on every other page and what an unmatched IP
+ * actually resolves to.
  */
 export const metadata: Metadata = {
   title: `${site.name} — ${site.tagline}`,
   description: site.description,
+  robots: { index: false, follow: true },
   alternates: {
-    canonical: site.url,
     languages: {
       ...Object.fromEntries(
         countryList.map((c) => [c.locale, `${site.url}/${c.code}/`])
       ),
-      'x-default': site.url,
+      'x-default': `${site.url}/${defaultCountry}/`,
     },
   },
 }
@@ -76,6 +77,7 @@ export default function GlobalRootPage() {
                 <li key={c.code} className="bg-paper-pure">
                   <Link
                     href={`/${c.code}/`}
+                    data-market={c.code}
                     className="group flex h-full flex-col p-7 transition-colors duration-base hover:bg-accent-soft"
                   >
                     <div className="flex items-start justify-between gap-4">
@@ -101,8 +103,9 @@ export default function GlobalRootPage() {
 
           <p className="mt-10 max-w-prose text-small text-ink-400">
             Every regional site is directly accessible and independently
-            indexable. We never force a redirect based on your location — if you
-            want to read the German market pages from Toronto, you can.
+            indexable. We send you to your own market on arrival, but nothing is
+            locked — if you want to read the German market pages from Toronto,
+            pick Deutschland above and we will remember it.
           </p>
         </div>
       </main>

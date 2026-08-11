@@ -25,18 +25,18 @@ import { buildUrl } from '@/lib/seo/metadata'
  *
  * SRS §3.1: campaign landing pages are noindex and are deliberately ABSENT.
  *
- * Under static export this regenerates on build rather than on publish event
- * (SRS §8). Same output, different trigger.
+ * The bare root is also absent: middleware.ts geo-routes `/` to a market, so
+ * listing it would submit a URL that answers 307 and earn a "Page with
+ * redirect" exclusion in Search Console. The six country homes below are the
+ * real entry points.
  */
-// Required by `output: 'export'` — the sitemap is emitted at build time
-// rather than on publish event (SRS §8). Same output, different trigger.
+// Emitted at build time rather than on publish event (SRS §8). Same output,
+// different trigger — and it keeps the sitemap off the server runtime.
 export const dynamic = 'force-static'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date()
-  const entries: MetadataRoute.Sitemap = [
-    { url: site.url, lastModified: now, changeFrequency: 'weekly', priority: 1 },
-  ]
+  const entries: MetadataRoute.Sitemap = []
 
   for (const country of countryCodes) {
     const c = countries[country]

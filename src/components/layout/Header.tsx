@@ -192,6 +192,7 @@ export function Header({ country }: { country: CountryCode }) {
                       <li key={item.code}>
                         <Link
                           href={`/${item.code}/`}
+                          data-market={item.code}
                           onClick={() => setCountryOpen(false)}
                           className={cn(
                             'flex items-baseline justify-between gap-3 rounded-md px-3 py-2.5 transition-colors duration-fast hover:bg-accent-soft',
@@ -303,6 +304,7 @@ export function Header({ country }: { country: CountryCode }) {
                   <li key={item.code}>
                     <Link
                       href={`/${item.code}/`}
+                      data-market={item.code}
                       onClick={() => setMobileOpen(false)}
                       className={cn(
                         'block rounded-md border px-3.5 py-3 text-small',

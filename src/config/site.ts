@@ -10,9 +10,11 @@
 export const site = {
   name: 'Ft. Social Crew',
   legalName: 'Ft. Social Crew',
-  // TODO(client): real production domain — required for canonical, hreflang,
-  // sitemap and Organization schema (SRS §7.1, §7.2, §7.5).
-  url: 'https://www.ftsocialcrew.com',
+  // Canonical host — drives canonical tags, hreflang, sitemap and Organization
+  // schema (SRS §7.1, §7.2, §7.5). Apex, no www: next.config.ts redirects the
+  // www host here, so emitting www URLs would point every canonical at a URL
+  // that immediately redirects.
+  url: 'https://ftsocialcrew.com',
   tagline: 'Global business growth and digital transformation partner',
   description:
     'Ft. Social Crew is a multi-market growth partner operating across India, the USA, Canada, Australia, Germany and the UAE — building compounding organic visibility, trust and qualified pipeline in every market we serve.',

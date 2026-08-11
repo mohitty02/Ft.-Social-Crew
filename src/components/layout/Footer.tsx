@@ -138,6 +138,7 @@ export function Footer({ country }: { country: CountryCode }) {
               <li key={item.code}>
                 <Link
                   href={`/${item.code}/`}
+                  data-market={item.code}
                   className="text-small text-ink-600 underline-offset-4 transition-colors duration-fast hover:text-[color:var(--text-brand)] hover:underline"
                   aria-current={item.code === country ? 'true' : undefined}
                 >

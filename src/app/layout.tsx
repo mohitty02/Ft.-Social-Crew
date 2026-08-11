@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import { Fraunces, Inter, Inter_Tight, Poppins } from 'next/font/google'
 import { site } from '@/config/site'
 import { JsonLd } from '@/components/seo/JsonLd'
+import { MarketMemory } from '@/components/international/MarketMemory'
 import { graph, organizationSchema, websiteSchema } from '@/lib/seo/schema'
 import '@/styles/globals.css'
 
@@ -98,6 +99,10 @@ export default function RootLayout({
         {/* Site-wide entity graph — SRS §9.2 requires consistent entity facts
             so AI systems build a stable picture of the brand. */}
         <JsonLd data={graph(organizationSchema(), websiteSchema())} />
+
+        {/* Records a deliberate region choice so middleware.ts stops
+            IP-routing the root for this visitor. Renders nothing. */}
+        <MarketMemory />
 
         {children}
       </body>
