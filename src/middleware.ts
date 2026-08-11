@@ -6,12 +6,14 @@ import type { CountryCode } from '@/types'
 /**
  * Two request-time rules: canonical host, then IP-based market routing.
  *
- * Both live here rather than in next.config.ts `redirects()`, because a
- * redirect declared there rebuilds the destination from a `:path*` capture and
- * drops the trailing slash the whole site is built on — /in/pricing/ would
- * arrive as /in/pricing and immediately redirect again. Cloning `nextUrl`
- * carries the path and query across byte-for-byte, so every www URL reaches its
- * apex twin in exactly one hop.
+ * Both build their target with the standard URL parser and set `Location` by
+ * hand instead of calling NextResponse.redirect(nextUrl). NextURL normalises
+ * the path against `trailingSlash` on the way out and emits /in for /in/, which
+ * Vercel then 308s back to /in/ — two hops for every arriving visitor, and the
+ * same slash loss on every www URL. A plain URL is passed through untouched.
+ *
+ * The header must be absolute: middleware parses it with `new URL()` and throws
+ * a 500 on a relative value. Vercel shortens it back to a path on the wire.
  */
 
 const CANONICAL_HOST = new URL(site.url).host // ftsocialcrew.com
@@ -70,11 +72,14 @@ export function middleware(req: NextRequest) {
   //    signals, so www is permanent (308) — unlike the geo hop below, this
   //    answer is the same for everyone and safe to cache forever.
   if (req.headers.get('host') === WWW_HOST) {
-    const url = req.nextUrl.clone()
-    url.protocol = 'https:'
-    url.host = CANONICAL_HOST
-    url.port = ''
-    return NextResponse.redirect(url, 308)
+    const target = new URL(req.url)
+    target.protocol = 'https:'
+    target.host = CANONICAL_HOST
+    target.port = ''
+    return new NextResponse(null, {
+      status: 308,
+      headers: { Location: target.toString() },
+    })
   }
 
   // 2. Market routing, root only. This overrides SRS §7.3 ("soft redirect
@@ -90,9 +95,11 @@ export function middleware(req: NextRequest) {
   if (req.nextUrl.pathname === '/') {
     if (req.nextUrl.searchParams.has(ESCAPE_PARAM)) return NextResponse.next()
 
-    const url = req.nextUrl.clone()
-    url.pathname = `/${resolveMarket(req)}/`
-    return NextResponse.redirect(url, 307)
+    const target = new URL(`/${resolveMarket(req)}/`, req.url)
+    return new NextResponse(null, {
+      status: 307,
+      headers: { Location: target.toString() },
+    })
   }
 
   return NextResponse.next()
