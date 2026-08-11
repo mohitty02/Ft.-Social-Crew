@@ -20,6 +20,13 @@ const CANONICAL_HOST = new URL(site.url).host // ftsocialcrew.com
 const WWW_HOST = `www.${CANONICAL_HOST}`
 
 /**
+ * Flip to true only once Vercel's own apex → www redirect is gone. While that
+ * platform-level rule is live, the two redirects point at each other and every
+ * request dies in a loop. See the block in middleware() for the full note.
+ */
+const ENFORCE_CANONICAL_HOST = false
+
+/**
  * ISO 3166-1 alpha-2 (what `x-vercel-ip-country` sends) → our market.
  *
  * Neighbours fold into the nearest market we actually operate: the alternative
@@ -68,10 +75,18 @@ function resolveMarket(req: NextRequest): CountryCode {
 }
 
 export function middleware(req: NextRequest) {
-  // 1. Canonical host. Serving the same page on both hosts splits its ranking
-  //    signals, so www is permanent (308) — unlike the geo hop below, this
-  //    answer is the same for everyone and safe to cache forever.
-  if (req.headers.get('host') === WWW_HOST) {
+  // 1. Canonical host — DISABLED, and it must stay disabled until the Vercel
+  //    project's domain setting is flipped.
+  //
+  //    That setting currently 308s ftsocialcrew.com to www.ftsocialcrew.com at
+  //    the edge, before any function runs. Redirecting www back here from
+  //    inside the function completed a cycle the browser could not escape:
+  //    apex → www → apex → …, i.e. ERR_TOO_MANY_REDIRECTS on every page.
+  //
+  //    No code can win this argument — the platform redirect happens upstream
+  //    of middleware. Make www.ftsocialcrew.com redirect to ftsocialcrew.com in
+  //    Project Settings → Domains, then restore the block below.
+  if (ENFORCE_CANONICAL_HOST && req.headers.get('host') === WWW_HOST) {
     const target = new URL(req.url)
     target.protocol = 'https:'
     target.host = CANONICAL_HOST
