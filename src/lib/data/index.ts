@@ -622,6 +622,26 @@ interface BlogSeed {
   category: string
   cluster: string
   authorId: string
+  /**
+   * Markets this post is published in. Absent means every market.
+   *
+   * Needed once real posts arrived from the previous site: a checklist naming
+   * Delhi NCR, JustDial and Razorpay is genuinely useful in India and simply
+   * wrong on the German or US site. The seeds that carry local specifics are
+   * scoped to the markets where those specifics hold, rather than being
+   * flattened into something true everywhere and useful nowhere.
+   */
+  markets?: CountryCode[]
+  /**
+   * The post's own body, migrated verbatim.
+   *
+   * Seeds without this fall back to buildBlogBody()'s shared template, which
+   * is how the original six were written. A migrated post has real prose and
+   * must not be replaced by boilerplate that happens to share its headline.
+   */
+  sections?: { heading: string; text: string }[]
+  /** Migrated posts keep their original publish date. */
+  publishedAt?: string
 }
 
 const blogSeeds: BlogSeed[] = [
@@ -697,12 +717,527 @@ const blogSeeds: BlogSeed[] = [
     cluster: 'conversion-rate-optimisation',
     authorId: 'a-5',
   },
+
+  // ── Migrated from the previous site ───────────────────────────────────────
+  // Bodies are the original posts, carried across rather than regenerated.
+  //
+  // Twelve further posts were left behind deliberately: they are the WordPress
+  // theme's demo content, still carrying "standard dummy text ever since the
+  // 1500s, when an unknown printer took a galley of type". Publishing lorem
+  // ipsum under real headlines is worse than not publishing it.
+  //
+  // None are scoped to `de`. They are English, and SRS §7.4 asks the German
+  // market to read German rather than translated English — an English post
+  // under German chrome reads as an unfinished site. They join /de/ when
+  // translated, not before.
+
+  {
+    slug: 'local-seo-checklist-delhi-ncr',
+    title: 'Local SEO checklist for Delhi NCR businesses',
+    excerpt:
+      'If your customers search "near me" before they search your brand name, local SEO decides whether they find you or your competitor.',
+    answer:
+      'A local SEO checklist runs through six things in order: claim and fully complete the Google Business Profile, keep NAP identical everywhere, build accurate citations, generate reviews systematically, publish a page per service area, and add local business schema. Most businesses that follow it consistently see map pack movement within 60 to 90 days.',
+    category: 'Local SEO',
+    cluster: 'local-seo-services',
+    authorId: 'a-1',
+    markets: ['in'],
+    publishedAt: '2026-07-06',
+    sections: [
+      {
+        heading: 'Claim and fully complete your Google Business Profile',
+        text: 'An unclaimed or half-filled profile is the single biggest local SEO gap we see. Add your exact business name, address, and phone number, choose accurate categories, list every service you offer, and upload real photos of your location and team.',
+      },
+      {
+        heading: 'Keep NAP consistent everywhere',
+        text: "Your Name, Address, and Phone number should be identical — down to the abbreviation style — across your website, Google Business Profile, and every directory listing. Inconsistency confuses Google's local ranking algorithm and erodes trust signals.",
+      },
+      {
+        heading: 'Build local citations',
+        text: 'Submit your business to Google Maps, JustDial, Sulekha, IndiaMART, and Bing Places. Volume matters less than consistency — ten accurate citations beat fifty conflicting ones.',
+      },
+      {
+        heading: 'Generate reviews systematically',
+        text: "Don't wait for reviews to happen. Send a direct Google review link by WhatsApp or email right after a project wraps up, when satisfaction is highest.",
+      },
+      {
+        heading: 'Build location-specific landing pages',
+        text: 'If you serve Gurgaon, Noida, and Faridabad, each deserves its own page with locally relevant content, not one generic "areas we serve" paragraph.',
+      },
+      {
+        heading: 'Add local business schema',
+        text: 'Structured data on your website that mirrors your Google Business Profile helps Google connect the two and strengthens your local ranking signals.',
+      },
+    ],
+  },
+  {
+    slug: 'brand-identity-basics-service-businesses',
+    title: 'Brand identity basics for service businesses',
+    excerpt:
+      'Service businesses often invest in a logo and call it branding, then wonder why their marketing still feels inconsistent.',
+    answer:
+      'A real brand identity covers more ground than a logo alone: positioning that answers who you serve and why you specifically, a visual system that holds across every channel, and a consistent tone of voice. Inconsistent branding makes every other marketing channel work harder.',
+    category: 'Branding',
+    cluster: 'branding-creative',
+    authorId: 'a-4',
+    publishedAt: '2026-07-06',
+    sections: [
+      {
+        heading: 'Positioning comes first',
+        text: 'Before any visual design work, you need a clear answer to who you serve, what makes you different from competitors, and why a prospect should choose you specifically. Without this, every other branding decision is a guess.',
+      },
+      {
+        heading: 'Visual identity beyond the logo',
+        text: 'Colour palette, typography, and imagery style all need to work consistently across your website, ads, and social presence — not just live inside a logo file that only shows up on your business card.',
+      },
+      {
+        heading: 'Tone of voice',
+        text: 'How you write — formal or casual, technical or plain-spoken — is part of your brand identity too, and it should stay consistent whether a prospect reads your website, an ad, or a WhatsApp reply.',
+      },
+      {
+        heading: 'Why this affects everything else',
+        text: 'Inconsistent branding makes every other marketing channel work harder. Clear positioning and consistent identity lower the cost of building trust across SEO, ads, and social all at once.',
+      },
+    ],
+  },
+  {
+    slug: 'how-ai-overviews-changing-google-search',
+    title: 'How AI Overviews are changing Google search results',
+    excerpt:
+      "Google's AI Overviews now answer many searches directly at the top of the results page, before a single blue link appears.",
+    answer:
+      'AI Overviews pull from multiple sources, so being cited matters as much as ranking first — a page at position four or five that gets included may drive more value than a top result users skip. Pages that answer the implied question in the first 40 to 60 words are easier to extract and cite.',
+    category: 'AI Search',
+    cluster: 'aeo-geo-services',
+    authorId: 'a-1',
+    publishedAt: '2026-07-06',
+    sections: [
+      {
+        heading: 'Being cited matters as much as ranking first',
+        text: 'AI Overviews pull answers from multiple sources, so being cited matters as much as ranking first. A page at position four or five that gets included in the overview may now drive more value than the top organic result that users skip past.',
+      },
+      {
+        heading: 'Direct-answer content gets cited more',
+        text: 'Pages that answer the implied question clearly in the first 40 to 60 words, before expanding into detail, are easier for AI systems to extract and cite than pages that build up to the answer slowly.',
+      },
+      {
+        heading: 'Structured data still matters',
+        text: "FAQ schema, clear headings, and well-organised lists help both traditional crawlers and AI systems parse your content's structure accurately.",
+      },
+      {
+        heading: 'What this means practically',
+        text: "Write the direct answer first, support it with detailed evidence afterwards, and keep the heading structure clean. It's a small shift in how you write, not a reason to abandon SEO fundamentals.",
+      },
+    ],
+  },
+  {
+    slug: 'negative-keywords-most-ignored-setting',
+    title: 'Negative keywords: the most ignored Google Ads setting',
+    excerpt:
+      'Most Google Ads accounts we audit have never touched their negative keyword list.',
+    answer:
+      'Negative keywords stop ads showing for searches containing specific terms even when the target keyword technically matches. Reviewing the search term report weekly for the first month of a new campaign usually reveals ten to twenty worth adding immediately.',
+    category: 'Paid Ads',
+    cluster: 'google-ads',
+    authorId: 'a-2',
+    publishedAt: '2026-07-06',
+    sections: [
+      {
+        heading: 'What negative keywords actually do',
+        text: 'They stop your ads from showing for searches that include specific terms, even if your target keyword technically matches. Without them, broad match keywords can trigger your ad for searches with completely different intent.',
+      },
+      {
+        heading: 'Common wasted-spend triggers',
+        text: 'Searches containing "free", "jobs", "salary", "course", or "how to do it myself" frequently trigger ads for commercial keywords, generating clicks from people who were never going to become customers.',
+      },
+      {
+        heading: 'Build the list from search term reports',
+        text: 'Your Google Ads search term report shows exactly what people typed before your ad showed. Reviewing this weekly for the first month of any new campaign usually reveals ten to twenty negative keywords worth adding immediately.',
+      },
+      {
+        heading: 'Revisit it regularly',
+        text: "Negative keyword lists aren't a one-time setup. New irrelevant search terms appear as your campaigns scale, so this is an ongoing maintenance task, not a launch checklist item.",
+      },
+    ],
+  },
+  {
+    slug: 'google-ads-budget-planning-first-time',
+    title: 'Google Ads budget planning for first-time advertisers',
+    excerpt:
+      'The most common question we get from first-time Google Ads advertisers isn’t "will this work" — it’s "how much should I actually spend."',
+    answer:
+      'Budget from your own industry’s cost per click rather than a round number, treat the first two to four weeks as a data-gathering phase, and keep Search, Shopping and Performance Max budgets separate so you can tell which is working. Without conversion tracking you are optimising toward clicks, not leads.',
+    category: 'Paid Ads',
+    cluster: 'google-ads',
+    authorId: 'a-2',
+    markets: ['in'],
+    publishedAt: '2026-07-06',
+    sections: [
+      {
+        heading: "Start with your industry's cost per click",
+        text: 'Cost per click varies enormously by industry — a few rupees for some local services, much higher for competitive B2B or legal keywords. Research your specific category before setting a number, rather than picking a round figure that sounds reasonable.',
+      },
+      {
+        heading: 'Budget for learning, not just clicks',
+        text: "Your first two to four weeks of spend should be treated as a data-gathering phase. Google's algorithm needs conversion data before it can optimise delivery, and you'll likely adjust keywords and targeting once you see what's actually converting.",
+      },
+      {
+        heading: 'Separate Search, Shopping and Performance Max budgets',
+        text: "Each campaign type behaves differently. Mixing budgets across all three from day one makes it hard to tell which is actually driving results. Start with Search if you're targeting specific buyer intent, and add other campaign types once you have a baseline.",
+      },
+      {
+        heading: "Don't skip conversion tracking",
+        text: "Without proper conversion tracking, you're optimising toward clicks, not leads — a guaranteed way to spend more per actual customer than necessary.",
+      },
+      {
+        heading: 'A reasonable starting range',
+        text: "For most Delhi NCR small and mid-sized businesses, a modest starting monthly budget is enough to gather meaningful data within the first month, before scaling based on what's working.",
+      },
+    ],
+  },
+  {
+    slug: 'meta-ads-creative-testing-small-budgets',
+    title: 'A Meta Ads creative testing framework for small budgets',
+    excerpt:
+      "Large brands can test dozens of ad creatives at once. Most small businesses can't, and don't need to.",
+    answer:
+      'Test one variable at a time, start with three to four variations rather than fifteen, give each test three to five days before calling a winner, and pause the losers. Testing only saves budget if underperforming ads are actually switched off.',
+    category: 'Paid Ads',
+    cluster: 'meta-ads',
+    authorId: 'a-2',
+    publishedAt: '2026-07-06',
+    sections: [
+      {
+        heading: 'Test one variable at a time',
+        text: "Change either the image, the headline, or the offer between variations — not all three at once. Otherwise you won't know which change actually drove the difference in performance.",
+      },
+      {
+        heading: 'Start with three to four variations, not fifteen',
+        text: 'On a limited budget, spreading spend across too many variations means none of them gather enough data to draw a real conclusion. Three to four focused variations reach statistical relevance faster.',
+      },
+      {
+        heading: 'Let each test run long enough',
+        text: 'Judging results after a few hours or a single day almost always leads to the wrong conclusion. Give each test at least three to five days before deciding a winner.',
+      },
+      {
+        heading: "Kill losers, don't just add winners",
+        text: 'Testing only works as a budget-saving tool if you actually pause underperforming ads once a winner is clear, rather than letting everything run indefinitely.',
+      },
+    ],
+  },
+  {
+    slug: 'facebook-vs-instagram-ads-where-to-start',
+    title: 'Facebook Ads vs Instagram Ads: where to spend first',
+    excerpt:
+      "Meta lets you run both from one campaign, so this isn't really an either-or decision anymore.",
+    answer:
+      'Instagram performs better for visually driven products and younger audiences; Facebook holds broader reach and older demographics, particularly for local services and B2B. Launch across both with automatic placements, then shift budget toward whichever returns a lower cost per result after one to two weeks.',
+    category: 'Paid Ads',
+    cluster: 'meta-ads',
+    authorId: 'a-6',
+    publishedAt: '2026-07-06',
+    sections: [
+      {
+        heading: 'Instagram favours visual, younger audiences',
+        text: 'Instagram tends to perform better for visually driven products — fashion, food, design, lifestyle — and skews toward a younger demographic that engages heavily with Reels and Stories.',
+      },
+      {
+        heading: 'Facebook still wins for broader reach and older demographics',
+        text: "Facebook's user base skews older and remains strong for local services, B2B, and community-driven marketing, particularly through Groups and longer-form posts.",
+      },
+      {
+        heading: 'Let the data decide the budget split',
+        text: 'Rather than committing upfront to a single platform, launch across both through automatic placements. After one to two weeks of performance data, shift budget toward whichever platform shows a lower cost per result.',
+      },
+      {
+        heading: 'Creative needs to match the platform',
+        text: 'A polished, static image ad can underperform on Instagram Reels placements, where native-feeling video does better. Build creative variations for each format rather than reusing one asset everywhere.',
+      },
+    ],
+  },
+  {
+    slug: 'organic-vs-paid-social-what-each-is-for',
+    title: 'Organic vs paid social: what each one is actually for',
+    excerpt:
+      'A common mistake we see is businesses expecting organic posts to drive sales directly, or expecting paid ads alone to build brand loyalty.',
+    answer:
+      'Organic social builds familiarity and credibility over time and makes paid ads perform better; paid social puts a specific message in front of a specific audience on a timeline you control. Measure organic on engagement and reach, paid on cost per lead — judging both by the same metric usually leads to cutting the wrong one.',
+    category: 'Social',
+    cluster: 'social-media-management',
+    authorId: 'a-6',
+    publishedAt: '2026-07-06',
+    sections: [
+      {
+        heading: 'Organic social builds trust over time',
+        text: 'Consistent, useful organic content builds familiarity and credibility. It rarely drives immediate conversions on its own, but it makes your paid ads perform better because prospects already recognise your brand when the ad appears.',
+      },
+      {
+        heading: 'Paid social drives reach and action',
+        text: "Paid social gets a specific message in front of a specific audience at scale, on a timeline you control. It's the right tool when you need leads or sales by a certain date, not just awareness.",
+      },
+      {
+        heading: 'The two work best together',
+        text: 'Your best-performing organic posts are usually strong candidates for paid amplification — you already know the content resonates before spending budget behind it.',
+      },
+      {
+        heading: 'Set separate goals for each',
+        text: 'Measure organic social on engagement, reach, and follower quality. Measure paid social on cost per lead or cost per sale. Judging both by the same metric usually leads to cutting the wrong one.',
+      },
+    ],
+  },
+  {
+    slug: 'website-redesign-checklist-before-rebuild',
+    title: 'Website redesign checklist before you rebuild',
+    excerpt:
+      "A redesign is the easiest way to accidentally destroy years of SEO progress if it's done without a plan.",
+    answer:
+      'Before a redesign: audit the pages already ranking, map every URL and plan 301 redirects, avoid rebranding at the same time, set a performance budget before design starts, and verify redirects on a staged site before the old one comes down.',
+    category: 'Web',
+    cluster: 'web-design-development',
+    authorId: 'a-3',
+    publishedAt: '2026-07-06',
+    sections: [
+      {
+        heading: "Audit what's already working",
+        text: 'Pull your top-performing pages by organic traffic before touching anything. Whatever is currently ranking needs a clear migration path in the new design, not just "we’ll recreate it later."',
+      },
+      {
+        heading: 'Map every URL',
+        text: 'Document your current URL structure and plan 301 redirects for anything that changes. A redesign that quietly 404s a dozen ranking pages is one of the most common causes of a traffic crash after launch.',
+      },
+      {
+        heading: "Don't redesign and rebrand at the same time",
+        text: 'Changing your domain, messaging, and visual identity all in one project makes it impossible to know which change caused which result if something goes wrong. Separate these where you can.',
+      },
+      {
+        heading: 'Set a performance budget',
+        text: 'Decide your target page weight and load time before design starts, not after developers hand you a beautiful but bloated homepage that fails Core Web Vitals.',
+      },
+      {
+        heading: 'Test before you launch',
+        text: 'Stage the new site, run it through a technical SEO checklist, and verify redirects work before the old site comes down — not after.',
+      },
+    ],
+  },
+  {
+    slug: 'when-business-needs-custom-software',
+    title: 'When a small business actually needs custom software',
+    excerpt:
+      "Custom software isn't the right answer for every business, and we say that as a company that builds it.",
+    answer:
+      'The signals are re-entering the same data in several places, paying for feature bundles to get one or two you use, and building workarounds so an off-the-shelf tool fits your process. If your process is standard and a mainstream tool fits it, custom software adds cost for little benefit.',
+    category: 'Software',
+    cluster: 'software-development',
+    authorId: 'a-3',
+    publishedAt: '2026-07-06',
+    sections: [
+      {
+        heading: "You're maintaining the same data in multiple places",
+        text: 'If your team re-enters the same customer or order information across a spreadsheet, an accounting tool, and a CRM, that duplicated effort is a strong signal that a connected system would save real hours every week.',
+      },
+      {
+        heading: "You're paying for features you don't use",
+        text: 'Generic SaaS pricing tiers often force you to pay for a bundle of features to get the one or two you actually need. At a certain scale, a custom-built tool with exactly what you use can cost less over time.',
+      },
+      {
+        heading: "Your process doesn't fit the software",
+        text: 'If your team has built workarounds — extra spreadsheets, manual approval chains, copy-pasted reports — to make an off-the-shelf tool fit your actual workflow, that workaround is where custom software usually pays off fastest.',
+      },
+      {
+        heading: 'When off-the-shelf is still the right call',
+        text: "If your process is standard and a mainstream tool already fits it well, custom software adds cost and maintenance for little benefit. Not every business has outgrown its spreadsheets yet, and that's fine.",
+      },
+    ],
+  },
+  {
+    slug: 'ai-automation-business-processes-2026',
+    title: 'Five business processes you can automate with AI this year',
+    excerpt: 'Most businesses overcomplicate their first AI automation project.',
+    answer:
+      'The highest-return starting points are the repetitive, rule-based tasks a team already does daily: lead qualification, appointment scheduling, support triage, routine reporting and follow-up sequences. Pick the single task consuming the most hours per week, automate that one well, and expand from there.',
+    category: 'Automation',
+    cluster: 'ai-automation',
+    authorId: 'a-3',
+    publishedAt: '2026-07-06',
+    sections: [
+      {
+        heading: 'Lead qualification',
+        text: 'An AI chatbot or form-logic system can ask qualifying questions the moment a lead comes in, scoring and routing them before a human ever gets involved — cutting response time from hours to seconds.',
+      },
+      {
+        heading: 'Appointment scheduling',
+        text: 'Back-and-forth scheduling emails are a classic time sink. AI scheduling assistants can handle availability, confirmations, and reminders without manual intervention.',
+      },
+      {
+        heading: 'Customer support triage',
+        text: 'AI can handle the first response to common questions — order status, business hours, pricing basics — and escalate only the queries that actually need a human.',
+      },
+      {
+        heading: 'Routine reporting',
+        text: 'Pulling numbers from ad platforms, analytics, and CRMs into a weekly report is repetitive and time-consuming. AI automation can assemble and even summarise these reports automatically.',
+      },
+      {
+        heading: 'Follow-up sequences',
+        text: "Leads that don't convert immediately often just get forgotten. AI-driven follow-up sequences keep them warm without your team manually tracking every contact.",
+      },
+      {
+        heading: 'Where to start',
+        text: 'Pick the single task that consumes the most hours per week across your team, automate that one process well, and expand from there — rather than trying to automate everything at once.',
+      },
+    ],
+  },
+  {
+    slug: 'how-to-vet-digital-marketing-agency',
+    title: 'How to vet a digital marketing agency before you sign',
+    excerpt:
+      "Digital marketing is one of the easiest services to oversell and underdeliver, mostly because clients often don't know what questions to ask before signing.",
+    answer:
+      'Ask what they report on, who does the day-to-day work, how flexible the contract is, for a specific example from a similar client, and what happens if the first few months underperform. No ethical agency guarantees rankings, but a good one has a plan for underperformance.',
+    category: 'Growth',
+    cluster: 'growth-consulting',
+    authorId: 'a-4',
+    publishedAt: '2026-07-06',
+    sections: [
+      {
+        heading: 'Ask what they actually report on',
+        text: 'Reporting should cover leads, cost per lead, and pipeline value — not just traffic and position tracking. Surface metrics are the easiest thing to make look good while the numbers that matter stay flat.',
+      },
+      {
+        heading: 'Ask who actually does the work',
+        text: 'Some agencies sell a senior strategist in the pitch meeting and hand execution to a junior team or subcontractor. Ask who manages your account day to day, by name.',
+      },
+      {
+        heading: 'Ask about contract flexibility',
+        text: 'Long lock-in contracts with no early exit option are a red flag, especially from an agency confident in its own results.',
+      },
+      {
+        heading: 'Ask for real examples, not just testimonials',
+        text: 'Request a specific example of a client in a similar industry and what actually changed in their numbers. A testimonial says someone was happy; a number says something worked.',
+      },
+      {
+        heading: "Ask what happens if results don't show up",
+        text: 'No ethical agency can guarantee rankings, but a good one should have a clear plan for what happens if the first few months underperform.',
+      },
+    ],
+  },
+  {
+    slug: 'google-reviews-strategy-local-business',
+    title: 'A Google reviews strategy for local service businesses',
+    excerpt:
+      'Reviews influence both your local search ranking and whether a prospect actually calls you once they find your listing.',
+    answer:
+      'Ask right after a positive interaction rather than weeks later, send a one-click review link, respond to every review including the negative ones, and keep a steady stream going. Consistency over time reads as more authentic than a single burst followed by silence.',
+    category: 'Local SEO',
+    cluster: 'local-seo-services',
+    authorId: 'a-1',
+    publishedAt: '2026-07-06',
+    sections: [
+      {
+        heading: 'Ask at the right moment',
+        text: 'The best time to request a review is right after a positive interaction — project completion, a resolved support issue, a successful delivery — not weeks later when the experience has faded.',
+      },
+      {
+        heading: 'Make it a one-click process',
+        text: 'Send a direct link to your Google review form, ideally via WhatsApp or SMS, rather than asking customers to search for your business and find the review option themselves.',
+      },
+      {
+        heading: 'Respond to every review',
+        text: 'Responding to both positive and negative reviews signals to Google, and to future customers reading them, that your business is actively managed and cares about feedback.',
+      },
+      {
+        heading: 'Handle negative reviews calmly and publicly',
+        text: 'A defensive or angry public response does more damage than the original negative review. Acknowledge the concern, respond professionally, and move the detailed conversation offline.',
+      },
+      {
+        heading: 'Consistency beats a one-time push',
+        text: 'A steady stream of new reviews over time looks more authentic to both Google and prospective customers than a single burst followed by silence.',
+      },
+    ],
+  },
+  {
+    slug: 'woocommerce-vs-shopify-india-2026',
+    title: 'WooCommerce vs Shopify for Indian businesses',
+    excerpt: 'We get asked this question in nearly every ecommerce discovery call.',
+    answer:
+      "WooCommerce gives full ownership of code, hosting and data, and suits businesses already on WordPress that need deep customisation. Shopify handles hosting, security and updates for a predictable monthly cost. Both support Razorpay and PayU, so payment gateways rarely decide it.",
+    category: 'E-Commerce',
+    cluster: 'ecommerce-development',
+    authorId: 'a-3',
+    markets: ['in'],
+    publishedAt: '2026-07-06',
+    sections: [
+      {
+        heading: 'WooCommerce: more control, more responsibility',
+        text: "WooCommerce runs on WordPress, giving you full ownership of your store's code, hosting, and data. It suits businesses already running WordPress, needing deep customisation, or with particular integration requirements. The trade-off is managing hosting, security, and updates yourself — or paying someone to.",
+      },
+      {
+        heading: 'Shopify: managed and fast to launch',
+        text: 'Shopify handles hosting, security, and updates for you, with a large app ecosystem for extending functionality. It suits businesses that want to launch quickly with minimal technical overhead, accepting a recurring platform cost instead of managing backend systems.',
+      },
+      {
+        heading: 'Payment gateways in India',
+        text: 'Both platforms support Razorpay, PayU, and other India-focused processors, so this is rarely the deciding factor.',
+      },
+      {
+        heading: 'Cost over time',
+        text: 'WooCommerce has lower recurring platform costs but can demand more in hosting and development. Shopify gives predictable monthly costs, though pricing scales with transaction volume and app subscriptions.',
+      },
+      {
+        heading: 'Our recommendation',
+        text: 'Existing WordPress users wanting extensive customisation are usually better served by WooCommerce. Businesses prioritising a fast launch with less administrative overhead generally do better on Shopify. We build and migrate stores on both.',
+      },
+    ],
+  },
+  {
+    slug: 'cost-per-lead-benchmarks-india',
+    title: 'What a good cost per lead actually looks like',
+    excerpt:
+      'Every business asks what a "good" cost per lead looks like. The honest answer is that it depends heavily on your industry, deal size, and sales cycle.',
+    answer:
+      'A single generic cost-per-lead number is more misleading than helpful. Judge it against what a customer is actually worth: a high cost per lead can be profitable with long retention, and a low one can lose money with weak conversion. Your own tracked history beats any industry average.',
+    category: 'Paid Ads',
+    cluster: 'paid-advertising',
+    authorId: 'a-2',
+    markets: ['in'],
+    publishedAt: '2026-07-06',
+    sections: [
+      {
+        heading: 'Why deal size changes the math',
+        text: 'A real estate developer selling multi-lakh properties can sustainably pay far more per lead than a local service business with a smaller average ticket size, because the potential return per customer is completely different.',
+      },
+      {
+        heading: 'Compare cost per lead to customer lifetime value',
+        text: 'A high cost per lead can still be profitable if customers stay for years or refer others. A low cost per lead can still lose money if conversion rates or retention are weak. Judge cost per lead against what a customer is actually worth to your business.',
+      },
+      {
+        heading: 'Industry competitiveness drives baseline costs',
+        text: 'Highly competitive categories like legal services, real estate, and B2B software tend to have higher baseline costs per click and per lead simply because more advertisers are bidding for the same audience.',
+      },
+      {
+        heading: 'Track your own number before chasing an industry average',
+        text: 'Your own historical cost per lead, tracked consistently, is a more useful benchmark than an industry average pulled from a market very different from yours.',
+      },
+    ],
+  },
 ]
 
 export async function getBlogPosts(country: CountryCode): Promise<BlogPost[]> {
   const isDe = country === 'de'
 
-  return blogSeeds.map((seed, i) => ({
+  const published = blogSeeds.filter((seed) => {
+    if (seed.markets && !seed.markets.includes(country)) return false
+
+    // The German market only sees posts that actually have German copy. The
+    // fallbacks below would otherwise render an English post under German
+    // chrome, which SRS §7.4 rules out and which reads as an unfinished site.
+    // A migrated post joins /de/ the moment titleDe is filled in — no other
+    // change needed.
+    if (country === 'de' && !seed.titleDe) return false
+
+    return true
+  })
+
+  return published.map((seed, i) => ({
     id: `blog-${country}-${seed.slug}`,
     countryId: country,
     slug: seed.slug,
@@ -712,8 +1247,11 @@ export async function getBlogPosts(country: CountryCode): Promise<BlogPost[]> {
     category: seed.category,
     cluster: seed.cluster,
     authorId: seed.authorId,
-    publishedAt: `2026-0${(i % 7) + 1}-${10 + i}`,
-    updatedAt: `2026-07-${10 + i}`,
+    // Migrated posts keep the date they were actually published. The rest are
+    // spread across the year; the day is wrapped rather than `10 + i`, which
+    // silently produces 2026-07-32 once the seed list passes twenty-one.
+    publishedAt: seed.publishedAt ?? `2026-0${(i % 7) + 1}-${10 + (i % 18)}`,
+    updatedAt: seed.publishedAt ?? `2026-07-${10 + (i % 18)}`,
     readingTime: 6 + (i % 5),
     image: blogImages[i % blogImages.length],
     body: buildBlogBody(seed, country),
@@ -731,6 +1269,19 @@ export async function getBlogPosts(country: CountryCode): Promise<BlogPost[]> {
 function buildBlogBody(seed: BlogSeed, country: CountryCode) {
   const isDe = country === 'de'
   const c = countries[country]
+
+  // A migrated post carries its own prose. Running it through the template
+  // below would replace a real article with boilerplate that happens to share
+  // its headline — the one outcome a content migration must not produce.
+  if (seed.sections) {
+    return [
+      { type: 'paragraph' as const, text: localiseSpelling(seed.answer, country) },
+      ...seed.sections.flatMap((section) => [
+        { type: 'heading' as const, level: 2 as const, text: localiseSpelling(section.heading, country) },
+        { type: 'paragraph' as const, text: localiseSpelling(section.text, country) },
+      ]),
+    ]
+  }
 
   if (isDe) {
     return [
