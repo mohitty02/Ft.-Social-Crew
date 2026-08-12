@@ -44,7 +44,7 @@ export function MarketFooter({
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1.25fr_1fr_1.25fr] lg:gap-8">
           {/* Brand */}
           <div>
-            <MarketLogo markClassName="text-brand-400" wordClassName="text-white" />
+            <MarketLogo tone="dark" />
             <p className="mt-5 max-w-xs text-[0.8125rem] leading-relaxed text-white/60">
               {m.footer.blurb}
             </p>

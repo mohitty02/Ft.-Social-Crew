@@ -24,6 +24,16 @@ export function organizationSchema(): Json {
     url: site.url,
     description: site.description,
     foundingDate: String(site.foundedYear),
+    // Google reads this for the knowledge panel and brand results. Square,
+    // ≥112px, transparent corners — the circle-masked 512 rather than the raw
+    // artwork, which would render as a white box.
+    logo: {
+      '@type': 'ImageObject',
+      url: `${site.url}/logo-512.png`,
+      width: 512,
+      height: 512,
+    },
+    image: `${site.url}/logo-512.png`,
     foundingLocation: {
       '@type': 'Place',
       address: { '@type': 'PostalAddress', addressLocality: site.foundedIn },

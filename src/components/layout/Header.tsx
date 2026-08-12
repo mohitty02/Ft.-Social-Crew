@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Menu, X, ChevronDown, Globe } from 'lucide-react'
@@ -65,16 +66,25 @@ export function Header({ country }: { country: CountryCode }) {
     >
       <div className="container-shell">
         <div className="flex h-[72px] items-center justify-between gap-6">
-          {/* Wordmark */}
+          {/* Brand mark. The disc carries the wordmark, so the text beside it
+              is the market qualifier only — repeating the name would set it
+              twice in one lockup. */}
           <Link
             href={`/${country}/`}
-            className="flex shrink-0 items-baseline gap-1.5"
+            className="flex shrink-0 items-center gap-3"
             aria-label={`Ft. Social Crew — ${c.name} home`}
           >
-            <span className="font-display text-[1.35rem] font-semibold leading-none text-[color:var(--text-brand)]">
+            <Image
+              src="/logo-mark.png"
+              alt=""
+              width={192}
+              height={192}
+              priority
+              className="h-10 w-10 shrink-0 rounded-full object-contain"
+            />
+            <span className="hidden font-display text-[1.35rem] font-semibold leading-none text-[color:var(--text-brand)] sm:block">
               Ft. Social Crew
             </span>
-            <span className="hidden h-1.5 w-1.5 rounded-pill bg-gold-300 sm:block" aria-hidden="true" />
           </Link>
 
           {/* Desktop navigation */}

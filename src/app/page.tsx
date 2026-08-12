@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight, Globe } from 'lucide-react'
 import { countryList, defaultCountry } from '@/config/countries'
@@ -46,9 +47,19 @@ export default function GlobalRootPage() {
               <Globe className="mr-1.5 h-3 w-3" aria-hidden="true" />
               Global
             </Pill>
-            <p className="mt-7 font-display text-[1.5rem] font-semibold text-[color:var(--text-brand)]">
-              Ft. Social Crew
-            </p>
+            <div className="mt-7 flex items-center gap-3.5">
+              <Image
+                src="/logo-mark.png"
+                alt=""
+                width={192}
+                height={192}
+                priority
+                className="h-12 w-12 shrink-0 rounded-full object-contain"
+              />
+              <p className="font-display text-[1.5rem] font-semibold text-[color:var(--text-brand)]">
+                Ft. Social Crew
+              </p>
+            </div>
             <h1 className="mt-5 font-display text-display-1 text-[color:var(--text-brand)]">
               One team.{' '}
               <span className="relative inline-block">

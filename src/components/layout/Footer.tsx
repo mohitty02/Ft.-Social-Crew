@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import { Mail, Phone, MapPin, ShieldCheck } from 'lucide-react'
 import type { CountryCode } from '@/types'
@@ -57,8 +58,15 @@ export function Footer({ country }: { country: CountryCode }) {
           <div>
             <Link
               href={`/${country}/`}
-              className="font-display text-[1.35rem] font-semibold text-[color:var(--text-brand)]"
+              className="flex items-center gap-3 font-display text-[1.35rem] font-semibold text-[color:var(--text-brand)]"
             >
+              <Image
+                src="/logo-mark.png"
+                alt=""
+                width={192}
+                height={192}
+                className="h-10 w-10 shrink-0 rounded-full object-contain"
+              />
               Ft. Social Crew
             </Link>
             <p className="mt-3 max-w-xs text-small text-ink-600">
