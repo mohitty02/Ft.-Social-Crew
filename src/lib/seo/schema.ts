@@ -55,20 +55,41 @@ export function organizationSchema(): Json {
   }
 }
 
-/** SRS §7.6 — LocalBusiness per country. */
+/**
+ * SRS §7.6 — LocalBusiness per country.
+ *
+ * `telephone` and `address` are asserted only where `contactVerified` is true,
+ * which today means India alone. The other five markets still carry the design
+ * comps' stand-in details — numbers from the reserved 555 test range, addresses
+ * borrowed from well-known office towers — and structured data is precisely
+ * where those must not appear: it is the machine-readable claim that the
+ * company has premises at that address and answers on that line. Google treats
+ * a fabricated business location as a policy problem, and a prospect who dials
+ * it reaches nothing.
+ *
+ * Fill in the real details and flip the flag; this reverts on its own.
+ */
 export function localBusinessSchema(country: CountryCode): Json {
   const c = countries[country]
-  return {
+
+  const base: Json = {
     '@type': 'ProfessionalService',
     '@id': `${buildUrl(country)}#localbusiness`,
     name: `${site.name} — ${c.name}`,
     description: `${c.positioning} serving ${c.name}.`,
     url: buildUrl(country),
     parentOrganization: { '@id': ORG_ID },
-    telephone: c.phone,
     email: c.email,
     priceRange: '$$$',
     currenciesAccepted: c.currency,
+    areaServed: { '@type': 'Country', name: c.name },
+  }
+
+  if (!c.contactVerified) return base
+
+  return {
+    ...base,
+    telephone: c.phone,
     address: {
       '@type': 'PostalAddress',
       streetAddress: c.office.street,
@@ -77,7 +98,6 @@ export function localBusinessSchema(country: CountryCode): Json {
       postalCode: c.office.postalCode,
       addressCountry: c.office.country,
     },
-    areaServed: { '@type': 'Country', name: c.name },
   }
 }
 

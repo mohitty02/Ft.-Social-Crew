@@ -29,16 +29,21 @@ export const countries: Record<CountryCode, Country> = {
     spelling: 'en-IN',
     pricingMode: 'productized',
     whatsapp: true,
-    // Client-supplied, from the approved India comp. LocalBusiness and
+    // Real, and the only market where that is true — these are the details the
+    // company actually publishes on its own live site. LocalBusiness and
     // Service schema read this record, so it has to match what the pages
-    // actually display.
-    phone: '+91 93546 61950',
-    email: 'hello@ftsocialcrew.com',
+    // display and what a customer reaches when they dial it.
+    //
+    // Replaces a number and an Uttam Nagar address that arrived with the design
+    // comp and were never the working ones.
+    phone: '+91 88519 39418',
+    email: 'ftsocialcrew@gmail.com',
+    contactVerified: true,
     office: {
-      street: '3rd Floor, Plot No. 18, Sector 5, B Block',
-      city: 'Uttam Nagar, Delhi',
+      street: '69, Harsh Vihar, Pitampura',
+      city: 'New Delhi',
       region: 'Delhi',
-      postalCode: '110059',
+      postalCode: '110034',
       country: 'India',
     },
     primaryCta: 'Talk to a growth partner',
@@ -70,8 +75,11 @@ export const countries: Record<CountryCode, Country> = {
     spelling: 'en-US',
     pricingMode: 'consultative',
     whatsapp: false,
+    // Placeholder: 555-01xx is the reserved test range, and the address is a
+    // stand-in from the comp. Kept off LocalBusiness schema until real.
     phone: '+1 (415) 555-0100',
     email: 'usa@ftsocialcrew.com',
+    contactVerified: false,
     office: {
       street: '2 Embarcadero Center, Suite 800',
       city: 'San Francisco',
@@ -108,8 +116,10 @@ export const countries: Record<CountryCode, Country> = {
     spelling: 'en-CA',
     pricingMode: 'consultative',
     whatsapp: false,
+    // Placeholder — see the note on the US record.
     phone: '+1 (416) 555-0142',
     email: 'canada@ftsocialcrew.com',
+    contactVerified: false,
     office: {
       street: '181 Bay Street, Suite 1800',
       city: 'Toronto',
@@ -146,8 +156,10 @@ export const countries: Record<CountryCode, Country> = {
     spelling: 'en-AU',
     pricingMode: 'consultative',
     whatsapp: false,
+    // Placeholder — see the note on the US record.
     phone: '+61 2 8000 0000',
     email: 'australia@ftsocialcrew.com',
+    contactVerified: false,
     office: {
       street: '120 Collins Street, Level 12',
       city: 'Melbourne',
@@ -184,8 +196,10 @@ export const countries: Record<CountryCode, Country> = {
     spelling: 'de-DE',
     pricingMode: 'consultative',
     whatsapp: false,
+    // Placeholder — see the note on the US record.
     phone: '+49 30 5555 0000',
     email: 'deutschland@ftsocialcrew.com',
+    contactVerified: false,
     office: {
       street: 'Friedrichstraße 76',
       city: 'Berlin',
@@ -224,8 +238,10 @@ export const countries: Record<CountryCode, Country> = {
     spelling: 'en-AE',
     pricingMode: 'consultative',
     whatsapp: true,
+    // Placeholder — see the note on the US record.
     phone: '+971 4 555 0000',
     email: 'uae@ftsocialcrew.com',
+    contactVerified: false,
     office: {
       street: 'Boulevard Plaza Tower 1, Level 22',
       city: 'Dubai',

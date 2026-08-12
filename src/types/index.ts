@@ -57,6 +57,19 @@ export interface Country {
   whatsapp: boolean
   phone: string
   email: string
+  /**
+   * Whether this market's phone and postal address are real.
+   *
+   * Only India is. The other five carry placeholder contact details that came
+   * in with the design comps — the numbers are from the reserved 555 test range
+   * and the addresses are well-known office towers used as stand-ins.
+   *
+   * LocalBusiness schema reads this and refuses to assert an unverified address
+   * or telephone. Publishing a fabricated physical location in structured data
+   * tells Google the company has premises it does not have, and hands a
+   * prospect a number that rings nowhere.
+   */
+  contactVerified: boolean
   office: {
     street: string
     city: string

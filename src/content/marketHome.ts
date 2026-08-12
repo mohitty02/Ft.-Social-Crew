@@ -1,5 +1,6 @@
 import type { CountryCode } from '@/types'
 import { marketImages } from '@/config/media'
+import { countries } from '@/config/countries'
 
 /**
  * Home-page copy for the art-directed market layout.
@@ -875,11 +876,15 @@ export const indiaCurated = {
  *
  * Phone and email are NOT here — they live in `src/config/countries.ts` like
  * every other market's, because LocalBusiness and Service schema read that
- * record and structured data has to match what the page displays. This holds
- * the presentation only; the same address is in the country record.
+ * record and structured data has to match what the page displays.
+ *
+ * Neither is the address, any more. It used to be copied here as a literal
+ * "the same address as the country record", and the moment that record was
+ * corrected the copy silently kept displaying the old one — the page showed a
+ * different address from the schema on the same page. It is derived now, so
+ * the two cannot disagree again.
  */
 export const indiaAddressLines = [
-  '3rd Floor, Plot No. 18,',
-  'Sector 5, B Block,',
-  'Uttam Nagar, Delhi - 110059',
+  `${countries['in'].office.street},`,
+  `${countries['in'].office.city} - ${countries['in'].office.postalCode}`,
 ] as const
