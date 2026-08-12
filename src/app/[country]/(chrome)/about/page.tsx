@@ -165,12 +165,50 @@ export default async function AboutPage({
         <StatStrip
           className="mt-16"
           stats={[
+            { value: `${site.claims.brandsServed}+`, label: isDe ? 'Marken' : 'Brands', detail: isDe ? 'Bisher betreut' : 'Served to date' },
+            { value: `${site.claims.sectorsServed}+`, label: isDe ? 'Branchen' : 'Sectors', detail: isDe ? 'Dokumentierte Vorgehensweisen' : 'Documented playbooks' },
             { value: '6', label: isDe ? 'Märkte' : 'Markets', detail: isDe ? 'Aktiv betreut' : 'Actively served' },
-            { value: '14', label: isDe ? 'Branchen' : 'Sectors', detail: isDe ? 'Dokumentierte Vorgehensweisen' : 'Documented playbooks' },
-            { value: '10', label: isDe ? 'Leistungsbereiche' : 'Core services', detail: isDe ? 'Gemeinsam geplant' : 'Planned as one system' },
             { value: String(new Date().getFullYear() - site.foundedYear), label: isDe ? 'Jahre' : 'Years', detail: isDe ? `Seit ${site.foundedYear}` : `Operating since ${site.foundedYear}` },
           ]}
         />
+      </Section>
+
+      {/*
+        Origin — the previous site carried this and the rebuild dropped it.
+        An agency page with a method but no named founder and no account of why
+        the company exists is exactly the profile Google's E-E-A-T guidance
+        treats as thin, and Organization schema now asserts the same facts.
+      */}
+      <Section surface="paper" deferred>
+        <div className="grid gap-12 lg:grid-cols-[1fr_1fr] lg:gap-20">
+          <div>
+            <SectionHeader
+              eyebrow={isDe ? 'Ursprung' : 'Origin'}
+              heading={
+                isDe
+                  ? 'Warum es dieses Unternehmen gibt'
+                  : 'Why this company exists'
+              }
+            />
+          </div>
+          <div>
+            <p className="max-w-prose text-body text-ink-600">
+              {isDe
+                ? `Ft. Social Crew wurde ${site.foundedYear} von ${site.founder.name} in ${site.foundedIn} gegründet — nicht als finanziertes Startup mit großem Launch, sondern von einer Person, die zu viele kleine und mittlere Unternehmen gesehen hatte, denen „Markenbekanntheit" verkauft wurde, die nie zu einem einzigen Verkauf führte.`
+                : `Ft. Social Crew was founded in ${site.foundedYear} by ${site.founder.name} in ${site.foundedIn} — not as a funded startup with a big launch, but as one person who had seen too many small and mid-sized businesses sold "brand awareness" packages that never translated into a single sale.`}
+            </p>
+            <p className="mt-5 max-w-prose text-body text-ink-600">
+              {isDe
+                ? `Die Ausrichtung auf KI-gestützte Suche ist keine nachträgliche Ergänzung: Die Masterarbeit der Gründerin behandelte ${site.founder.expertise} — jene Disziplin, die heute bestimmt, ob eine Marke in ChatGPT, Gemini und Perplexity überhaupt vorkommt.`
+                : `The focus on AI-driven search is not a late addition: the founder's MBA dissertation was on ${site.founder.expertise} — the discipline that now decides whether a brand appears in ChatGPT, Gemini and Perplexity at all.`}
+            </p>
+            <p className="mt-5 max-w-prose text-body text-ink-600">
+              {isDe
+                ? 'Der Name hält diese Haltung fest. „Ft." steht für „For The" — Entscheidungen werden aus Sicht des Kunden getroffen. „Crew" bedeutet eingebundenes Team statt Dienstleister auf Abruf.'
+                : 'The name holds that position. "Ft." stands for "For The" — decisions get made from the client\'s side of the table. "Crew" means an embedded team rather than a vendor on call.'}
+            </p>
+          </div>
+        </div>
       </Section>
 
       {/* Methodology — SRS §23.2 / §23.5 both require this as a trust asset */}

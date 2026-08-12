@@ -24,6 +24,18 @@ export function organizationSchema(): Json {
     url: site.url,
     description: site.description,
     foundingDate: String(site.foundedYear),
+    foundingLocation: {
+      '@type': 'Place',
+      address: { '@type': 'PostalAddress', addressLocality: site.foundedIn },
+    },
+    // A named, attributable founder is the single cheapest E-E-A-T signal an
+    // agency site can carry, and the one most of them omit (SRS §7.6).
+    founder: {
+      '@type': 'Person',
+      name: site.founder.name,
+      jobTitle: site.founder.role,
+      knowsAbout: site.founder.expertise,
+    },
     email: site.email,
     // SRS §9.2 — consistent entity facts across the site and third-party
     // profiles, so AI systems build a stable picture of the brand.
