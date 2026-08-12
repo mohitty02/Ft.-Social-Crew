@@ -38,6 +38,32 @@ export interface CountryHomeContent {
   ctaHeading: string
   ctaBody: string
   faqs: { question: string; answer: string }[]
+  /**
+   * Long-form about-page content, where the market has it.
+   *
+   * India's is the company's own writing, carried across from the previous
+   * site. It is deliberately not templated onto the other five: it is written
+   * from Delhi, prices in lakhs, and argues to a Tier-2 D2C founder. Dropping
+   * that verbatim onto /de/about/ would read as a translated Indian page rather
+   * than a German one, which is the failure SRS §7.4 exists to prevent.
+   *
+   * Markets without a record keep the shorter platform-level about page.
+   */
+  about?: {
+    /** Replaces the generic H1 where the market has its own line. */
+    tagline: string
+    intro: string
+    journey: string[]
+    milestones: { label: string; text: string }[]
+    mission: { heading: string; body: string }[]
+    /** The "result oriented, not activity oriented" argument. */
+    stance: {
+      heading: string
+      intro: string
+      points: { title: string; description: string }[]
+    }
+    audience: { title: string; description: string }[]
+  }
 }
 
 export const countryHome: Record<CountryCode, CountryHomeContent> = {
@@ -130,6 +156,78 @@ export const countryHome: Record<CountryCode, CountryHomeContent> = {
           'Paid channels produce measurable data within weeks. Organic search compounds over quarters — typically meaningful movement by month three and material pipeline contribution by month six. We report on leading indicators throughout so you are never waiting blind.',
       },
     ],
+    about: {
+      tagline: "We don't just market your brand. We build its crew.",
+      intro:
+        "Ft. Social Crew is a New Delhi based digital marketing agency built on one belief: marketing only counts if it shows up in your revenue. Since 2019 we have helped 120+ brands across India and overseas turn SEO, ads, content and web design into measurable growth — leads booked, carts filled, calls answered. Not impressions. Outcomes.",
+      journey: [
+        "Ft. Social Crew was founded in 2019 by Shruti Garg, in Pitampura, New Delhi — not as a funded startup with a big launch, but as one person who had seen too many small and mid-sized businesses get sold “brand awareness” packages that never translated into a single sale.",
+        "Shruti built her foundation the hard way: hands on, account by account, learning what actually moves a D2C brand's revenue versus what just looks good on a slide. That experience later fed directly into her MBA dissertation on Generative Engine Optimisation — how brands get found in an AI-driven search world — making Ft. Social Crew one of the few Indian agencies thinking ahead of where search is heading, not just where it has been.",
+        "The name itself is the philosophy. “Ft.” stands for “For The” — every decision is made for the client's growth, never for our own convenience. “Crew” means we do not operate like a vendor you call when something breaks. We are embedded in your business the way a crew is embedded in a ship: present, accountable, and rowing in the same direction as you.",
+      ],
+      milestones: [
+        {
+          label: '2019',
+          text: 'Founded solo, first clients in D2C and local services around Delhi/NCR.',
+        },
+        {
+          label: 'Today',
+          text: 'A dedicated team delivering SEO, paid ads, social media, content and web design under one roof.',
+        },
+        {
+          label: '120+ brands',
+          text: 'Served across D2C, food and beverage, real estate, healthcare, education and B2B.',
+        },
+        {
+          label: 'Pan-India',
+          text: 'Service footprint expanded from Delhi/NCR across India, with active clients overseas.',
+        },
+      ],
+      mission: [
+        {
+          heading: 'Our mission',
+          body: 'To give every business — regardless of size or budget — access to the same calibre of strategic marketing that large enterprises pay lakhs for, with every rupee spent traceable to a result. We do not believe a small D2C brand in a Tier-2 city deserves a weaker strategy than a funded startup in Delhi. We believe they deserve the same rigour, scaled to their reality.',
+        },
+        {
+          heading: 'Our vision',
+          body: 'To become India’s most trusted name in result-oriented digital marketing — an agency measured not by the size of its office, but by the size of the numbers it moves for its clients. As search and discovery shift toward AI, our vision is to keep our clients ahead of that curve, not catching up to it.',
+        },
+      ],
+      stance: {
+        heading: 'Why we are result oriented, not activity oriented',
+        intro:
+          'A lot of agencies measure success by what they did — posts published, ads launched, audits delivered. We measure success by what changed for your business.',
+        points: [
+          {
+            title: 'We report revenue impact, not vanity metrics',
+            description:
+              'Reach and impressions are easy to inflate. ROAS, qualified leads, bookings and sales are not. Every report we send ties activity directly to business outcomes — and if a number did not move, we say so.',
+          },
+          {
+            title: 'We build the strategy around your margins, not our package',
+            description:
+              'We start by understanding your unit economics and goals, then build a plan that fits inside your budget — not one designed to upsell you next quarter.',
+          },
+          {
+            title: 'We tell you “no” before we take your money',
+            description:
+              'If a channel will not realistically work for your business, we say so upfront, even if it costs us the sale. Conservative, honest projections govern every proposal we send.',
+          },
+        ],
+      },
+      audience: [
+        {
+          title: 'Indian businesses',
+          description:
+            'D2C brands, local service providers, real estate developers, healthcare and wellness practices, B2B companies, and growing startups across Delhi/NCR and the rest of India.',
+        },
+        {
+          title: 'Global businesses',
+          description:
+            'International brands and entrepreneurs who want Indian agency pricing with global-standard execution, across e-commerce, SaaS and service industries.',
+        },
+      ],
+    },
   },
 
   // ─────────────────────────────────────────────────────────────

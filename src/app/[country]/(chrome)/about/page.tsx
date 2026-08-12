@@ -64,6 +64,8 @@ export default async function AboutPage({
   const code = country as CountryCode
   const c = countries[code]
   const isDe = code === 'de'
+  /** Present only where the market has its own long-form about copy. */
+  const about = countryHome[code].about
   const services = await getServices(code)
   const method = services[0].process
 
@@ -109,10 +111,13 @@ export default async function AboutPage({
       <PageHero
         country={code}
         eyebrow={isDe ? 'Über uns' : 'About'}
+        // A market with its own line leads with it. The platform headline is
+        // true but generic, and it is not what this company calls itself.
         title={
-          isDe
+          about?.tagline ??
+          (isDe
             ? 'Ein Team. Sechs Märkte. Ein Qualitätsstandard.'
-            : 'One team, six markets, one standard of evidence'
+            : 'One team, six markets, one standard of evidence')
         }
         intro={
           isDe
@@ -178,38 +183,153 @@ export default async function AboutPage({
         An agency page with a method but no named founder and no account of why
         the company exists is exactly the profile Google's E-E-A-T guidance
         treats as thin, and Organization schema now asserts the same facts.
+
+        Markets with their own long-form record (`about`) render the company's
+        own writing; the rest get the short platform-level version below.
       */}
-      <Section surface="paper" deferred>
-        <div className="grid gap-12 lg:grid-cols-[1fr_1fr] lg:gap-20">
-          <div>
+      {about ? (
+        <>
+          <Section surface="paper" deferred>
+            {/* The tagline is the H1 above, so this leads with the claim
+                behind it rather than repeating the line. */}
+            <div className="max-w-3xl">
+              <Pill variant="outline" size="md">
+                {isDe ? 'Über uns' : 'Who we are'}
+              </Pill>
+              <p className="mt-6 text-lead text-ink-600">{about.intro}</p>
+            </div>
+
+            <div className="mt-16 grid gap-12 lg:grid-cols-[1fr_1fr] lg:gap-20">
+              <div>
+                <SectionHeader
+                  eyebrow={isDe ? 'Ursprung' : 'The journey'}
+                  heading={
+                    isDe
+                      ? 'Warum es dieses Unternehmen gibt'
+                      : 'Why this company exists'
+                  }
+                />
+              </div>
+              <div>
+                {about.journey.map((para, i) => (
+                  <p
+                    key={i}
+                    className={`max-w-prose text-body text-ink-600${i > 0 ? ' mt-5' : ''}`}
+                  >
+                    {para}
+                  </p>
+                ))}
+              </div>
+            </div>
+
+            <ul className="mt-14 grid gap-px overflow-hidden rounded-lg border border-ink/10 bg-ink/10 sm:grid-cols-2 lg:grid-cols-4">
+              {about.milestones.map((m) => (
+                <li key={m.label} className="bg-paper-pure p-7">
+                  <p className="font-tight text-eyebrow uppercase text-accent">
+                    {m.label}
+                  </p>
+                  <p className="mt-3 text-small text-ink-600">{m.text}</p>
+                </li>
+              ))}
+            </ul>
+          </Section>
+
+          <Section surface="tint" deferred>
+            <div className="grid gap-12 lg:grid-cols-2 lg:gap-20">
+              {about.mission.map((m) => (
+                <div key={m.heading}>
+                  <h2 className="font-display text-h3 text-[color:var(--text-brand)]">
+                    {m.heading}
+                  </h2>
+                  <p className="mt-5 max-w-prose text-body text-ink-600">
+                    {m.body}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </Section>
+
+          <Section surface="paper" deferred>
             <SectionHeader
-              eyebrow={isDe ? 'Ursprung' : 'Origin'}
+              eyebrow={isDe ? 'Haltung' : 'Our stance'}
+              heading={about.stance.heading}
+              subhead={about.stance.intro}
+            />
+            <StaggerGroup className="mt-10 grid gap-px overflow-hidden rounded-lg border border-ink/10 bg-ink/10 lg:grid-cols-3">
+              {about.stance.points.map((p) => (
+                <StaggerItem key={p.title}>
+                  <div className="h-full bg-paper-pure p-7">
+                    <Check
+                      className="h-5 w-5 text-accent"
+                      aria-hidden="true"
+                      strokeWidth={1.5}
+                    />
+                    <h3 className="mt-5 font-display text-h4 text-[color:var(--text-brand)]">
+                      {p.title}
+                    </h3>
+                    <p className="mt-3 text-small text-ink-600">
+                      {p.description}
+                    </p>
+                  </div>
+                </StaggerItem>
+              ))}
+            </StaggerGroup>
+          </Section>
+
+          <Section surface="paper" deferred>
+            <SectionHeader
+              eyebrow={isDe ? 'Kunden' : 'Who we work with'}
               heading={
                 isDe
-                  ? 'Warum es dieses Unternehmen gibt'
-                  : 'Why this company exists'
+                  ? 'Mit wem wir arbeiten'
+                  : 'The businesses we take on'
               }
             />
+            <div className="mt-10 grid gap-px overflow-hidden rounded-lg border border-ink/10 bg-ink/10 sm:grid-cols-2">
+              {about.audience.map((a) => (
+                <div key={a.title} className="bg-paper-pure p-7">
+                  <h3 className="font-display text-h4 text-[color:var(--text-brand)]">
+                    {a.title}
+                  </h3>
+                  <p className="mt-3 text-small text-ink-600">{a.description}</p>
+                </div>
+              ))}
+            </div>
+          </Section>
+        </>
+      ) : (
+        <Section surface="paper" deferred>
+          <div className="grid gap-12 lg:grid-cols-[1fr_1fr] lg:gap-20">
+            <div>
+              <SectionHeader
+                eyebrow={isDe ? 'Ursprung' : 'Origin'}
+                heading={
+                  isDe
+                    ? 'Warum es dieses Unternehmen gibt'
+                    : 'Why this company exists'
+                }
+              />
+            </div>
+            <div>
+              <p className="max-w-prose text-body text-ink-600">
+                {isDe
+                  ? `Ft. Social Crew wurde ${site.foundedYear} von ${site.founder.name} in ${site.foundedIn} gegründet — nicht als finanziertes Startup mit großem Launch, sondern von einer Person, die zu viele kleine und mittlere Unternehmen gesehen hatte, denen „Markenbekanntheit" verkauft wurde, die nie zu einem einzigen Verkauf führte.`
+                  : `Ft. Social Crew was founded in ${site.foundedYear} by ${site.founder.name} in ${site.foundedIn} — not as a funded startup with a big launch, but as one person who had seen too many small and mid-sized businesses sold "brand awareness" packages that never translated into a single sale.`}
+              </p>
+              <p className="mt-5 max-w-prose text-body text-ink-600">
+                {isDe
+                  ? `Die Ausrichtung auf KI-gestützte Suche ist keine nachträgliche Ergänzung: Die Masterarbeit der Gründerin behandelte ${site.founder.expertise} — jene Disziplin, die heute bestimmt, ob eine Marke in ChatGPT, Gemini und Perplexity überhaupt vorkommt.`
+                  : `The focus on AI-driven search is not a late addition: the founder's MBA dissertation was on ${site.founder.expertise} — the discipline that now decides whether a brand appears in ChatGPT, Gemini and Perplexity at all.`}
+              </p>
+              <p className="mt-5 max-w-prose text-body text-ink-600">
+                {isDe
+                  ? 'Der Name hält diese Haltung fest. „Ft." steht für „For The" — Entscheidungen werden aus Sicht des Kunden getroffen. „Crew" bedeutet eingebundenes Team statt Dienstleister auf Abruf.'
+                  : 'The name holds that position. "Ft." stands for "For The" — decisions get made from the client\'s side of the table. "Crew" means an embedded team rather than a vendor on call.'}
+              </p>
+            </div>
           </div>
-          <div>
-            <p className="max-w-prose text-body text-ink-600">
-              {isDe
-                ? `Ft. Social Crew wurde ${site.foundedYear} von ${site.founder.name} in ${site.foundedIn} gegründet — nicht als finanziertes Startup mit großem Launch, sondern von einer Person, die zu viele kleine und mittlere Unternehmen gesehen hatte, denen „Markenbekanntheit" verkauft wurde, die nie zu einem einzigen Verkauf führte.`
-                : `Ft. Social Crew was founded in ${site.foundedYear} by ${site.founder.name} in ${site.foundedIn} — not as a funded startup with a big launch, but as one person who had seen too many small and mid-sized businesses sold "brand awareness" packages that never translated into a single sale.`}
-            </p>
-            <p className="mt-5 max-w-prose text-body text-ink-600">
-              {isDe
-                ? `Die Ausrichtung auf KI-gestützte Suche ist keine nachträgliche Ergänzung: Die Masterarbeit der Gründerin behandelte ${site.founder.expertise} — jene Disziplin, die heute bestimmt, ob eine Marke in ChatGPT, Gemini und Perplexity überhaupt vorkommt.`
-                : `The focus on AI-driven search is not a late addition: the founder's MBA dissertation was on ${site.founder.expertise} — the discipline that now decides whether a brand appears in ChatGPT, Gemini and Perplexity at all.`}
-            </p>
-            <p className="mt-5 max-w-prose text-body text-ink-600">
-              {isDe
-                ? 'Der Name hält diese Haltung fest. „Ft." steht für „For The" — Entscheidungen werden aus Sicht des Kunden getroffen. „Crew" bedeutet eingebundenes Team statt Dienstleister auf Abruf.'
-                : 'The name holds that position. "Ft." stands for "For The" — decisions get made from the client\'s side of the table. "Crew" means an embedded team rather than a vendor on call.'}
-            </p>
-          </div>
-        </div>
-      </Section>
+        </Section>
+      )}
 
       {/* Methodology — SRS §23.2 / §23.5 both require this as a trust asset */}
       <Section surface="invert" deferred>
