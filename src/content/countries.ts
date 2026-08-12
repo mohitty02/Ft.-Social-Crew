@@ -78,8 +78,11 @@ export const countryHome: Record<CountryCode, CountryHomeContent> = {
     h1Accent: 'how your business grows',
     answer:
       'Ft. Social Crew is a business growth agency in India that combines SEO, paid media, web, brand and automation under a single retained team — so growth is planned as one system rather than bought as five disconnected services.',
+    // The "pieces never add up" argument moved down into positioningSection,
+    // where the client's own fuller version of it now lives. Repeating it here
+    // would state the same premise twice before the reader reaches the answer.
     subhead:
-      'Most Indian businesses buy marketing in pieces: an SEO vendor here, a web company there, a freelancer for ads. The pieces never add up. We run all of it as one growth plan, with one team accountable for the number that actually matters to you.',
+      'Strategy, execution and results, all under one roof since 2019 — with one team accountable for the number that actually matters to you.',
     heroStats: [
       { value: '10', label: 'Metro & tier-2 cities served' },
       { value: '14', label: 'Industry verticals' },
@@ -87,11 +90,13 @@ export const countryHome: Record<CountryCode, CountryHomeContent> = {
       { value: '₹', label: 'Transparent INR pricing' },
     ],
     positioningSection: {
-      eyebrow: 'Why a growth partner, not a vendor',
-      heading: 'A service vendor sells you deliverables. A growth partner owns an outcome.',
+      eyebrow: 'Who we are',
+      heading:
+        'A digital marketing agency in Delhi NCR that treats your growth like our business',
       body: [
-        'Searching for an "SEO company" or a "website company" gets you exactly that — a specialist who optimises their own slice and hands you a report. Nobody is looking at whether the slices add up to more customers.',
-        'We start one level up. What is the business trying to reach, which channels can realistically get it there, and what has to be true across web, search, paid and process for the plan to hold? Then we build and run all of it.',
+        'Is your marketing spend going out faster than leads are coming in? Does your website look fine but bring in almost no business? Are you tired of agencies that promise “viral growth” and deliver vanity metrics instead? That is exactly the gap Ft. Social Crew was built to close.',
+        'Most businesses do not fail at marketing because they lack effort. They fail because their SEO, ads, content and website are all being run by different vendors who never talk to each other. The result is wasted budget, mismatched messaging, and growth that stalls.',
+        'Since 2019 we have worked with 120+ brands across D2C, food and beverage, real estate, healthcare, education and local services — strategies that do not just look good in a report, but show up in your sales numbers, your search rankings and your customer’s inbox. We have seen what works in each of those industries and, more usefully, what does not, so you do not pay to find that out the hard way.',
       ],
       points: [
         {
@@ -122,14 +127,14 @@ export const countryHome: Record<CountryCode, CountryHomeContent> = {
     servicesHeading: 'Everything a growing business needs, under one roof',
     servicesSubhead:
       'Ten core services, each with its own specialisms — Local SEO, Google Ads, Shopify, HRM systems. Take the whole system or the part you are missing.',
-    trustHeading: 'Why Indian businesses stay',
+    trustHeading: 'What sets us apart',
     trustPoints: [
-      'An in-house team across SEO, ads, content, design and development — nothing subcontracted out',
+      'Six-plus years of hands-on experience across 15+ industries',
+      'An in-house team covering SEO, paid ads, content, design and development — no outsourcing, no middlemen, no quality drop',
+      'Strategies built for how people search today, including AI platforms like ChatGPT, Gemini and Perplexity',
+      'Transparent reporting, so you always know exactly where your money is going',
+      'Client retention built on results, not contracts that lock you in',
       'Transparent INR pricing published on the site — no discovery-call gatekeeping',
-      'WhatsApp-first communication with the team actually doing the work',
-      'City-specific strategy for metro and tier-2 markets, not one national plan',
-      'Built for AI search as well as Google — cited in ChatGPT and Perplexity, not just ranked',
-      'Monthly reporting tied to pipeline, not to impressions and rankings alone',
     ],
     ctaHeading: 'Tell us what growth is supposed to look like this year',
     ctaBody:

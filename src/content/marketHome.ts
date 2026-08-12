@@ -128,10 +128,10 @@ export const marketHome: Record<CountryCode, MarketHome> = {
     headerCta: 'Get a Free Strategy Call',
     hero: {
       eyebrow: 'Digital Marketing Agency in Delhi NCR',
-      headline: 'Digital Strategies.',
-      headlineAccent: 'Real Results.',
-      body: 'We help brands in Delhi NCR and beyond grow with performance-driven digital marketing that delivers leads, builds visibility and maximizes ROI.',
-      primaryCta: 'Get Free Strategy Call',
+      headline: 'Marketing That Turns Ad Spend Into',
+      headlineAccent: 'Booked Leads.',
+      body: 'Ft. Social Crew runs SEO, Google Ads, Meta Ads and web development for Delhi NCR businesses that need real leads, not just impressions. Get a free audit of what your marketing is actually doing right now.',
+      primaryCta: 'Get a Free Audit',
       secondaryCta: 'Explore Services',
       image: marketImages['in'].hero,
       imageAlt:
@@ -167,7 +167,7 @@ export const marketHome: Record<CountryCode, MarketHome> = {
       eyebrow: 'What we do',
       heading: '360° Digital Marketing Services',
       subhead:
-        'End-to-end solutions to grow your brand, generate leads and maximize ROI.',
+        'Strategy, execution and results — all under one roof since 2019.',
     },
     stats: [
       { icon: 'shield', value: '350+', label: 'Projects Delivered' },
