@@ -95,12 +95,14 @@ export const countryHome: Record<CountryCode, CountryHomeContent> = {
       'Every number below traces to a specific engagement, a specific timeframe and a specific method. Ask us to walk you through any of them.',
     servicesHeading: 'Everything a growing business needs, under one roof',
     servicesSubhead:
-      'Ten core services. Take the whole system or the part you are missing — but they are designed to work together.',
+      'Ten core services, each with its own specialisms — Local SEO, Google Ads, Shopify, HRM systems. Take the whole system or the part you are missing.',
     trustHeading: 'Why Indian businesses stay',
     trustPoints: [
+      'An in-house team across SEO, ads, content, design and development — nothing subcontracted out',
       'Transparent INR pricing published on the site — no discovery-call gatekeeping',
       'WhatsApp-first communication with the team actually doing the work',
       'City-specific strategy for metro and tier-2 markets, not one national plan',
+      'Built for AI search as well as Google — cited in ChatGPT and Perplexity, not just ranked',
       'Monthly reporting tied to pipeline, not to impressions and rankings alone',
     ],
     ctaHeading: 'Tell us what growth is supposed to look like this year',
