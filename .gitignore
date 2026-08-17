@@ -15,3 +15,7 @@ next-env.d.ts
 # the repo is made private and you want the source material versioned with it.
 Ft_Social_Crew_Global_Website_SRS_and_Growth_Blueprint.pdf
 WhatsApp Image *.jpeg
+
+# One-off CMS migration dump — 900 KB of derived content, regenerate with
+# npx tsx scripts/export-content.mts
+scripts/content-export.json
