@@ -1,8 +1,9 @@
+import { getTestimonials } from '@/lib/data'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import type { CountryCode } from '@/types'
 import { countries, countryCodes, isCountryCode } from '@/config/countries'
-import { getTestimonials } from '@/content/testimonials'
+
 import { buildMetadata } from '@/lib/seo/metadata'
 import { graph, breadcrumbSchema, faqSchema } from '@/lib/seo/schema'
 
@@ -48,7 +49,7 @@ export default async function TestimonialsPage({
   const code = country as CountryCode
   const c = countries[code]
   const isDe = code === 'de'
-  const testimonials = getTestimonials(code)
+  const testimonials = await getTestimonials(code)
 
   const breadcrumbs = [
     { name: c.name, href: `/${code}/` },

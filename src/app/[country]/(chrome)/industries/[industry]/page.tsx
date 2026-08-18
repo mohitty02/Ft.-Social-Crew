@@ -80,7 +80,7 @@ export default async function IndustryPage({
   const def = industryDefs.find((i) => i.slug === industry)!
   const caseStudies = await getCaseStudies(code)
   const relevantCase = caseStudies.filter((cs) => cs.industry === industry)
-  const testimonials = getTestimonialsByIndustry(code, industry).slice(0, 2)
+  const testimonials = (await getTestimonialsByIndustry(code, industry)).slice(0, 2)
 
   const relevantServices = def.primaryServices
     .map((slug) => serviceDefs.find((s) => s.slug === slug))

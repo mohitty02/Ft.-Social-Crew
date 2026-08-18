@@ -7,8 +7,8 @@ import type { CountryCode } from '@/types'
 import { countries, countryCodes, isCountryCode } from '@/config/countries'
 import { citiesByCountry } from '@/config/cities'
 import { cityServiceDefinitions, resolveServiceSlug, resolveServiceTitle } from '@/config/services'
-import { getCityBySlug, getCityList } from '@/lib/data'
-import { getTestimonials } from '@/content/testimonials'
+import { getCityBySlug, getCityList , getTestimonials } from '@/lib/data'
+
 import { buildMetadata } from '@/lib/seo/metadata'
 import { graph, breadcrumbSchema, faqSchema, localBusinessSchema } from '@/lib/seo/schema'
 
@@ -79,7 +79,7 @@ export default async function CityPage({
 
   const allCities = await getCityList(code)
   const others = allCities.filter((x) => x.slug !== city).slice(0, 6)
-  const testimonials = getTestimonials(code).slice(0, 2)
+  const testimonials = (await getTestimonials(code)).slice(0, 2)
 
   const breadcrumbs = [
     { name: c.name, href: `/${code}/` },

@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { Facebook, Instagram, Linkedin, Youtube, MapPin, Phone, Mail } from 'lucide-react'
 import type { CountryCode } from '@/types'
 import { site } from '@/config/site'
-import { marketHome } from '@/content/marketHome'
+import type { ResolvedMarketHome } from '@/lib/market/content'
 import type { MarketPageData } from '@/lib/market/home'
 import { MarketLogo } from './MarketLogo'
 
@@ -20,7 +20,8 @@ export function MarketFooter({
   country: CountryCode
   data: MarketPageData
 }) {
-  const m = marketHome[country]
+  const home = data.home
+  const m = home
   const base = `/${country}`
 
   const quickLinks = [

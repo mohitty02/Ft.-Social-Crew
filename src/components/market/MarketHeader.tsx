@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Menu, X, ChevronDown, Phone, ArrowRight } from 'lucide-react'
 import type { CountryCode } from '@/types'
-import { marketHome } from '@/content/marketHome'
+import type { ResolvedMarketHome } from '@/lib/market/content'
 import type { MarketLink } from '@/lib/market/home'
 import { cn } from '@/lib/utils/cn'
 import { MarketLogo } from './MarketLogo'
@@ -16,16 +16,18 @@ import { MarketLogo } from './MarketLogo'
  * Separate from the shared `components/layout/Header` on purpose: the market
  * layout runs the green system, a phone-first right cluster and a flat service
  * menu rather than the global mega-menu. Every label comes from
- * `marketHome[country]`, so Germany reads as German.
+ * the resolved market copy, so Germany reads as German.
  */
 export function MarketHeader({
   country,
+  home,
   serviceLinks,
   industryLinks,
   phone,
   phoneHref,
 }: {
   country: CountryCode
+  home: ResolvedMarketHome
   serviceLinks: MarketLink[]
   industryLinks: MarketLink[]
   phone: string
@@ -36,7 +38,7 @@ export function MarketHeader({
   const [scrolled, setScrolled] = useState(false)
 
   const pathname = usePathname()
-  const m = marketHome[country]
+  const m = home
   const base = `/${country}`
 
   const nav: { label: string; href: string; children?: MarketLink[] }[] = [

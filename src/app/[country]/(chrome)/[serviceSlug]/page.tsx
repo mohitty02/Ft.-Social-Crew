@@ -11,8 +11,8 @@ import {
   getSubServices,
 } from '@/config/services'
 import { industries as industryDefs } from '@/config/industries'
-import { getServiceBySlug, getServices, getCityList } from '@/lib/data'
-import { getTestimonials } from '@/content/testimonials'
+import { getServiceBySlug, getServices, getCityList , getTestimonials } from '@/lib/data'
+
 import { buildMetadata, buildUrl } from '@/lib/seo/metadata'
 import { graph, breadcrumbSchema, serviceSchema, faqSchema } from '@/lib/seo/schema'
 
@@ -96,7 +96,7 @@ export default async function ServiceDetailPage({
   // Does this service have city × service pages generated? (SRS §7.7)
   const baseDef = serviceDefs.find((s) => resolveServiceSlug(s, code) === serviceSlug)
   const hasCityPages = baseDef ? isProgrammaticCityService(baseDef.slug) : false
-  const testimonials = getTestimonials(code).slice(0, 2)
+  const testimonials = (await getTestimonials(code)).slice(0, 2)
 
   /**
    * Family-first interlinking.

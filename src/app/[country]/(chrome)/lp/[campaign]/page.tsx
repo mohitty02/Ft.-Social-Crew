@@ -1,3 +1,4 @@
+import { getTestimonials } from '@/lib/data'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
@@ -5,7 +6,7 @@ import { Check } from 'lucide-react'
 import type { CountryCode } from '@/types'
 import { countries, countryCodes, isCountryCode } from '@/config/countries'
 import { countryHome } from '@/content/countries'
-import { getTestimonials } from '@/content/testimonials'
+
 import { buildMetadata } from '@/lib/seo/metadata'
 
 import { Section } from '@/components/layout/Section'
@@ -68,7 +69,7 @@ export default async function LandingPage({
   const c = countries[code]
   const content = countryHome[code]
   const isDe = code === 'de'
-  const testimonials = getTestimonials(code).slice(0, 2)
+  const testimonials = (await getTestimonials(code)).slice(0, 2)
 
   return (
     <div className="min-h-screen bg-paper">

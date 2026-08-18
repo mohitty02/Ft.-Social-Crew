@@ -34,6 +34,7 @@ export default async function ChromeLayout({
 
       <MarketHeader
         country={code}
+        home={data.home}
         serviceLinks={data.serviceLinks}
         industryLinks={data.industryLinks}
         phone={data.contact.phone}

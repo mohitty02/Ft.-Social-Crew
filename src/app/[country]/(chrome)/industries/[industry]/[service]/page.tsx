@@ -97,7 +97,7 @@ export default async function IndustryServicePage({
   if (!ind || !svc) notFound()
 
   const def = industryDefs.find((i) => i.slug === industry)!
-  const testimonials = getTestimonialsByIndustry(code, industry).slice(0, 1)
+  const testimonials = (await getTestimonialsByIndustry(code, industry)).slice(0, 1)
 
   const siblings = def.primaryServices
     .map((s) => serviceDefs.find((d) => d.slug === s))

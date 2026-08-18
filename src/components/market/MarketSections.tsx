@@ -1,8 +1,7 @@
 import Image from 'next/image'
 import { Check, ArrowRight } from 'lucide-react'
 import type { CountryCode } from '@/types'
-import { countryHome } from '@/content/countries'
-import { marketHome } from '@/content/marketHome'
+import type { ResolvedMarketHome } from '@/lib/market/content'
 import { marketImages } from '@/config/media'
 import { cn } from '@/lib/utils/cn'
 import { MarketIcon } from './MarketIcon'
@@ -31,10 +30,15 @@ function Eyebrow({ children, className }: { children: React.ReactNode; className
    SECTION ONE — how this market works
    ═══════════════════════════════════════════════════════════════ */
 
-export function ApproachSection({ country }: { country: CountryCode }) {
-  const c = countryHome[country]
-  const s = c.positioningSection
-  const variant = marketHome[country].layout.approach
+export function ApproachSection({
+  country,
+  home,
+}: {
+  country: CountryCode
+  home: ResolvedMarketHome
+}) {
+  const s = home.positioningSection
+  const variant = home.layout.approach
   const img = marketImages[country]
 
   const head = (
@@ -258,11 +262,16 @@ export function ApproachSection({ country }: { country: CountryCode }) {
    SECTION TWO — why this market trusts it
    ═══════════════════════════════════════════════════════════════ */
 
-export function TrustSection({ country }: { country: CountryCode }) {
-  const c = countryHome[country]
-  const variant = marketHome[country].layout.trust
+export function TrustSection({
+  country,
+  home,
+}: {
+  country: CountryCode
+  home: ResolvedMarketHome
+}) {
+  const variant = home.layout.trust
   const img = marketImages[country]
-  const cta = marketHome[country].closing.button
+  const cta = home.closing.button
   const base = `/${country}`
 
   /* ── India: dark band, checklist beside a photograph ──────── */
@@ -273,10 +282,10 @@ export function TrustSection({ country }: { country: CountryCode }) {
           <div className="grid lg:grid-cols-2">
             <div className="p-8 lg:p-14">
               <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-brand-200">
-                {c.trustHeading}
+                {home.trustHeading}
               </p>
               <ul className="mt-8 space-y-5">
-                {c.trustPoints.map((p) => (
+                {home.trustPoints.map((p) => (
                   <li key={p} className="flex gap-3.5">
                     <Check className="mt-0.5 h-4 w-4 shrink-0 text-brand-300" strokeWidth={2.5} aria-hidden="true" />
                     <span className="text-[0.875rem] leading-relaxed text-white/80">{p}</span>
@@ -305,10 +314,10 @@ export function TrustSection({ country }: { country: CountryCode }) {
       <section className="border-y border-steel-200 bg-[color:var(--bg-tint)] py-16 lg:py-20">
         <div className={SHELL}>
           <h2 className="max-w-2xl text-[clamp(1.5rem,1.1rem+1.4vw,2rem)] font-semibold leading-[1.2] tracking-[-0.02em] text-steel-900">
-            {c.trustHeading}
+            {home.trustHeading}
           </h2>
           <ul className="mt-10 grid gap-px overflow-hidden border border-steel-200 bg-steel-200 sm:grid-cols-2">
-            {c.trustPoints.map((p, i) => (
+            {home.trustPoints.map((p, i) => (
               <li key={p} className="bg-white p-7">
                 <span className="text-[0.75rem] font-semibold tabular text-accent">
                   {String(i + 1).padStart(2, '0')}
@@ -327,10 +336,10 @@ export function TrustSection({ country }: { country: CountryCode }) {
     return (
       <section className={cn(SHELL, 'pb-16 lg:pb-24')}>
         <h2 className="mx-auto max-w-2xl text-center text-[clamp(1.5rem,1.1rem+1.4vw,2rem)] font-semibold leading-[1.2] tracking-[-0.02em] text-steel-900">
-          {c.trustHeading}
+          {home.trustHeading}
         </h2>
         <ul className="mt-12 grid gap-6 sm:grid-cols-2">
-          {c.trustPoints.map((p) => (
+          {home.trustPoints.map((p) => (
             <li
               key={p}
               className="flex gap-4 rounded-card border border-accent-line bg-accent-soft/50 p-7"
@@ -350,10 +359,10 @@ export function TrustSection({ country }: { country: CountryCode }) {
       <section className={cn(SHELL, 'pb-16 lg:pb-20')}>
         <div className="border-y-2 border-steel-900 py-10">
           <h2 className="text-[clamp(1.5rem,1.1rem+1.4vw,2rem)] font-semibold leading-[1.2] tracking-[-0.02em] text-steel-900">
-            {c.trustHeading}
+            {home.trustHeading}
           </h2>
           <ul className="mt-8 grid gap-x-10 gap-y-4 md:grid-cols-2">
-            {c.trustPoints.map((p) => (
+            {home.trustPoints.map((p) => (
               <li key={p} className="flex gap-3 border-t border-steel-200 pt-4">
                 <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
                 <p className="text-[0.875rem] leading-relaxed text-steel-700">{p}</p>
@@ -371,10 +380,10 @@ export function TrustSection({ country }: { country: CountryCode }) {
       <section className={cn(SHELL, 'pb-14 lg:pb-16')}>
         <div className="border border-steel-300 bg-white">
           <h2 className="border-b border-steel-300 bg-[color:var(--bg-tint)] px-6 py-4 text-[1rem] font-semibold text-steel-900">
-            {c.trustHeading}
+            {home.trustHeading}
           </h2>
           <ol className="divide-y divide-steel-300">
-            {c.trustPoints.map((p, i) => (
+            {home.trustPoints.map((p, i) => (
               <li key={p} className="flex gap-4 px-6 py-4">
                 <span className="text-[0.8125rem] font-semibold tabular text-accent">
                   {String(i + 1).padStart(2, '0')}
@@ -407,10 +416,10 @@ export function TrustSection({ country }: { country: CountryCode }) {
           <div className="w-full px-6 py-8 sm:px-12 lg:px-16">
             <div className="max-w-xl rounded-card bg-white/95 p-7 backdrop-blur-sm lg:p-9">
               <h2 className="text-[clamp(1.25rem,1rem+1vw,1.75rem)] font-semibold leading-[1.25] tracking-[-0.02em] text-steel-900">
-                {c.trustHeading}
+                {home.trustHeading}
               </h2>
               <ul className="mt-5 space-y-3">
-                {c.trustPoints.map((p) => (
+                {home.trustPoints.map((p) => (
                   <li key={p} className="flex gap-3">
                     <Check className="mt-0.5 h-4 w-4 shrink-0 text-accent" strokeWidth={2.5} aria-hidden="true" />
                     <span className="text-[0.8125rem] leading-relaxed text-steel-600">{p}</span>

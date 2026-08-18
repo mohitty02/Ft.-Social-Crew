@@ -8,8 +8,9 @@ import {
   resolveServiceShortDescription,
 } from '@/config/services'
 import { getServices, getCaseStudies, getBlogPosts } from '@/lib/data'
-import { getTestimonials } from '@/content/testimonials'
-import { indiaCurated, indiaAddressLines } from '@/content/marketHome'
+import { getTestimonials } from '@/lib/data'
+import { indiaCurated } from '@/content/marketHome'
+import { resolveMarketHome, resolveMarketSettings, type ResolvedMarketHome } from './content'
 import { formatDate, telHref } from '@/lib/i18n/format'
 
 /**
@@ -30,6 +31,8 @@ export interface MarketLink {
 }
 
 export interface MarketPageData {
+  /** The market's home-page copy, CMS first. */
+  home: ResolvedMarketHome
   services: { icon: string; title: string; description: string; href: string }[]
   cases: {
     client: string
@@ -78,7 +81,11 @@ export async function buildMarketPageData(
     href: `${base}/industries/${i.slug}/`,
   }))
 
-  const posts = await getBlogPosts(country)
+  const [posts, home, settings] = await Promise.all([
+    getBlogPosts(country),
+    resolveMarketHome(country),
+    resolveMarketSettings(country),
+  ])
 
   const mappedPosts = posts.slice(0, 4).map((p) => ({
     category: p.category,
@@ -88,21 +95,25 @@ export async function buildMarketPageData(
     image: p.image,
   }))
 
-  // Phone and email come from the country record for every market, so the
-  // page and the LocalBusiness schema can never disagree.
+  /*
+   * Contact details come from the resolved market settings for every market,
+   * CMS first. India used to carry a hard-coded address here, transcribed
+   * from the original comp — that now silently overrode what the client had
+   * updated in the CMS, so it is gone. The same record feeds LocalBusiness
+   * schema, so the page and the structured data cannot disagree.
+   */
+  const address = [
+    `${settings.office.street},`,
+    [settings.office.city, settings.office.region].filter(Boolean).join(', '),
+    [settings.office.postalCode, settings.office.country].filter(Boolean).join(', '),
+  ].filter((line) => line.replace(/[,\s]/g, '').length > 0)
+
   const contact = {
-    phone: c.phone,
-    phoneHref: telHref(c.phone),
-    email: c.email,
-    emailHref: `mailto:${c.email}`,
-    address:
-      country === 'in'
-        ? [...indiaAddressLines]
-        : [
-            `${c.office.street},`,
-            `${c.office.city}, ${c.office.region}`,
-            `${c.office.postalCode}, ${c.office.country}`,
-          ],
+    phone: settings.phone,
+    phoneHref: telHref(settings.phone),
+    email: settings.email,
+    emailHref: `mailto:${settings.email}`,
+    address,
   }
 
   if (country === 'in') {
@@ -125,6 +136,7 @@ export async function buildMarketPageData(
         role: t.role,
         client: t.client,
       })),
+      home,
       posts: mappedPosts,
       contact,
       serviceLinks,
@@ -136,7 +148,7 @@ export async function buildMarketPageData(
     getServices(country),
     getCaseStudies(country),
   ])
-  const testimonials = getTestimonials(country)
+  const testimonials = await getTestimonials(country)
 
   return {
     services: services.slice(0, 6).map((s) => ({
@@ -167,6 +179,7 @@ export async function buildMarketPageData(
       client: t.company,
     })),
 
+    home,
     posts: mappedPosts,
 
     contact,

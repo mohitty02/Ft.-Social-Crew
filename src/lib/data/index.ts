@@ -9,6 +9,7 @@ import type {
   Resource,
   Competitor,
   Faq,
+  Testimonial,
 } from '@/types'
 import { countries } from '@/config/countries'
 import { getCmsMarket } from '@/lib/cms/client'
@@ -25,8 +26,9 @@ import {
   resolveIndustryName,
 } from '@/config/industries'
 import { getCities, getCity } from '@/config/cities'
-import { getTestimonialsByIndustry } from '@/content/testimonials'
+import { getTestimonials as localTestimonials } from '@/content/testimonials'
 import { localiseSpelling } from '@/lib/i18n/format'
+import { portraits } from '@/config/media'
 import {
   industryImages,
   caseStudyImages,
@@ -1555,7 +1557,6 @@ export function getCompetitor(slug: string): Competitor | undefined {
 // Convenience re-exports so pages import from one place only
 // ─────────────────────────────────────────────────────────────────
 
-export { getTestimonialsByIndustry }
 export { getServiceDefinition, getIndustryDefinition, getCity }
 
 
@@ -1744,4 +1745,43 @@ export async function getResources(country: CountryCode): Promise<Resource[]> {
     image: withDefaults(r.image, resourceImages[i % resourceImages.length]),
     readingTime: r.readingTime || 8,
   }))
+}
+
+/**
+ * Testimonials.
+ *
+ * Async, unlike the synchronous helper in `@/content/testimonials` it
+ * supersedes — reading the CMS means every consumer has to await, and every
+ * consumer is already an async server component.
+ */
+export async function getTestimonials(country: CountryCode): Promise<Testimonial[]> {
+  const market = await getCmsMarket(country)
+  if (!market?.testimonials?.length) return localTestimonials(country)
+
+  return market.testimonials.map((t, i) => ({
+    id: `t-${country}-${i + 1}`,
+    countryId: country,
+    quote: t.quote,
+    author: withDefaults(t.author, ''),
+    role: withDefaults(t.role, ''),
+    company: withDefaults(t.company, ''),
+    industry: withDefaults(t.industry, ''),
+    rating: t.rating || 5,
+    hasVideo: Boolean(t.hasVideo),
+    isPlaceholder: Boolean(t.isPlaceholder),
+    image: withDefaults(t.image, portraits[i % portraits.length]),
+  }))
+}
+
+/** Industry-filtered view of the same set. */
+export async function getTestimonialsByIndustry(
+  country: CountryCode,
+  industry: string
+): Promise<Testimonial[]> {
+  const all = await getTestimonials(country)
+  const matching = all.filter((t) => t.industry === industry)
+
+  // A market may have no testimonial for a given vertical; showing the
+  // market's own proof beats showing an empty section.
+  return matching.length ? matching : all
 }

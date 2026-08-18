@@ -2,7 +2,6 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowRight, ArrowUpRight, Check, LayoutGrid, Phone, TrendingUp } from 'lucide-react'
 import type { CountryCode } from '@/types'
-import { marketHome } from '@/content/marketHome'
 import type { MarketPageData } from '@/lib/market/home'
 import { cn } from '@/lib/utils/cn'
 import { MarketIcon } from './MarketIcon'
@@ -129,7 +128,7 @@ export function MarketHome({
   country: CountryCode
   data: MarketPageData
 }) {
-  const m = marketHome[country]
+  const m = data.home
   const base = `/${country}`
   const [mLeads, mRoas, mRevenue, mCampaigns] = m.hero.metrics
 
@@ -242,7 +241,7 @@ export function MarketHome({
         </div>
       </section>
 
-      <ApproachSection country={country} />
+      <ApproachSection country={country} home={m} />
 
       {/* ── Services ── */}
       <section className={cn(SHELL, 'py-16 lg:py-20')}>
@@ -395,7 +394,7 @@ export function MarketHome({
         </ol>
       </section>
 
-      <TrustSection country={country} />
+      <TrustSection country={country} home={m} />
 
       {/* ── Testimonials ── */}
       <section className={cn(SHELL, 'pb-16 lg:pb-20')}>

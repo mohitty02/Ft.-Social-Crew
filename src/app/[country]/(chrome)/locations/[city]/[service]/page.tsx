@@ -11,8 +11,8 @@ import {
   resolveServiceSlug,
   resolveServiceTitle,
 } from '@/config/services'
-import { getCityBySlug, getServiceBySlug } from '@/lib/data'
-import { getTestimonials } from '@/content/testimonials'
+import { getCityBySlug, getServiceBySlug , getTestimonials } from '@/lib/data'
+
 import { buildMetadata, buildUrl } from '@/lib/seo/metadata'
 import { graph, breadcrumbSchema, faqSchema, serviceSchema, localBusinessSchema } from '@/lib/seo/schema'
 
@@ -90,7 +90,7 @@ export default async function CityServicePage({
   const svc = await getServiceBySlug(code, service)
   if (!record || !svc) notFound()
 
-  const testimonials = getTestimonials(code).slice(0, 1)
+  const testimonials = (await getTestimonials(code)).slice(0, 1)
 
   const siblings = cityServiceDefinitions.filter(
     (d) => resolveServiceSlug(d, code) !== service
