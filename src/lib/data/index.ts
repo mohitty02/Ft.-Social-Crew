@@ -11,6 +11,7 @@ import type {
   Faq,
 } from '@/types'
 import { countries } from '@/config/countries'
+import { getCmsMarket } from '@/lib/cms/client'
 import {
   services as serviceDefs,
   resolveServiceSlug,
@@ -178,7 +179,7 @@ function serviceFaqs(country: CountryCode, title: string): Faq[] {
   ]
 }
 
-export async function getServices(country: CountryCode): Promise<Service[]> {
+async function localServices(country: CountryCode): Promise<Service[]> {
   return serviceDefs.map((def) => {
     const title = resolveServiceTitle(def, country)
     const slug = resolveServiceSlug(def, country)
@@ -452,7 +453,7 @@ export async function getServiceBySlug(
 // INDUSTRIES — SRS §24 supplies a complete brief per vertical
 // ─────────────────────────────────────────────────────────────────
 
-export async function getIndustries(country: CountryCode): Promise<Industry[]> {
+async function localIndustries(country: CountryCode): Promise<Industry[]> {
   const c = countries[country]
 
   return industryDefs.map((def) => ({
@@ -488,7 +489,7 @@ export async function getIndustryBySlug(
 // CITIES — SRS §11.3 quality gate applies here
 // ─────────────────────────────────────────────────────────────────
 
-export async function getCityList(country: CountryCode): Promise<City[]> {
+async function localCityList(country: CountryCode): Promise<City[]> {
   const c = countries[country]
 
   return getCities(country).map((def) => ({
@@ -538,7 +539,7 @@ const caseStudyPriority: Record<CountryCode, string[]> = {
   'en-ae': ['real-estate', 'hospitality', 'professional-services', 'finance'],
 }
 
-export async function getCaseStudies(country: CountryCode): Promise<CaseStudy[]> {
+async function localCaseStudies(country: CountryCode): Promise<CaseStudy[]> {
   const c = countries[country]
   const verticals = caseStudyPriority[country]
 
@@ -1221,7 +1222,7 @@ const blogSeeds: BlogSeed[] = [
   },
 ]
 
-export async function getBlogPosts(country: CountryCode): Promise<BlogPost[]> {
+async function localBlogPosts(country: CountryCode): Promise<BlogPost[]> {
   const isDe = country === 'de'
 
   const published = blogSeeds.filter((seed) => {
@@ -1325,7 +1326,7 @@ export async function getBlogPostBySlug(
 // PRICING — SRS §1.5 / §23: two distinct modes, not one grid
 // ─────────────────────────────────────────────────────────────────
 
-export async function getPricing(country: CountryCode): Promise<PricingPlan[]> {
+async function localPricing(country: CountryCode): Promise<PricingPlan[]> {
   const c = countries[country]
 
   // SRS §1.5 — productized packages, primarily India and UAE.
@@ -1458,7 +1459,7 @@ export async function getPricing(country: CountryCode): Promise<PricingPlan[]> {
 // RESOURCES — SRS §11.1 targets 100 per country
 // ─────────────────────────────────────────────────────────────────
 
-export async function getResources(country: CountryCode): Promise<Resource[]> {
+async function localResources(country: CountryCode): Promise<Resource[]> {
   const c = countries[country]
   const isDe = country === 'de'
 
@@ -1556,3 +1557,191 @@ export function getCompetitor(slug: string): Competitor | undefined {
 
 export { getTestimonialsByIndustry }
 export { getServiceDefinition, getIndustryDefinition, getCity }
+
+
+// ═══════════════════════════════════════════════════════════════════
+//  THE CMS BOUNDARY, WIRED
+// ═══════════════════════════════════════════════════════════════════
+//
+// Everything above generates content from the taxonomies committed in this
+// repository. Everything below prefers the Laravel CMS and falls back to that
+// generated content when the CMS has nothing to say — because it holds no
+// records for a market yet, or because it could not be reached at build time.
+//
+// The fallback is the point: editors get a live CMS, and a build still
+// succeeds and still ships a complete site if that CMS is down.
+
+/** Fills the fields the internal types require but the API does not carry. */
+function withDefaults<T>(value: T | null | undefined, fallback: T): T {
+  return value === null || value === undefined || value === '' ? fallback : value
+}
+
+export async function getServices(country: CountryCode): Promise<Service[]> {
+  const market = await getCmsMarket(country)
+  if (!market?.services?.length) return localServices(country)
+
+  const c = countries[country]
+
+  return market.services.map((s) => ({
+    id: `svc-${country}-${s.slug}`,
+    countryId: country,
+    slug: s.slug,
+    title: s.title,
+    answer: withDefaults(s.answer, `${s.title} from Ft. Social Crew in ${c.name}.`),
+    summary: withDefaults(s.summary, withDefaults(s.shortDescription, '')),
+    icon: withDefaults(s.icon, 'Compass'),
+    outcomes: s.outcomes ?? [],
+    deliverables: s.deliverables ?? [],
+    process: (s.process ?? []).map((p, i) => ({
+      step: withDefaults(p.step, String(i + 1).padStart(2, '0')),
+      title: p.title,
+      description: p.description,
+    })),
+    faqs: s.faqs ?? [],
+    status: 'published',
+    seo: {
+      entityType: 'service',
+      entityId: `svc-${country}-${s.slug}`,
+      title: `${s.title} in ${c.name}`,
+      description: withDefaults(s.summary, s.title).slice(0, 158),
+      hreflangGroupId: `svc-${s.slug}`,
+    },
+  }))
+}
+
+export async function getIndustries(country: CountryCode): Promise<Industry[]> {
+  const market = await getCmsMarket(country)
+  if (!market?.industries?.length) return localIndustries(country)
+
+  return market.industries.map((i) => ({
+    id: `ind-${country}-${i.slug}`,
+    countryId: country,
+    slug: i.slug,
+    name: i.name,
+    answer: withDefaults(i.seoStrategy, i.name),
+    buyerPersona: withDefaults(i.buyerPersona, ''),
+    painPoints: i.painPoints ?? [],
+    servicesRequired: i.servicesRequired ?? [],
+    seoStrategy: withDefaults(i.seoStrategy, ''),
+    contentIdeas: i.contentIdeas ?? [],
+    leadMagnet: withDefaults(i.leadMagnet, ''),
+    caseStudyIdea: withDefaults(i.caseStudyIdea, ''),
+    image: withDefaults(i.image, industryImages[i.slug] ?? editorial.strategy),
+    status: 'published',
+  }))
+}
+
+export async function getCityList(country: CountryCode): Promise<City[]> {
+  const market = await getCmsMarket(country)
+  if (!market?.cities?.length) return localCityList(country)
+
+  const c = countries[country]
+
+  return market.cities.map((x) => ({
+    id: `city-${country}-${x.slug}`,
+    countryId: country,
+    slug: x.slug,
+    name: x.name,
+    region: withDefaults(x.region, ''),
+    answer: withDefaults(x.answer, ''),
+    localProofPoint: withDefaults(x.localProofPoint, ''),
+    uniqueIntro: withDefaults(x.uniqueIntro, ''),
+    testimonialId: '',
+    image: withDefaults(x.image, c.cityImage),
+  }))
+}
+
+export async function getCaseStudies(country: CountryCode): Promise<CaseStudy[]> {
+  const market = await getCmsMarket(country)
+  if (!market?.caseStudies?.length) return localCaseStudies(country)
+
+  return market.caseStudies.map((cs, i) => ({
+    id: `cs-${country}-${cs.slug}`,
+    countryId: country,
+    slug: cs.slug,
+    title: cs.title,
+    client: withDefaults(cs.client, 'Confidential'),
+    isPlaceholder: Boolean(cs.isPlaceholder),
+    industry: withDefaults(cs.industry, 'professional-services'),
+    service: withDefaults(cs.service, ''),
+    challenge: withDefaults(cs.challenge, ''),
+    approach: cs.approach ?? [],
+    results: (cs.results ?? []).map((r) => ({
+      metric: r.metric,
+      label: r.label,
+      detail: withDefaults(r.detail, ''),
+    })),
+    // Carried through so a page can show the caveat next to the figures —
+    // some engagements report targets rather than achieved results.
+    resultsNote: withDefaults(cs.resultsNote, ''),
+    beforeAfter: cs.beforeAfter ?? [],
+    timeframe: withDefaults(cs.timeframe, ''),
+    impact: withDefaults(cs.impact, ''),
+    quote: cs.quote?.text
+      ? {
+          text: cs.quote.text,
+          author: withDefaults(cs.quote.author, ''),
+          role: withDefaults(cs.quote.role, ''),
+        }
+      : undefined,
+    image: withDefaults(cs.image, caseStudyImages[i % caseStudyImages.length]),
+    publishedAt: withDefaults(cs.publishedAt, '2026-01-15'),
+  }))
+}
+
+export async function getBlogPosts(country: CountryCode): Promise<BlogPost[]> {
+  const market = await getCmsMarket(country)
+  if (!market?.blogPosts?.length) return localBlogPosts(country)
+
+  return market.blogPosts.map((p, i) => ({
+    id: `blog-${country}-${p.slug}`,
+    countryId: country,
+    slug: p.slug,
+    title: p.title,
+    excerpt: withDefaults(p.excerpt, ''),
+    answer: withDefaults(p.answer, ''),
+    category: withDefaults(p.category, 'Growth'),
+    cluster: withDefaults(p.cluster, ''),
+    authorId: withDefaults(p.authorId, 'a-1'),
+    publishedAt: withDefaults(p.publishedAt, '2026-01-10'),
+    updatedAt: withDefaults(p.updatedAt, withDefaults(p.publishedAt, '2026-01-10')),
+    readingTime: p.readingTime || 6,
+    image: withDefaults(p.image, blogImages[i % blogImages.length]),
+    body: (p.body ?? []) as BlogPost['body'],
+    faqs: p.faqs ?? [],
+  }))
+}
+
+export async function getPricing(country: CountryCode): Promise<PricingPlan[]> {
+  const market = await getCmsMarket(country)
+  if (!market?.pricing?.length) return localPricing(country)
+
+  return market.pricing.map((p, i) => ({
+    id: `price-${country}-${i + 1}`,
+    countryId: country,
+    name: p.name,
+    price: p.price,
+    period: withDefaults(p.period, 'month'),
+    description: withDefaults(p.description, ''),
+    features: p.features ?? [],
+    highlighted: Boolean(p.highlighted),
+    cta: withDefaults(p.cta, countries[country].primaryCta),
+  }))
+}
+
+export async function getResources(country: CountryCode): Promise<Resource[]> {
+  const market = await getCmsMarket(country)
+  if (!market?.resources?.length) return localResources(country)
+
+  return market.resources.map((r, i) => ({
+    id: `res-${country}-${r.slug}`,
+    countryId: country,
+    slug: r.slug,
+    title: r.title,
+    description: withDefaults(r.description, ''),
+    format: withDefaults(r.format, 'Guide') as Resource['format'],
+    category: withDefaults(r.category, 'Strategy'),
+    image: withDefaults(r.image, resourceImages[i % resourceImages.length]),
+    readingTime: r.readingTime || 8,
+  }))
+}

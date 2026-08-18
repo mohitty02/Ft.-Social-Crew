@@ -16,7 +16,11 @@ const nextConfig: NextConfig = {
   // would only add a hop.
   images: {
     unoptimized: true,
-    remotePatterns: [{ protocol: 'https', hostname: 'images.unsplash.com' }],
+    remotePatterns: [
+      { protocol: 'https', hostname: 'images.unsplash.com' },
+      // Client-supplied imagery uploaded through the CMS.
+      { protocol: 'https', hostname: 'lightseagreen-squirrel-340384.hostingersite.com' },
+    ],
   },
 
   reactStrictMode: true,

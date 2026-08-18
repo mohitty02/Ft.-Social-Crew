@@ -151,6 +151,11 @@ export interface CaseStudy {
   challenge: string
   approach: string[]
   results: { metric: string; label: string; detail: string }[]
+  /** Set when the figures are targets or projections rather than achieved results. */
+  resultsNote?: string
+  beforeAfter?: { before: string; after: string }[]
+  timeframe?: string
+  impact?: string
   quote?: { text: string; author: string; role: string }
   image: string
   publishedAt: string
